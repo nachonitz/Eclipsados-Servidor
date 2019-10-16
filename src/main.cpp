@@ -1,103 +1,75 @@
-#include "servidor.h"
-#include "cliente.h"
+#include "../../../../eclipse-workspace/Servidor/Cliente-Servidor/src/cliente.h"
+#include "../../../../eclipse-workspace/Servidor/Cliente-Servidor/src/servidor.h"
 #include <pthread.h>
 
+vector<Cliente*> clientes;
+char mensaje[1000], client_reply[1000];
+Servidor servidor;
 
-	struct Usuarios{
-		vector<Cliente*> clientes;
-	};
-	char mensaje[1000], client_recep[1000], client_send[1000];
-	int cantClientes = 2;
-
-	Usuarios* usuarios;
-	Servidor* servidor;
-
-	pthread_mutex_t mutex;
-	pthread_t recibir;
-	pthread_t enviar;
-
-
-
-void* ExecuteThread1(void* HiloUno){
-
-
-	for(int i = 0; i < cantClientes; i++){
-		//pthread_mutex_lock(&mutex);
-		usuarios->clientes[i]->recibirMensaje(client_recep,usuarios->clientes[i]->getNombre());
-		//pthread_mutex_unlock(&mutex);
+void* message_send(void*arg){
+	while(1){
+		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket());
 	}
-
 }
 
-void* ExecuteThread2(void* HiloDos){
-
-	/*int j = (cantClientes - 1);
-	for(j; j < 0; j--){*/
-		//pthread_mutex_lock(&mutex);
-		bzero(client_send, 1000);
-		strcat(client_send, client_recep);
-		servidor->sendMensajeDeClientes(usuarios->clientes[0]->getSocket(), client_send, usuarios->clientes[1]->getNombre());
-		//pthread_mutex_unlock(&mutex);
-	//}
-
+void* message_recieve(void*arg){
+	int * arg_ptr = (int*)arg;
+	int numberOfClient = *arg_ptr;
+	while(1){
+		clientes[numberOfClient]->recibirMensaje(client_reply);
+		servidor.reSendMessage(clientes[0]->getSocket(),clientes[1]->getSocket(), client_reply);
+	}
 }
 
 
 int main(int argc, char *argv[]) {
 
-	pthread_mutex_init(&mutex, NULL);
+	//pthread_mutex_t mutex;
+	//pthread_mutex_init(&mutex,NULL);
+	int numberOfClient1 = 0;
+	int numberOfClient2 = 1;
+	pthread_t hiloSendBroadcast;
+	pthread_t hiloRecieveMessage1;
+	pthread_t hiloRecieveMessage2;
 
-	usuarios = new Usuarios();
-	servidor = new Servidor(argv[1]);
+	servidor.setPort(argv[1]);
 
-	for(int i = 0; i < cantClientes; i++){
+	for(int i = 0; i < 2; i++){
 
-		Cliente* cliente = new Cliente(servidor);
-		usuarios->clientes.push_back(cliente);
+		Cliente* cliente = new Cliente(&servidor);
+		clientes.push_back(cliente);
 
 	}
-
-	for(int i = 0; i < cantClientes; i++){
-
-		servidor->pedirUsuario(usuarios->clientes[i]->getSocket());
-		usuarios->clientes[i]->recibirMensaje(client_recep, "Usuario");
-		usuarios->clientes[i]->setUsuario(client_recep);
-	}
-
-	for(int i = 0; i < cantClientes; i++){
-		bzero(client_send, 1000);
-		strcat(client_send, "Welcome\n");
-		servidor->sendMensajeDeClientes(usuarios->clientes[i]->getSocket(), client_send, "Server:");
-		bzero(client_send, 1000);
-	}
-
+/*
 	while(1){
 
 
-		pthread_create( &recibir, NULL, ExecuteThread1, (void *) "Hilo Uno");
+		message_send(NULL);
+		message_recieve(&numberOfClient1);
+		message_recieve(&numberOfClient2);
 
-		pthread_create( &enviar, NULL, ExecuteThread2, (void *) "Hilo Dos");
-
-
-		if( strcmp(client_recep, "quit\n") == 0 || strcmp(client_send, "quit\n") == 0){
-			pthread_exit(&recibir);
-			pthread_exit(&enviar);
+		if( strcmp(mensaje, "quit\n") == 0 || strcmp(client_reply, "quit\n") == 0){
 			break;
 		}
 
-		//pthread_join(recibir,NULL);
-		//pthread_join(enviar,NULL);
 
 	}
+*/
+	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
+	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
+	pthread_create(&hiloRecieveMessage2,NULL,message_recieve,&numberOfClient2);
 
+	pthread_join(hiloSendBroadcast,NULL);
+	pthread_join(hiloRecieveMessage1,NULL);
+	pthread_join(hiloRecieveMessage2,NULL);
 
-
-
-	servidor->~Servidor();
-	for(int i =0; i < cantClientes; i++){
-		usuarios->clientes[i]->~Cliente();
+	servidor.~Servidor();
+	for(int i =0; i < 2; i++){
+		clientes[i]->~Cliente();
 	}
+
 
 	return 0;
 }
+
 

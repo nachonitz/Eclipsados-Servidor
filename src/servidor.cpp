@@ -1,8 +1,37 @@
-#include "servidor.h"
+#include "../../../../eclipse-workspace/Servidor/Cliente-Servidor/src/servidor.h"
 
 
 Servidor::Servidor(char *puerto){
+	setPort(puerto);
+}
+Servidor::Servidor(){
 
+}
+Servidor::~Servidor(){
+
+	close(socket_desc);
+
+}
+
+void Servidor::sendInfo(int client1Socket, int client2Socket){
+
+	printf("Mensaje Server:\n");
+	bzero(info, 1000);
+	fgets(info, 1000, stdin);
+	send(client1Socket, info, strlen(info), 0);
+	send(client2Socket, info, strlen(info), 0);
+}
+
+void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message){
+
+	send(client1Socket, message, strlen(message), 0);
+	send(client2Socket, message, strlen(message), 0);
+}
+
+void Servidor::reciveInfo(){
+
+}
+void Servidor::setPort(char* puerto){
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port = htons( atoi(puerto) );
@@ -32,26 +61,4 @@ Servidor::Servidor(char *puerto){
 	printf("Listening on port %s. Waiting for acceptance... \n", puerto);
 	listen(socket_desc, 4);
 	fflush(stdout);
-
-}
-
-Servidor::~Servidor(){
-
-	close(socket_desc);
-
-}
-
-
-void Servidor::sendMensajeDeClientes(int clientSocket, char reply[1000], char name[1000]){
-
-	send(clientSocket, name, strlen(name), 0);
-	send(clientSocket, reply, strlen(reply), 0);
-
-}
-
-
-void Servidor::pedirUsuario(int clientSocket){
-
-	send(clientSocket, "Nombre Usuario: ", strlen("Nombre Usuario: "), 0);
-
 }

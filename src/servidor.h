@@ -17,12 +17,14 @@ using namespace std;
 class Servidor {
 public:
 	Servidor(char *puerto);
+	Servidor();
 	~Servidor();
 
 	int getSocketDesc(){return socket_desc;}
-	void pedirUsuario(int clientSocket);
+	void sendInfo(int client1Socket,  int client2Socket);
 	void reciveInfo();
-	void sendMensajeDeClientes(int clientSocket, char reply[1000], char name[100]);
+	void reSendMessage(int client1Socket,  int client2Socket, char * message);
+	void setPort(char* port);
 
 private:
 	struct sockaddr_in server;
