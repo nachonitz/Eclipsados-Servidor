@@ -19,6 +19,7 @@ pthread_t hiloRecieveMessage2;
 void* message_send(void*arg){
 	while(1){
 		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket());
+		sleep(1000/60);
 	}
 }
 
