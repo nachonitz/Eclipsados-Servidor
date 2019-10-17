@@ -1,7 +1,7 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
-#include "../../../../eclipse-workspace/Servidor/Cliente-Servidor/src/servidor.h"
+#include "servidor.h"
 
 class Cliente {
 public:
@@ -9,12 +9,20 @@ public:
 	~Cliente();
 	void recibirMensaje(char replay[1000]);
 	int getSocket(){return socks;}
+	void setUser(char userName[1000]);
+	char* getUserName(){return name;}
 
 private:
 	struct sockaddr_in cliente;
 	int c;
 	int socks;
 	char reply[1000];
+	char name[1000];
+	struct rec{
+		char userName[1000];
+		char mrec[1000];
+	};
+	rec sClient;
 
 };
 

@@ -23,13 +23,19 @@ public:
 	int getSocketDesc(){return socket_desc;}
 	void sendInfo(int client1Socket,  int client2Socket);
 	void reciveInfo();
-	void reSendMessage(int client1Socket,  int client2Socket, char * message);
+	void reSendMessage(int client1Socket,  int client2Socket, char * message, char* user1Name, char* user2Name);
 	void setPort(char* port);
 
 private:
 	struct sockaddr_in server;
 	int socket_desc;
 	char info[1000];
+	struct envio{
+		char userName[1000];
+		char mensaje[1000];
+	};
+
+	envio sClient1, sClient2, sServer;
 
 };
 

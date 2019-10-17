@@ -1,8 +1,9 @@
-#include "../../../../eclipse-workspace/Servidor/Cliente-Servidor/src/servidor.h"
+#include "servidor.h"
 
 
 Servidor::Servidor(char *puerto){
 	setPort(puerto);
+	strcat(sServer.userName, "Server");
 }
 Servidor::Servidor(){
 
@@ -16,16 +17,27 @@ Servidor::~Servidor(){
 void Servidor::sendInfo(int client1Socket, int client2Socket){
 
 	printf("Mensaje Server:\n");
-	bzero(info, 1000);
-	fgets(info, 1000, stdin);
-	send(client1Socket, info, strlen(info), 0);
-	send(client2Socket, info, strlen(info), 0);
+	bzero(sServer.mensaje, 1000);
+	fgets(sServer.mensaje, 1000, stdin);
+	send(client1Socket, &sServer, sizeof(struct envio), 0);
+	send(client2Socket, &sServer, sizeof(struct envio), 0);
 }
 
-void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message){
+void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){
 
-	send(client1Socket, message, strlen(message), 0);
-	send(client2Socket, message, strlen(message), 0);
+	bzero(sClient1.userName, 1000);
+	bzero(sClient2.userName, 1000);
+	bzero(sClient1.mensaje, 1000);
+	bzero(sClient2.mensaje, 1000);
+
+	strcat(sClient1.userName, user2Name);
+	strcat(sClient1.mensaje, message);
+	strcat(sClient2.userName, user1Name);
+	strcat(sClient2.mensaje, message);
+
+	send(client1Socket, &sClient1, sizeof(struct envio), 0);
+	send(client2Socket, &sClient2, sizeof(struct envio), 0);
+
 }
 
 void Servidor::reciveInfo(){

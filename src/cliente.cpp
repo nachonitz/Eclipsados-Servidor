@@ -1,4 +1,4 @@
-#include "../../../../eclipse-workspace/Servidor/Cliente-Servidor/src/cliente.h"
+#include "cliente.h"
 
 
 Cliente::Cliente(Servidor* server){
@@ -28,9 +28,20 @@ Cliente::~Cliente(){
 
 void Cliente::recibirMensaje(char reply[1000]){
 
+	bzero(sClient.userName, 1000);
+	bzero(sClient.mrec, 1000);
 	bzero(reply, 1000);
-	recv(socks, reply, 1000, 0);
-	printf("Cliente:\n");
-	printf("%s\n", reply);
+	recv(socks, &sClient, sizeof(struct rec), 0);
+	printf("%s:\n", sClient.userName);
+	printf("%s\n", sClient.mrec);
+	strcat(reply, sClient.mrec);
+
+}
+
+void Cliente::setUser(char userName[1000]){
+
+	recibirMensaje(userName);
+	strcat(name, sClient.mrec);
+
 
 }
