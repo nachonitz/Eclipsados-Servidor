@@ -28,6 +28,49 @@ Nivel::~Nivel() {
 	}
 }
 
+void Nivel::actualizarAnimaciones(){
+	Personaje* personaje = (Personaje*) this->cody->getDibujable();
+	personaje->updateAnim();
+	for (uint i = 0; i<enemigos.size();i++){
+		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
+		enemigoActual->updateAnim();
+	}
+}
+
+struct informacion Nivel::getInformacion(){
+	struct informacion info;
+	vector<struct animado> animados;
+	vector<struct elemento> objetos;
+	vector<struct capa> capas;
+
+	for (uint i = 0;i<enemigos.size();i++){
+		struct animado animadoActual;
+		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
+		animadoActual.dest = enemigoActual->getDest();
+		animadoActual.src = enemigoActual->getSource();
+		animadoActual.txt = enemigoActual->getTexture();
+		animadoActual.flip = enemigoActual->getFlip();
+		animados.push_back(animadoActual);
+	}
+	Personaje* personaje = (Personaje*)cody->getDibujable();
+	struct animado animadoActual;
+	animadoActual.dest = personaje->getDest();
+	animadoActual.txt = personaje->getTexture();
+	animadoActual.src = personaje->getSource();
+	animadoActual.flip = personaje->getFlip();
+	animados.push_back(animadoActual);
+
+	for (uint i = 0;i<elementos.size();i++){
+		struct elemento elementoActual;
+		Dibujable* dibujable = elementos[i]->getDibujable();
+		elementoActual.dest = dibujable->getDest();
+		elementoActual.src = dibujable->getSource();
+		elementoActual.txt = dibujable->getTexture();
+		objetos.push_back(elementoActual);
+	}
+	return info;
+}
+
 void Nivel::moverElementosDerecha(){
 
 	for (uint i = 0; i < elementos.size(); i++){

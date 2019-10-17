@@ -2,7 +2,7 @@
 #define NIVEL_H_
 
 
-
+#include "../../defs.h"
 #include <stdio.h>
 #include <vector>
 #include "../Sonido.h"
@@ -15,7 +15,30 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 //#include "cody.h"
+struct animado{
+	SDL_Texture* txt;
+	SDL_Rect dest;
+	SDL_Rect src;
+	SDL_RendererFlip flip;
+};
 
+struct elemento{
+	SDL_Texture* txt;
+	SDL_Rect dest;
+	SDL_Rect src;
+};
+
+struct capa{
+	SDL_Texture* txt;
+	SDL_Rect dest;
+	SDL_Rect src;
+};
+
+struct informacion{
+	vector<struct animado> animados;
+	vector<struct elemento> elementos;
+	vector<struct capa> capas;
+};
 class Nivel {
 public:
 	Nivel(int NumeroNivel,EntidadUbicada* jugador, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
@@ -30,6 +53,9 @@ public:
 	void movimientoSalto();
 	void terminoSalto();
 	bool terminoElNivel();
+
+	void actualizarAnimaciones();
+	struct informacion getInformacion();
 
 	void moverEnemigos();
 

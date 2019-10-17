@@ -1,6 +1,7 @@
 #include "cliente.h"
 #include "servidor.h"
 #include <pthread.h>
+#include "modelo/Juego.h"
 
 vector<Cliente*> clientes;
 char mensaje[1000], client_reply[1000];
@@ -47,6 +48,7 @@ int main(int argc, char *argv[]) {
 	clientes[numberOfClient1]->setUser(client_reply);
 	clientes[numberOfClient2]->setUser(client_reply);
 
+	Juego* juego = new Juego(3,3,3,3,3);
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
 	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);

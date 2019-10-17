@@ -5,6 +5,9 @@
 #include "entidadUbicada/dibujable/Personaje.h"
 #include "nivel/Nivel.h"
 
+
+
+
 class Juego {
 public:
 	Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
@@ -19,7 +22,9 @@ public:
 	bool terminoElNivel();
 	void cambiarDeNivel();
 	void moverEnemigos();
+	void actualizarAnimaciones(){this->nivel->actualizarAnimaciones();}
 
+	struct informacion getInformacion(){this->nivel->getInformacion();}
 	Personaje* getJugador();
 
 	PosicionGlobal* getPosicionJugador();

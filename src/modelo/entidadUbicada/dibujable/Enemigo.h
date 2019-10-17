@@ -36,6 +36,7 @@ public:
 	Enemigo();
 	virtual ~Enemigo();
 
+	int animacionActual(){return this->animActual;}
 	int crearCiclo(int f, int w, int h, int cant, int vel);
 	void setAnimacionActual(int c, SDL_RendererFlip flip);
 	void updateAnim();
