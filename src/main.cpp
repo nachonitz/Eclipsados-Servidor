@@ -2,6 +2,7 @@
 #include "servidor.h"
 #include <pthread.h>
 #include "modelo/Juego.h"
+#include "modelo/nivel/Nivel.h"
 
 vector<Cliente*> clientes;
 char mensaje[1000], client_reply[1000];
@@ -15,11 +16,12 @@ int cantClientes = 2;
 pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage1;
 pthread_t hiloRecieveMessage2;
-
+Juego* juego = new Juego(3,3,3,3,3);
 
 void* message_send(void*arg){
 	while(1){
-		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket());
+		struct informacion info = juego->getInformacion();
+		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket(),info);
 		sleep(1000/60);
 	}
 }
@@ -35,6 +37,7 @@ void* message_recieve(void*arg){
 
 
 int main(int argc, char *argv[]) {
+	printf("hola\n");
 
 	servidor.setPort(argv[1]);
 
@@ -48,7 +51,7 @@ int main(int argc, char *argv[]) {
 	clientes[numberOfClient1]->setUser(client_reply);
 	clientes[numberOfClient2]->setUser(client_reply);
 
-	Juego* juego = new Juego(3,3,3,3,3);
+
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
 	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);

@@ -14,13 +14,15 @@ Servidor::~Servidor(){
 
 }
 
-void Servidor::sendInfo(int client1Socket, int client2Socket){
+void Servidor::sendInfo(int client1Socket, int client2Socket, struct informacion info){
 
-	printf("Mensaje Server:\n");
-	bzero(sServer.mensaje, 1000);
-	fgets(sServer.mensaje, 1000, stdin);
-	send(client1Socket, &sServer, sizeof(struct envio), 0);
-	send(client2Socket, &sServer, sizeof(struct envio), 0);
+	//printf("Mensaje Server:\n");
+	//bzero(sServer.mensaje, 1000);
+	//fgets(sServer.mensaje, 1000, stdin);
+	//send(client1Socket, &sServer, sizeof(struct envio), 0);
+	//send(client2Socket, &sServer, sizeof(struct envio), 0);
+
+	send(client2Socket, &info, sizeof(struct informacion), 0);
 }
 
 void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){

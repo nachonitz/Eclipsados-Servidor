@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <vector>
+#include "modelo/nivel/Nivel.h"
 using namespace std;
 
 
@@ -21,7 +22,7 @@ public:
 	~Servidor();
 
 	int getSocketDesc(){return socket_desc;}
-	void sendInfo(int client1Socket,  int client2Socket);
+	void sendInfo(int client1Socket,  int client2Socket,struct informacion info);
 	void reciveInfo();
 	void reSendMessage(int client1Socket,  int client2Socket, char * message, char* user1Name, char* user2Name);
 	void setPort(char* port);

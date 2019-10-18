@@ -24,7 +24,7 @@ public:
 	void moverEnemigos();
 	void actualizarAnimaciones(){this->nivel->actualizarAnimaciones();}
 
-	struct informacion getInformacion(){this->nivel->getInformacion();}
+	struct informacion getInformacion(){return this->nivel->getInformacion();}
 	Personaje* getJugador();
 
 	PosicionGlobal* getPosicionJugador();
