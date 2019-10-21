@@ -35,9 +35,10 @@ struct capa{
 };
 
 struct informacion{
-	vector<struct animado> animados;
-	vector<struct elemento> elementos;
-	vector<struct capa> capas;
+	//vector<struct animado> animados;
+	//vector<struct elemento> elementos;
+	//vector<struct capa> capas;
+	struct elemento elementos[100];
 };
 class Nivel {
 public:

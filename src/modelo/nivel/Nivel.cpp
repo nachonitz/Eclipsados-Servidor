@@ -9,6 +9,13 @@ Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int ca
 
 	cody = jugador;
 
+	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
+	capa1.setDest(0,0,ANCHO_CAPA_PIXELES_ESCALADA,WINDOW_SIZE_VERTICAL+10);
+	capa2.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
+	capa2.setDest(0,0,ANCHO_CAPA_PIXELES_ESCALADA,WINDOW_SIZE_VERTICAL+10);
+	capa3.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
+	capa3.setDest(0,0,ANCHO_CAPA_PIXELES_ESCALADA,WINDOW_SIZE_VERTICAL+10);
+
 	capa1.setVelocidad(VELOCIDAD_CODY);
 	capa2.setVelocidad(2);
 	capa3.setVelocidad(1);
@@ -39,10 +46,10 @@ void Nivel::actualizarAnimaciones(){
 
 struct informacion Nivel::getInformacion(){
 	struct informacion info;
-	vector<struct animado> animados;
-	vector<struct elemento> objetos;
-	vector<struct capa> capas;
-
+	//vector<struct animado> animados;
+	//vector<struct elemento> objetos;
+	//vector<struct capa> capas;
+/*
 	for (uint i = 0;i<enemigos.size();i++){
 		struct animado animadoActual;
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
@@ -67,32 +74,32 @@ struct informacion Nivel::getInformacion(){
 		elementoActual.src = dibujable->getSource();
 		//elementoActual.txt = dibujable->getTexture();
 		objetos.push_back(elementoActual);
-	}
-/*
-	struct capa capa1;
+	}*/
+
+	struct elemento capa1;
 	capa1.dest = this->capa1.getDest();
 	capa1.src = this->capa1.getSource();
-	capa1.txt= this->capa1.getTexture();
+	//capa1.txt= this->capa1.getTexture();
 
-	capas.push_back(capa1);
+	info.elementos[0] = capa1;
 
-	struct capa capa2;
+	struct elemento capa2;
 	capa2.dest = this->capa2.getDest();
 	capa2.src = this->capa2.getSource();
-	capa2.txt = this->capa2.getTexture();
+	//capa2.txt = this->capa2.getTexture();
 
-	capas.push_back(capa1);
+	info.elementos[1] = capa2;
 
-	struct capa capa3;
+	struct elemento capa3;
 	capa3.dest = this->capa3.getDest();
 	capa3.src = this->capa3.getSource();
-	capa3.txt = this->capa3.getTexture();
+	//capa3.txt = this->capa3.getTexture();
 
-	capas.push_back(capa3);*/
+	info.elementos[2] = capa3;
 
-	info.animados = animados;
+	//info.animados = animados;
 	//info.capas = capas;
-	info.elementos = objetos;
+	//info.elementos = objetos;
 	return info;
 }
 
