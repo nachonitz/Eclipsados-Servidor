@@ -16,7 +16,7 @@ int cantClientes = 2;
 pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage1;
 pthread_t hiloRecieveMessage2;
-Juego* juego = new Juego(3,3,3,3,3);
+Juego* juego;
 
 void* message_send(void*arg){
 	while(1){
@@ -37,7 +37,8 @@ void* message_recieve(void*arg){
 
 
 int main(int argc, char *argv[]) {
-	printf("hola\n");
+
+	juego = new Juego(3,3,3,3,3);
 
 	servidor.setPort(argv[1]);
 
@@ -48,18 +49,18 @@ int main(int argc, char *argv[]) {
 
 	}
 	servidor.reSendMessage(clientes[numberOfClient1]->getSocket(), clientes[numberOfClient2]->getSocket(), "Nombre de Usuario", "Server", "Server");
-	clientes[numberOfClient1]->setUser(client_reply);
-	clientes[numberOfClient2]->setUser(client_reply);
+	//clientes[numberOfClient1]->setUser(client_reply);
+	//clientes[numberOfClient2]->setUser(client_reply);
 
 
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
-	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
-	pthread_create(&hiloRecieveMessage2,NULL,message_recieve,&numberOfClient2);
+	//pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
+	//pthread_create(&hiloRecieveMessage2,NULL,message_recieve,&numberOfClient2);
 
 	pthread_join(hiloSendBroadcast,NULL);
-	pthread_join(hiloRecieveMessage1,NULL);
-	pthread_join(hiloRecieveMessage2,NULL);
+	//pthread_join(hiloRecieveMessage1,NULL);
+	//pthread_join(hiloRecieveMessage2,NULL);
 
 	servidor.~Servidor();
 	for(int i =0; i < cantClientes; i++){

@@ -16,12 +16,7 @@ Servidor::~Servidor(){
 
 void Servidor::sendInfo(int client1Socket, int client2Socket, struct informacion info){
 
-	//printf("Mensaje Server:\n");
-	//bzero(sServer.mensaje, 1000);
-	//fgets(sServer.mensaje, 1000, stdin);
-	//send(client1Socket, &sServer, sizeof(struct envio), 0);
-	//send(client2Socket, &sServer, sizeof(struct envio), 0);
-
+	send(client1Socket, &info, sizeof(struct informacion), 0);
 	send(client2Socket, &info, sizeof(struct informacion), 0);
 }
 
@@ -50,6 +45,10 @@ void Servidor::setPort(char* puerto){
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port = htons( atoi(puerto) );
 
+	//Esto es para poder reusar el address sin esperar a que se resetee en caso de no cerrarlo bien
+	int activado = 1;
+	setsockopt(socket_desc,SOL_SOCKET, SO_REUSEADDR,&activado, sizeof(activado));
+
 	//Creando Socket
 	socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -58,10 +57,6 @@ void Servidor::setPort(char* puerto){
 		exit(-1);
 	}
 	printf("Socket created: %d\n", socket_desc);
-
-	//Esto es para poder reusar el address sin esperar a que se resetee en caso de no cerrarlo bien
-	int activado = 1;
-	setsockopt(socket_desc,SOL_SOCKET, SO_REUSEADDR,&activado, sizeof(activado));
 
 	//Bind
 	if( bind(socket_desc, (struct sockaddr *)&server, sizeof(server) ) != 0){

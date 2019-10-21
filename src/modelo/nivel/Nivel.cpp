@@ -48,14 +48,14 @@ struct informacion Nivel::getInformacion(){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
 		animadoActual.dest = enemigoActual->getDest();
 		animadoActual.src = enemigoActual->getSource();
-		animadoActual.txt = enemigoActual->getTexture();
+		//animadoActual.txt = enemigoActual->getTexture();
 		animadoActual.flip = enemigoActual->getFlip();
 		animados.push_back(animadoActual);
 	}
 	Personaje* personaje = (Personaje*)cody->getDibujable();
 	struct animado animadoActual;
 	animadoActual.dest = personaje->getDest();
-	animadoActual.txt = personaje->getTexture();
+	//animadoActual.txt = personaje->getTexture();
 	animadoActual.src = personaje->getSource();
 	animadoActual.flip = personaje->getFlip();
 	animados.push_back(animadoActual);
@@ -65,28 +65,33 @@ struct informacion Nivel::getInformacion(){
 		Dibujable* dibujable = elementos[i]->getDibujable();
 		elementoActual.dest = dibujable->getDest();
 		elementoActual.src = dibujable->getSource();
-		elementoActual.txt = dibujable->getTexture();
+		//elementoActual.txt = dibujable->getTexture();
 		objetos.push_back(elementoActual);
 	}
-
+/*
 	struct capa capa1;
 	capa1.dest = this->capa1.getDest();
 	capa1.src = this->capa1.getSource();
 	capa1.txt= this->capa1.getTexture();
+
 	capas.push_back(capa1);
+
 	struct capa capa2;
 	capa2.dest = this->capa2.getDest();
 	capa2.src = this->capa2.getSource();
 	capa2.txt = this->capa2.getTexture();
+
 	capas.push_back(capa1);
+
 	struct capa capa3;
 	capa3.dest = this->capa3.getDest();
 	capa3.src = this->capa3.getSource();
 	capa3.txt = this->capa3.getTexture();
-	capas.push_back(capa3);
+
+	capas.push_back(capa3);*/
 
 	info.animados = animados;
-	info.capas = capas;
+	//info.capas = capas;
 	info.elementos = objetos;
 	return info;
 }
