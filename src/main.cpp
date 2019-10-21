@@ -22,7 +22,8 @@ void* message_send(void*arg){
 	while(1){
 		struct informacion info = juego->getInformacion();
 		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket(),info);
-		sleep(1000/60);
+		juego->movimientoDerecha();
+		SDL_Delay(1000/60);
 	}
 }
 

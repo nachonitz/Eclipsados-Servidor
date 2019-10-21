@@ -38,7 +38,7 @@ struct informacion{
 	//vector<struct animado> animados;
 	//vector<struct elemento> elementos;
 	//vector<struct capa> capas;
-	struct elemento elementos[100];
+	struct elemento elementos[3];
 };
 class Nivel {
 public:
@@ -54,6 +54,8 @@ public:
 	void movimientoSalto();
 	void terminoSalto();
 	bool terminoElNivel();
+
+	void moverCapaDerecha(){moverCapasIzquierda();}
 
 	void actualizarAnimaciones();
 	struct informacion getInformacion();
