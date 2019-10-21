@@ -55,7 +55,7 @@ void Juego::movimientoAbajo() {
 }
 
 void Juego::movimientoDerecha() {
-	nivel->moverCapaDerecha();
+	//nivel->moverCapaDerecha();
 	nivel->movimientoDerecha();
 }
 

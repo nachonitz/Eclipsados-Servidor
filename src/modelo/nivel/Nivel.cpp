@@ -8,6 +8,19 @@ Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int ca
 	(*musicaFondo).play();
 
 	cody = jugador;
+	personaje = (Personaje*)cody->getDibujable();
+
+	int parado = personaje->crearCiclo(1, 120, 120, 1, 10);
+	int caminar = personaje->crearCiclo(2, 120, 120, 12, 4);
+	int salto = personaje->crearCiclo(3, 120, 120, 8, 6);
+	int golpear = personaje->crearCiclo(4, 120, 120, 9, 5);
+	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 9);
+	int agachado = personaje->crearCiclo(1, 120, 120, 4, 5);
+	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
+
+	int accionActual = caminar;
+	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
+	cody->getDibujable()->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
 
 	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
 	capa1.setDest(0,0,ANCHO_CAPA_PIXELES_ESCALADA,WINDOW_SIZE_VERTICAL+10);
@@ -36,7 +49,6 @@ Nivel::~Nivel() {
 }
 
 void Nivel::actualizarAnimaciones(){
-	Personaje* personaje = (Personaje*) this->cody->getDibujable();
 	personaje->updateAnim();
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
@@ -49,25 +61,30 @@ struct informacion Nivel::getInformacion(){
 	//vector<struct animado> animados;
 	//vector<struct elemento> objetos;
 	//vector<struct capa> capas;
-/*
-	for (uint i = 0;i<enemigos.size();i++){
+
+	struct animado animadoActual;
+	animadoActual.dest = personaje->getDest();
+	animadoActual.src = personaje->getSource();
+	//animadoActual.txt = personaje->getTexture();
+	animadoActual.src = personaje->getSource();
+	animadoActual.flip = personaje->getFlip();
+	//animados.push_back(animadoActual);
+	info.animados[0] = animadoActual;
+
+	for (uint i = 0; i<enemigos.size(); i++){
 		struct animado animadoActual;
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
+		int caminar = enemigoActual->crearCiclo(2, 120, 120, 12, 4);
+		enemigoActual->setAnimacionActual(caminar, SDL_FLIP_NONE);
 		animadoActual.dest = enemigoActual->getDest();
 		animadoActual.src = enemigoActual->getSource();
 		//animadoActual.txt = enemigoActual->getTexture();
 		animadoActual.flip = enemigoActual->getFlip();
-		animados.push_back(animadoActual);
+		//animados.push_back(animadoActual);
+		info.animados[i+1] = animadoActual;
 	}
-	Personaje* personaje = (Personaje*)cody->getDibujable();
-	struct animado animadoActual;
-	animadoActual.dest = personaje->getDest();
-	//animadoActual.txt = personaje->getTexture();
-	animadoActual.src = personaje->getSource();
-	animadoActual.flip = personaje->getFlip();
-	animados.push_back(animadoActual);
 
-	for (uint i = 0;i<elementos.size();i++){
+/*	for (uint i = 0;i<elementos.size();i++){
 		struct elemento elementoActual;
 		Dibujable* dibujable = elementos[i]->getDibujable();
 		elementoActual.dest = dibujable->getDest();
@@ -97,7 +114,8 @@ struct informacion Nivel::getInformacion(){
 
 	info.elementos[2] = capa3;
 
-	//info.animados = animados;
+
+	info.cantAnimados = enemigos.size() + 1;
 	//info.capas = capas;
 	//info.elementos = objetos;
 	return info;

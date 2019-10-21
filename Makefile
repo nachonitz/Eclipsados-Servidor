@@ -9,7 +9,7 @@ SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS := -g # -Wall
-LIB := -pthread -lSDL2 -lSDL2_image -lSDL2_mixer
+LIB := -pthread -lSDL2 -lSDL2_image -lSDL2_mixer -fno-stack-protector
 INC := -I include
 
 $(TARGET): $(OBJECTS)

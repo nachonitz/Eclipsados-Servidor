@@ -39,6 +39,8 @@ struct informacion{
 	//vector<struct elemento> elementos;
 	//vector<struct capa> capas;
 	struct elemento elementos[3];
+	struct animado animados[9];
+	int cantAnimados;
 };
 class Nivel {
 public:
@@ -100,6 +102,7 @@ private:
 	Capa capa1;
 	Capa capa2;
 	Capa capa3;
+	Personaje* personaje;
 	//Cody cody;
 
 	int pos_borde_izquierda = 0;
