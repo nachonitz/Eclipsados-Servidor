@@ -16,8 +16,8 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->barriles = cantBarriles;
 	this->enemigos = cantEnemigos;
 
-	this-> personaje = new Personaje;
-	this-> entidad = new EntidadUbicada(personaje);
+	this->personaje = new Personaje;
+	this->entidad = new EntidadUbicada(personaje);
 
   Logger::getInstance()->log(INFO, "******** NIVEL 1 ********");
 	this-> nivel = new Nivel(1,entidad, cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos);
@@ -79,6 +79,25 @@ void Juego::cambiarDeNivel(){
 	//delete(entidad);
 	//entidad = new EntidadUbicada(personaje);
 	nivel = new Nivel(2,entidad, cuchillos, cajas, canios, barriles, enemigos);
+
+}
+
+void Juego::procesarInfo(struct informacionRec infoRec){
+
+	switch(infoRec.movimiento){
+	case RIGHT: this->movimientoDerecha();
+	break;
+	case LEFT: this->movimientoIzquierda();
+	break;
+	case UP: this->movimientoArriba();
+	break;
+	case DOWN: this->movimientoAbajo();
+	break;
+	case STAND: break;
+	}
+	cody = (Personaje *)entidad->getDibujable();
+	cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+	nivel->actualizarAnimaciones();
 
 }
 

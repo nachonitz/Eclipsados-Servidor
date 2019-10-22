@@ -32,5 +32,11 @@
 #define SALTO_DERECHA 1
 #define SALTO_IZQUIERDA 2
 
+#define RIGHT 0
+#define LEFT 1
+#define UP 2
+#define DOWN 3
+#define STAND 4
+
 
 #endif /* SRC_DEFS_H_ */

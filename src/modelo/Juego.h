@@ -27,6 +27,7 @@ public:
 	void cambiarDeNivel();
 	void moverEnemigos();
 	void actualizarAnimaciones(){this->nivel->actualizarAnimaciones();}
+	void procesarInfo(struct informacionRec infoRec);
 
 	struct informacion getInformacion(){return this->nivel->getInformacion();}
 	Personaje* getJugador();
@@ -45,6 +46,7 @@ private:
 	EntidadUbicada* entidad;
 	Nivel* nivel;
 	Dibujable* personaje;
+	Personaje* cody;
 	int cajas,barriles,canios,cuchillos,enemigos;
 
 

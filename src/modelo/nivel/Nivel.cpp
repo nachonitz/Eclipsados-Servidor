@@ -18,7 +18,7 @@ Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int ca
 	int agachado = personaje->crearCiclo(1, 120, 120, 4, 5);
 	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
 
-	int accionActual = caminar;
+	int accionActual = parado;
 	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
 	cody->getDibujable()->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
 	personaje->updateAnim();
