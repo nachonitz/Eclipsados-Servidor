@@ -7,9 +7,10 @@
 
 #include "../elemento/Cuchillo.h"
 
-Cuchillo::Cuchillo() {
+Cuchillo::Cuchillo(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(0,0,70,70);
+	setDest(x, y, 70, 70);
 }
 
 Cuchillo::~Cuchillo() {

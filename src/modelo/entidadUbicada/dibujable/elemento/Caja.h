@@ -12,7 +12,7 @@
 
 class Caja : public Elemento {
 public:
-	Caja();
+	Caja(float x, float y);
 	virtual ~Caja();
 };
 

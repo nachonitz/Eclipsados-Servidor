@@ -21,6 +21,7 @@ Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int ca
 	int accionActual = caminar;
 	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
 	cody->getDibujable()->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
+	personaje->updateAnim();
 
 	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
 	capa1.setDest(0,0,ANCHO_CAPA_PIXELES_ESCALADA,WINDOW_SIZE_VERTICAL+10);
@@ -35,8 +36,17 @@ Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int ca
 
 	this->movimientoEnemigos = 0;
 
-
 	this->ubicarEnemigosYElementos(cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos);
+
+	for(uint i = 0; i<enemigos.size(); i++){
+		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
+		enemigoActual->setSource(0,0,100,125);
+		//enemigoActual->setDest(enemigoActual->getPosHorizontal(), enemigoActual->getPosVertical(), enemigoActual->getWidth()*2.2,enemigoActual->getHeight()*2.2);
+		int parado = enemigoActual->crearCiclo(1, 100, 125, 1, 1);
+		int caminar = enemigoActual->crearCiclo(2, 100, 125, 6, 4);
+		enemigoActual->setAnimacionActual(caminar, SDL_FLIP_NONE);
+	}
+
 }
 
 Nivel::~Nivel() {
@@ -74,8 +84,6 @@ struct informacion Nivel::getInformacion(){
 	for (uint i = 0; i<enemigos.size(); i++){
 		struct animado animadoActual;
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
-		int caminar = enemigoActual->crearCiclo(2, 120, 120, 12, 4);
-		enemigoActual->setAnimacionActual(caminar, SDL_FLIP_NONE);
 		animadoActual.dest = enemigoActual->getDest();
 		animadoActual.src = enemigoActual->getSource();
 		//animadoActual.txt = enemigoActual->getTexture();
@@ -84,38 +92,40 @@ struct informacion Nivel::getInformacion(){
 		info.animados[i+1] = animadoActual;
 	}
 
-/*	for (uint i = 0;i<elementos.size();i++){
+	for (uint i = 0;i<elementos.size();i++){
 		struct elemento elementoActual;
 		Dibujable* dibujable = elementos[i]->getDibujable();
 		elementoActual.dest = dibujable->getDest();
 		elementoActual.src = dibujable->getSource();
 		//elementoActual.txt = dibujable->getTexture();
-		objetos.push_back(elementoActual);
-	}*/
+		//objetos.push_back(elementoActual);
+		info.elementos[i] = elementoActual;
+	}
 
-	struct elemento capa1;
+	struct capa capa1;
 	capa1.dest = this->capa1.getDest();
 	capa1.src = this->capa1.getSource();
 	//capa1.txt= this->capa1.getTexture();
 
-	info.elementos[0] = capa1;
+	info.capas[0] = capa1;
 
-	struct elemento capa2;
+	struct capa capa2;
 	capa2.dest = this->capa2.getDest();
 	capa2.src = this->capa2.getSource();
 	//capa2.txt = this->capa2.getTexture();
 
-	info.elementos[1] = capa2;
+	info.capas[1] = capa2;
 
-	struct elemento capa3;
+	struct capa capa3;
 	capa3.dest = this->capa3.getDest();
 	capa3.src = this->capa3.getSource();
 	//capa3.txt = this->capa3.getTexture();
 
-	info.elementos[2] = capa3;
+	info.capas[2] = capa3;
 
 
 	info.cantAnimados = enemigos.size() + 1;
+	info.cantElementos = elementos.size();
 	//info.capas = capas;
 	//info.elementos = objetos;
 	return info;

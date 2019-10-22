@@ -7,9 +7,10 @@
 
 #include "../elemento/Barril.h"
 
-Barril::Barril() {
+Barril::Barril(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(200,190,100,100);
+	setDest(x, y, 100, 100);
 }
 
 Barril::~Barril() {

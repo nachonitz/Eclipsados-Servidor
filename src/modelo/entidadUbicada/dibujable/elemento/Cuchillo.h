@@ -12,7 +12,7 @@
 
 class Cuchillo : public Elemento {
 public:
-	Cuchillo();
+	Cuchillo(float x, float y);
 	virtual ~Cuchillo();
 };
 

@@ -32,8 +32,9 @@ private:
 	int empezar;
 	bool rev,nAb;
 	int newAnim;
+	float x, y;
 public:
-	Enemigo();
+	Enemigo(float horizontal, float vertical);
 	virtual ~Enemigo();
 
 	int animacionActual(){return this->animActual;}
@@ -43,6 +44,8 @@ public:
 	void setFlip(SDL_RendererFlip flip);
 	SDL_RendererFlip getFlip(){return spriteFlip;}
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
+	float getPosHorizontal(){return x;}
+	float getPosVertical(){return y;}
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ENEMIGO_H_ */

@@ -7,9 +7,10 @@
 
 #include "../elemento/Caja.h"
 
-Caja::Caja() {
+Caja::Caja(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(0,200,100,100);
+	setDest(x, y, 100, 100);
 }
 
 Caja::~Caja() {

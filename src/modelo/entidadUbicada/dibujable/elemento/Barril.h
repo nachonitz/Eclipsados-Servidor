@@ -12,7 +12,7 @@
 
 class Barril : public Elemento {
 public:
-	Barril();
+	Barril(float x, float y);
 	virtual ~Barril();
 };
 

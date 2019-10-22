@@ -12,7 +12,7 @@
 
 class CanioMetalico : public Elemento {
 public:
-	CanioMetalico();
+	CanioMetalico(float x, float y);
 	virtual ~CanioMetalico();
 };
 

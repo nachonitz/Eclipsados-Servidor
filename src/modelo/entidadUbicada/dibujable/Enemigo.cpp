@@ -7,7 +7,11 @@
 
 #include "Enemigo.h"
 
-Enemigo::Enemigo() {
+Enemigo::Enemigo(float horizontal, float vertical) {
+	/*x = horizontal;
+	y = vertical;*/
+	this->setDest(horizontal, vertical, 120*2.2, 100*2.2);
+
 }
 
 Enemigo::~Enemigo() {
