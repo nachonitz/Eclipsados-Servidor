@@ -68,9 +68,6 @@ void Nivel::actualizarAnimaciones(){
 
 struct informacion Nivel::getInformacion(){
 	struct informacion info;
-	//vector<struct animado> animados;
-	//vector<struct elemento> objetos;
-	//vector<struct capa> capas;
 
 	struct animado animadoActual;
 	animadoActual.dest = personaje->getDest();
@@ -126,8 +123,8 @@ struct informacion Nivel::getInformacion(){
 
 	info.cantAnimados = enemigos.size() + 1;
 	info.cantElementos = elementos.size();
-	//info.capas = capas;
-	//info.elementos = objetos;
+
+
 	return info;
 }
 

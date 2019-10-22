@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <vector>
-#include "modelo/nivel/Nivel.h"
+#include "modelo/Juego.h"
 using namespace std;
 
 

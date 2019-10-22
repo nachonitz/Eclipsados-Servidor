@@ -26,22 +26,18 @@ Cliente::~Cliente(){
 }
 
 
-void Cliente::recibirMensaje(char reply[1000]){
+struct informacionRec Cliente::recieveInfo(){
 
-	bzero(sClient.userName, 1000);
-	bzero(sClient.mrec, 1000);
-	bzero(reply, 1000);
-	recv(socks, &sClient, sizeof(struct rec), 0);
-	printf("%s:\n", sClient.userName);
-	printf("%s\n", sClient.mrec);
-	strcat(reply, sClient.mrec);
+	struct informacionRec info;
+	recv(socks, &info, sizeof(struct informacionRec), 0);
+	return info;
 
 }
 
-void Cliente::setUser(char userName[1000]){
+/*void Cliente::setUser(char userName[1000]){
 
 	recibirMensaje(userName);
 	strcat(name, sClient.mrec);
 
 
-}
+}*/

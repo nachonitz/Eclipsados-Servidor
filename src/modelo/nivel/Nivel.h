@@ -35,9 +35,6 @@ struct capa{
 };
 
 struct informacion{
-	//vector<struct animado> animados;
-	//vector<struct elemento> elementos;
-	//vector<struct capa> capas;
 	struct elemento elementos[15];
 	struct capa capas[3];
 	struct animado animados[9];

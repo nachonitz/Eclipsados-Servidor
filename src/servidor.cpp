@@ -18,7 +18,6 @@ void Servidor::sendInfo(int client1Socket, int client2Socket, struct informacion
 
 	send(client1Socket, &info, sizeof(struct informacion), 0);
 	send(client2Socket, &info, sizeof(struct informacion), 0);
-	//send(client1Socket,"Holaa",strlen("Holaa"),0);
 }
 
 void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){

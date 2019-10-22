@@ -7,7 +7,7 @@ class Cliente {
 public:
 	Cliente(Servidor* server);
 	~Cliente();
-	void recibirMensaje(char replay[1000]);
+	struct informacionRec recieveInfo();
 	int getSocket(){return socks;}
 	void setUser(char userName[1000]);
 	char* getUserName(){return name;}

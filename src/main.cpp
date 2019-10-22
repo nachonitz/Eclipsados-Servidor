@@ -33,8 +33,8 @@ void* message_recieve(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
 	while(1){
-		clientes[numberOfClient]->recibirMensaje(client_reply);
-		servidor.reSendMessage(clientes[0]->getSocket(),clientes[1]->getSocket(), client_reply, clientes[numberOfClient1]->getUserName(), clientes[numberOfClient2]->getUserName());
+		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
+		//juego->procesarInfo(infoRecv);
 	}
 }
 
@@ -58,12 +58,12 @@ int main(int argc, char *argv[]) {
 
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
-	//pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
-	//pthread_create(&hiloRecieveMessage2,NULL,message_recieve,&numberOfClient2);
+	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
+	pthread_create(&hiloRecieveMessage2,NULL,message_recieve,&numberOfClient2);
 
 	pthread_join(hiloSendBroadcast,NULL);
-	//pthread_join(hiloRecieveMessage1,NULL);
-	//pthread_join(hiloRecieveMessage2,NULL);
+	pthread_join(hiloRecieveMessage1,NULL);
+	pthread_join(hiloRecieveMessage2,NULL);
 
 	servidor.~Servidor();
 	for(int i =0; i < cantClientes; i++){
