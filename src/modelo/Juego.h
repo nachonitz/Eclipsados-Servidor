@@ -47,7 +47,7 @@ private:
 	Nivel* nivel;
 	Dibujable* personaje;
 	Personaje* cody;
-	int cajas,barriles,canios,cuchillos,enemigos;
+	int cajas,barriles,canios,cuchillos,enemigos, animacionActual;
 
 
 

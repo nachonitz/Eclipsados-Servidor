@@ -15,6 +15,7 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->canios = cantCanios;
 	this->barriles = cantBarriles;
 	this->enemigos = cantEnemigos;
+	this->animacionActual = ACCION_PARADO;
 
 	this->personaje = new Personaje;
 	this->entidad = new EntidadUbicada(personaje);
@@ -96,7 +97,12 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	case STAND: break;
 	}
 	cody = (Personaje *)entidad->getDibujable();
-	cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+
+	if(animacionActual != infoRec.animacionActual){
+		cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+		animacionActual = infoRec.animacionActual;
+	}
+
 	nivel->actualizarAnimaciones();
 
 }

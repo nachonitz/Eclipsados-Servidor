@@ -17,14 +17,17 @@ pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage1;
 pthread_t hiloRecieveMessage2;
 Juego* juego;
+pthread_mutex_t mutexProcesar;
 
 void* message_send(void*arg){
 	while(1){
+		//----
 		struct informacion info = juego->getInformacion();
 		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket(),info);
 		/*juego->movimientoDerecha();*/
 		juego->moverEnemigos();
 		juego->actualizarAnimaciones();
+		//----
 		SDL_Delay(1000/60);
 	}
 }
@@ -34,7 +37,10 @@ void* message_recieve(void*arg){
 	int numberOfClient = *arg_ptr;
 	while(1){
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
+
+		pthread_mutex_lock(&mutexProcesar);
 		juego->procesarInfo(infoRecv);
+		pthread_mutex_unlock(&mutexProcesar);
 	}
 }
 
@@ -55,7 +61,7 @@ int main(int argc, char *argv[]) {
 	//clientes[numberOfClient1]->setUser(client_reply);
 	//clientes[numberOfClient2]->setUser(client_reply);
 
-
+	pthread_mutex_init(&mutexProcesar,NULL);
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
 	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
