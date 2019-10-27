@@ -22,7 +22,7 @@ public:
 	~Servidor();
 
 	int getSocketDesc(){return socket_desc;}
-	void sendInfo(int client1Socket,  int client2Socket,struct informacion info);
+	void sendInfo(int client1Socket,  int client2Socket,struct informacionEnv info);
 	void reciveInfo();
 	void reSendMessage(int client1Socket,  int client2Socket, char * message, char* user1Name, char* user2Name);
 	void setPort(char* port);

@@ -9,30 +9,31 @@ struct informacionRec{
 	int animacionActual;
 	int movimiento;
 	SDL_RendererFlip flip;
+	int numeroDeCliente;
 };
 
 
 class Juego {
 public:
-	Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
+	Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos, int cantJugadores);
 	virtual ~Juego();
 
-	void movimientoDerecha();
-	void movimientoIzquierda();
-	void movimientoArriba();
-	void movimientoAbajo();
-	void movimientoSalto();
-	void terminadoSalto();
+	void movimientoDerecha(int numeroJugador);
+	void movimientoIzquierda(int numeroJugador);
+	void movimientoArriba(int numeroJugador);
+	void movimientoAbajo(int numeroJugador);
+	void movimientoSalto(int numeroJugador);
+	void terminadoSalto(int numeroJugador);
 	bool terminoElNivel();
 	void cambiarDeNivel();
 	void moverEnemigos();
 	void actualizarAnimaciones(){this->nivel->actualizarAnimaciones();}
 	void procesarInfo(struct informacionRec infoRec);
 
-	struct informacion getInformacion(){return this->nivel->getInformacion();}
-	Personaje* getJugador();
+	struct informacionEnv getInformacion(){return this->nivel->getInformacion();}
+	Personaje* getJugador(int numeroJugador);
 
-	PosicionGlobal* getPosicionJugador();
+	PosicionGlobal* getPosicionJugador(int numeroJugador);
 
 
 	Capa* getCapa1(){return nivel->getCapa1();}
@@ -43,10 +44,11 @@ public:
 	vector<EntidadUbicada*> getEnemigos(){return nivel->getEnemigos();}
 
 private:
-	EntidadUbicada* entidad;
+	//EntidadUbicada* entidad;
 	Nivel* nivel;
-	Dibujable* personaje;
-	Personaje* cody;
+	vector<EntidadUbicada*> jugadores;
+	//Dibujable* personaje;
+	//Personaje* cody;
 	int cajas,barriles,canios,cuchillos,enemigos, animacionActual;
 
 

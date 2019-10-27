@@ -34,32 +34,33 @@ struct capa{
 	SDL_Rect src;
 };
 
-struct informacion{
+struct informacionEnv{
 	struct elemento elementos[15];
 	struct capa capas[3];
 	struct animado animados[9];
 	int cantAnimados;
 	int cantElementos;
+	int cantJugadores;
 };
 class Nivel {
 public:
-	Nivel(int NumeroNivel,EntidadUbicada* jugador, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
+	Nivel(int NumeroNivel,vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
 	virtual ~Nivel();
 
 	void setImagesCapas(SDL_Renderer *ren, char const* imagen1, char const* imagen2, char const* imagen3);
 
-	void movimientoArriba();
-	void movimientoAbajo();
-	void movimientoIzquierda();
-	void movimientoDerecha();
-	void movimientoSalto();
-	void terminoSalto();
+	void movimientoArriba(int numeroJugador);
+	void movimientoAbajo(int numeroJugador);
+	void movimientoIzquierda(int numeroJugador);
+	void movimientoDerecha(int numeroJugador);
+	void movimientoSalto(int numeroJugador);
+	void terminoSalto(int numeroJugador);
 	bool terminoElNivel();
 
 	void moverCapaDerecha(){moverCapasIzquierda();}
 
 	void actualizarAnimaciones();
-	struct informacion getInformacion();
+	struct informacionEnv getInformacion();
 
 	void moverEnemigos();
 
@@ -70,7 +71,7 @@ public:
 	vector<EntidadUbicada*> getElementos(){return elementos;}
 	vector<EntidadUbicada*> getEnemigos(){return enemigos;}
 
-	Personaje* getPersonaje();
+	Personaje* getPersonaje(int numeroJugador);
 
 private:
 	void moverCapasDerecha();
@@ -80,11 +81,22 @@ private:
 	void moverEnemigosIzquierda();
 	void moverEnemigosDerecha();
 
+	void moverJugadoresDerechaExcepto(int numeroJugador);
+	void moverJugadoresIzquierdaExcepto(int numeroJugador);
+
+	void inicializarCiclos(EntidadUbicada* jugador);
+
 	int generarXaleatorio();
 	int generarYaleatorio();
 	int generarYaleatorioObjetos();
 
 	int movimientoEnemigos;
+
+	bool alguienLlegoBordeGlobalDerecho();
+	bool alguienLlegoBordeGlobalIzquierdo();
+	bool alguienLlegoBordeLocalIzquierdo();
+	bool alguienLlegoBordeLocalDerecho();
+
 
 	void ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
 
@@ -96,12 +108,12 @@ private:
 	std::vector<EntidadUbicada*> enemigos;
 	std::vector<EntidadUbicada*> elementos;
 
-	EntidadUbicada* cody;
+	vector<EntidadUbicada*> jugadores;
 
 	Capa capa1;
 	Capa capa2;
 	Capa capa3;
-	Personaje* personaje;
+	//Personaje* personaje;
 	//Cody cody;
 
 	int pos_borde_izquierda = 0;

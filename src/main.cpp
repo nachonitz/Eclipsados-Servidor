@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include "modelo/Juego.h"
 #include "modelo/nivel/Nivel.h"
+#include <queue>
+
 
 vector<Cliente*> clientes;
 char mensaje[1000], client_reply[1000];
@@ -17,12 +19,27 @@ pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage1;
 pthread_t hiloRecieveMessage2;
 Juego* juego;
-pthread_mutex_t mutexProcesar;
+//pthread_mutex_t mutexProcesar							// ya no haria falta porque hay un solo thread modificando el juego
+pthread_mutex_t mutexQueue;
+
+
+queue <struct informacionRec> colaInfoDeClientes;
+
 
 void* message_send(void*arg){
 	while(1){
-		//----
-		struct informacion info = juego->getInformacion();
+
+		// vaciar TODA la cola y procesar toda la info
+		//pthread_mutex_lock(&mutexQueue);				//<-- creeria que, en rigor, deberian ir esos mutex pero no estoy seguro
+		while (!colaInfoDeClientes.empty()) {
+			struct informacionRec info = colaInfoDeClientes.front();
+			juego->procesarInfo(info);
+			colaInfoDeClientes.pop();
+		}
+		//pthread_mutex_unlock(&mutexQueue);
+
+		// enviar
+		struct informacionEnv info = juego->getInformacion();
 		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket(),info);
 		/*juego->movimientoDerecha();*/
 		juego->moverEnemigos();
@@ -38,16 +55,19 @@ void* message_recieve(void*arg){
 	while(1){
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
 
-		pthread_mutex_lock(&mutexProcesar);
-		juego->procesarInfo(infoRecv);
-		pthread_mutex_unlock(&mutexProcesar);
+		infoRecv.numeroDeCliente = numberOfClient;
+
+		pthread_mutex_lock(&mutexQueue);
+		colaInfoDeClientes.push(infoRecv);
+		//juego->procesarInfo(infoRecv);
+		pthread_mutex_unlock(&mutexQueue);
 	}
 }
 
 
 int main(int argc, char *argv[]) {
 
-	juego = new Juego(3,3,3,3,3);
+	juego = new Juego(3,3,3,3,3,cantClientes);
 
 	servidor.setPort(argv[1]);
 
@@ -57,11 +77,13 @@ int main(int argc, char *argv[]) {
 		clientes.push_back(cliente);
 
 	}
-	servidor.reSendMessage(clientes[numberOfClient1]->getSocket(), clientes[numberOfClient2]->getSocket(), "Nombre de Usuario", "Server", "Server");
+	//servidor.reSendMessage(clientes[numberOfClient1]->getSocket(), clientes[numberOfClient2]->getSocket(), "Nombre de Usuario", "Server", "Server");
 	//clientes[numberOfClient1]->setUser(client_reply);
 	//clientes[numberOfClient2]->setUser(client_reply);
 
-	pthread_mutex_init(&mutexProcesar,NULL);
+	//pthread_mutex_init(&mutexProcesar,NULL);
+
+	pthread_mutex_init(&mutexQueue,NULL);
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
 	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);

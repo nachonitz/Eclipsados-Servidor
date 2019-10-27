@@ -2,26 +2,16 @@
 
 #include "Nivel.h"
 
-Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos) {
+Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos) {
 
 	musicaFondo = new Sonido(numeroNivel);
 	(*musicaFondo).play();
 
-	cody = jugador;
-	personaje = (Personaje*)cody->getDibujable();
+	this->jugadores = jugadores;
 
-	int parado = personaje->crearCiclo(1, 120, 120, 1, 10);
-	int caminar = personaje->crearCiclo(2, 120, 120, 12, 4);
-	int salto = personaje->crearCiclo(3, 120, 120, 8, 6);
-	int golpear = personaje->crearCiclo(4, 120, 120, 9, 5);
-	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 9);
-	int agachado = personaje->crearCiclo(1, 120, 120, 4, 5);
-	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
-
-	int accionActual = parado;
-	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
-	cody->getDibujable()->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
-	personaje->updateAnim();
+	for (EntidadUbicada* entidad : jugadores) {
+		inicializarCiclos(entidad);
+	}
 
 	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
 	capa1.setDest(0,0,ANCHO_CAPA_PIXELES_ESCALADA,WINDOW_SIZE_VERTICAL+10);
@@ -49,6 +39,24 @@ Nivel::Nivel(int numeroNivel, EntidadUbicada* jugador, int cantCuchillos, int ca
 
 }
 
+void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
+
+	Personaje* personaje = (Personaje*)jugador->getDibujable();
+
+	int parado = personaje->crearCiclo(1, 120, 120, 1, 10);
+	int caminar = personaje->crearCiclo(2, 120, 120, 12, 4);
+	int salto = personaje->crearCiclo(3, 120, 120, 8, 6);
+	int golpear = personaje->crearCiclo(4, 120, 120, 9, 5);
+	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 9);
+	int agachado = personaje->crearCiclo(1, 120, 120, 4, 5);
+	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
+
+	int accionActual = parado;
+	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
+	personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
+	personaje->updateAnim();
+}
+
 Nivel::~Nivel() {
 	//delete cody;
 	delete musicaFondo;
@@ -59,24 +67,36 @@ Nivel::~Nivel() {
 }
 
 void Nivel::actualizarAnimaciones(){
-	personaje->updateAnim();
+
+	for (EntidadUbicada* jugador : jugadores)
+		((Personaje*)jugador->getDibujable())->updateAnim();
+
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
 		enemigoActual->updateAnim();
 	}
 }
 
-struct informacion Nivel::getInformacion(){
-	struct informacion info;
+struct informacionEnv Nivel::getInformacion(){
+	struct informacionEnv info;
 
-	struct animado animadoActual;
-	animadoActual.dest = personaje->getDest();
-	animadoActual.src = personaje->getSource();
-	//animadoActual.txt = personaje->getTexture();
-	animadoActual.src = personaje->getSource();
-	animadoActual.flip = personaje->getFlip();
-	//animados.push_back(animadoActual);
-	info.animados[0] = animadoActual;
+	int i = 0;
+	for (EntidadUbicada* jugador : jugadores) {
+
+		Personaje* pjActual = (Personaje*)jugador->getDibujable();
+
+		struct animado animadoActual;
+		animadoActual.dest = pjActual->getDest();
+		animadoActual.src = pjActual->getSource();
+		//animadoActual.txt = personaje->getTexture();
+		animadoActual.src = pjActual->getSource();
+		animadoActual.flip = pjActual->getFlip();
+		//animados.push_back(animadoActual);
+		info.animados[i] = animadoActual;
+
+		i++;
+	}
+
 
 	for (uint i = 0; i<enemigos.size(); i++){
 		struct animado animadoActual;
@@ -86,7 +106,7 @@ struct informacion Nivel::getInformacion(){
 		//animadoActual.txt = enemigoActual->getTexture();
 		animadoActual.flip = enemigoActual->getFlip();
 		//animados.push_back(animadoActual);
-		info.animados[i+1] = animadoActual;
+		info.animados[i + jugadores.size()] = animadoActual;
 	}
 
 	for (uint i = 0;i<elementos.size();i++){
@@ -121,9 +141,9 @@ struct informacion Nivel::getInformacion(){
 	info.capas[2] = capa3;
 
 
-	info.cantAnimados = enemigos.size() + 1;
+	info.cantAnimados = enemigos.size() + jugadores.size();
 	info.cantElementos = elementos.size();
-
+	info.cantJugadores = jugadores.size();
 
 	return info;
 }
@@ -141,6 +161,20 @@ void Nivel::moverElementosIzquierda(){
 	}
 }
 
+void Nivel::moverJugadoresIzquierdaExcepto(int numeroJugador){
+	for (uint i = 0; i < jugadores.size(); i++){
+		if (i != numeroJugador)
+			jugadores[i]->moverLocalIzquierda();
+	}
+}
+
+void Nivel::moverJugadoresDerechaExcepto(int numeroJugador){
+	for (uint i = 0; i < jugadores.size(); i++){
+		if (i != numeroJugador)
+			jugadores[i]->moverLocalDerecha();
+	}
+}
+
 void Nivel::moverEnemigosIzquierda(){
 	for (uint i = 0; i < enemigos.size(); i++){
 		enemigos[i]->moverLocalIzquierda();
@@ -153,34 +187,43 @@ void Nivel::moverEnemigosDerecha(){
 	}
 }
 
-void Nivel::movimientoArriba(){
-	cody->moverLocalArriba();
-	cody->moverGlobalArriba();
+void Nivel::movimientoArriba(int numeroJugador){
+	jugadores.at(numeroJugador)->moverLocalArriba();
+	jugadores.at(numeroJugador)->moverGlobalArriba();
 }
 
-void Nivel::movimientoSalto(){
-	cody->moverLocalSalto();
-	cody->moverGlobalSalto();
+void Nivel::movimientoSalto(int numeroJugador){
+	jugadores.at(numeroJugador)->moverLocalSalto();
+	jugadores.at(numeroJugador)->moverGlobalSalto();
 }
 
-void Nivel::terminoSalto(){
-	cody->terminoLocalSalto();
-	cody->terminoGlobalSalto();
+void Nivel::terminoSalto(int numeroJugador) {
+	jugadores.at(numeroJugador)->terminoLocalSalto();
+	jugadores.at(numeroJugador)->terminoGlobalSalto();
 }
 
-void Nivel::movimientoAbajo(){
-	cody->moverLocalAbajo();
-	cody->moverGlobalAbajo();
+void Nivel::movimientoAbajo(int numeroJugador){
+	jugadores.at(numeroJugador)->moverLocalAbajo();
+	jugadores.at(numeroJugador)->moverGlobalAbajo();
 }
 
-void Nivel::movimientoIzquierda(){
+void Nivel::movimientoIzquierda(int numeroJugador){
+
+	EntidadUbicada* cody = jugadores.at(numeroJugador);
+
 	if (!cody->llegoBordeGlobalIzquierdo()){
 		if (cody->llegoBordeLocalIzquierdo()){
+
+			if (alguienLlegoBordeLocalDerecho()) {	// si alguien bloquea el movimiento...
+							return;
+			}
+
 			pos_borde_izquierda -= VELOCIDAD_CODY;
 			pos_borde_derecha -= VELOCIDAD_CODY;
 			moverCapasDerecha();
 			moverElementosDerecha();
 			moverEnemigosDerecha();
+			moverJugadoresDerechaExcepto(numeroJugador);
 		}else{
 			cody->moverLocalIzquierda();
 		}
@@ -189,21 +232,67 @@ void Nivel::movimientoIzquierda(){
 
 }
 
-void Nivel::movimientoDerecha(){
+void Nivel::movimientoDerecha(int numeroJugador){
+
+	EntidadUbicada* cody = jugadores.at(numeroJugador);
+
 	if (!cody->llegoBordeGlobalDerecho()){
 		if (cody->llegoBordeLocalDerecho()){
+
+			if (alguienLlegoBordeLocalIzquierdo()) {	// si alguien bloquea el movimiento...
+				return;
+			}
+
 			pos_borde_derecha += VELOCIDAD_CODY;
 			pos_borde_izquierda += VELOCIDAD_CODY;
 			moverCapasIzquierda();
 			moverElementosIzquierda();
 			moverEnemigosIzquierda();
-		}else{
+			moverJugadoresIzquierdaExcepto(numeroJugador);
+		}else {
 			cody->moverLocalDerecha();
 		}
 
 		cody->moverGlobalDerecha();
 	}
 
+}
+
+bool Nivel::alguienLlegoBordeLocalDerecho() {
+	for (EntidadUbicada* jugador : jugadores) {
+		if (jugador->llegoBordeLocalDerecho())
+			return true;
+	}
+
+	return false;
+}
+
+bool Nivel::alguienLlegoBordeLocalIzquierdo() {
+	for (EntidadUbicada* jugador : jugadores) {
+		if (jugador->llegoBordeLocalIzquierdo())
+			return true;
+	}
+
+	return false;
+}
+
+
+bool Nivel::alguienLlegoBordeGlobalDerecho() {
+	for (EntidadUbicada* jugador : jugadores) {
+		if (jugador->llegoBordeGlobalDerecho())
+			return true;
+	}
+
+	return false;
+}
+
+bool Nivel::alguienLlegoBordeGlobalIzquierdo() {
+	for (EntidadUbicada* jugador : jugadores) {
+		if (jugador->llegoBordeGlobalIzquierdo())
+			return true;
+	}
+
+	return false;
 }
 
 void Nivel::setImagesCapas(SDL_Renderer *ren, char const* imagen1, char const* imagen2, char const* imagen3){
@@ -346,14 +435,14 @@ void Nivel::moverEnemigos(){
 		}
 	}
 
-
-
 }
-Personaje* Nivel::getPersonaje() {
-	return (Personaje*)this->cody->getDibujable();
+Personaje* Nivel::getPersonaje(int numeroJugador) {
+	return (Personaje*)jugadores.at(numeroJugador)->getDibujable();
 }
 
 bool Nivel::terminoElNivel(){
-	return cody->llegoBordeGlobalDerecho();
+
+	// si al menos uno llego...
+	return alguienLlegoBordeGlobalDerecho();
 }
 
