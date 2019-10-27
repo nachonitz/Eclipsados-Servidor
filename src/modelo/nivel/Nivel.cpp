@@ -215,7 +215,7 @@ void Nivel::movimientoIzquierda(int numeroJugador){
 		if (cody->llegoBordeLocalIzquierdo()){
 
 			if (alguienLlegoBordeLocalDerecho()) {	// si alguien bloquea el movimiento...
-							return;
+				return;
 			}
 
 			pos_borde_izquierda -= VELOCIDAD_CODY;

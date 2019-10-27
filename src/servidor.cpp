@@ -14,10 +14,9 @@ Servidor::~Servidor(){
 
 }
 
-void Servidor::sendInfo(int client1Socket, int client2Socket, struct informacionEnv info){
+void Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 
-	send(client1Socket, &info, sizeof(struct informacionEnv), 0);
-	send(client2Socket, &info, sizeof(struct informacionEnv), 0);
+	send(clientSocket, &info, sizeof(struct informacionEnv), 0);
 }
 
 void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){

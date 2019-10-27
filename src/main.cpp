@@ -12,12 +12,12 @@ Servidor servidor;
 
 //pthread_mutex_t mutex;
 //pthread_mutex_init(&mutex,NULL);
-int numberOfClient1 = 0;
-int numberOfClient2 = 1;
-int cantClientes = 2;
+int clientNumbers[] = {0,1,2,3};
+
+int cantClientes = 4;
+
 pthread_t hiloSendBroadcast;
-pthread_t hiloRecieveMessage1;
-pthread_t hiloRecieveMessage2;
+pthread_t hiloRecieveMessage[4];
 Juego* juego;
 //pthread_mutex_t mutexProcesar							// ya no haria falta porque hay un solo thread modificando el juego
 pthread_mutex_t mutexQueue;
@@ -40,7 +40,9 @@ void* message_send(void*arg){
 
 		// enviar
 		struct informacionEnv info = juego->getInformacion();
-		servidor.sendInfo(clientes[0]->getSocket(),clientes[1]->getSocket(),info);
+
+		for (int i = 0; i < cantClientes; i++)
+			servidor.sendInfo(clientes[i]->getSocket(),info);
 		/*juego->movimientoDerecha();*/
 		juego->moverEnemigos();
 		juego->actualizarAnimaciones();
@@ -86,12 +88,15 @@ int main(int argc, char *argv[]) {
 	pthread_mutex_init(&mutexQueue,NULL);
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
-	pthread_create(&hiloRecieveMessage1,NULL,message_recieve,&numberOfClient1);
-	pthread_create(&hiloRecieveMessage2,NULL,message_recieve,&numberOfClient2);
+
+	for (int i = 0; i < cantClientes; i++) {
+		pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
+	}
 
 	pthread_join(hiloSendBroadcast,NULL);
-	pthread_join(hiloRecieveMessage1,NULL);
-	pthread_join(hiloRecieveMessage2,NULL);
+	for (int i = 0; i < cantClientes; i++) {
+		pthread_join(hiloRecieveMessage[i],NULL);
+	}
 
 	servidor.~Servidor();
 	for(int i =0; i < cantClientes; i++){
