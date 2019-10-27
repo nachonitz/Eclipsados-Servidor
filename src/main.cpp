@@ -14,8 +14,6 @@ Servidor servidor;
 //pthread_mutex_init(&mutex,NULL);
 int clientNumbers[] = {0,1,2,3};
 
-int cantClientes = 4;
-
 pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage[4];
 Juego* juego;
@@ -43,7 +41,6 @@ void* message_send(void*arg){
 
 		for (int i = 0; i < cantClientes; i++)
 			servidor.sendInfo(clientes[i]->getSocket(),info);
-		/*juego->movimientoDerecha();*/
 		juego->moverEnemigos();
 		juego->actualizarAnimaciones();
 		//----

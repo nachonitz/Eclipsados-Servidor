@@ -10,6 +10,7 @@ struct informacionRec{
 	int movimiento;
 	SDL_RendererFlip flip;
 	int numeroDeCliente;
+	int tickActual;
 };
 
 
@@ -49,8 +50,10 @@ private:
 	vector<EntidadUbicada*> jugadores;
 	//Dibujable* personaje;
 	//Personaje* cody;
-	int cajas,barriles,canios,cuchillos,enemigos, animacionActual;
+	int cajas,barriles,canios,cuchillos,enemigos;
 
+	int animacionActual[cantClientes];
+	bool agachado;
 
 
 };

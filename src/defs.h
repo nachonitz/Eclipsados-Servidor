@@ -46,4 +46,6 @@
 #define ACCION_AGACHADO 5
 #define ACCION_SALTO_VERTICAL 6
 
+#define cantClientes 2
+
 #endif /* SRC_DEFS_H_ */

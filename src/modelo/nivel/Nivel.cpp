@@ -30,11 +30,11 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	for(uint i = 0; i<enemigos.size(); i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
-		enemigoActual->setSource(0,0,100,125);
+		enemigoActual->setSource(0,0,95,135);
 		//enemigoActual->setDest(enemigoActual->getPosHorizontal(), enemigoActual->getPosVertical(), enemigoActual->getWidth()*2.2,enemigoActual->getHeight()*2.2);
-		int parado = enemigoActual->crearCiclo(1, 100, 125, 1, 1);
-		int caminar = enemigoActual->crearCiclo(2, 100, 125, 6, 4);
-		enemigoActual->setAnimacionActual(caminar, SDL_FLIP_NONE);
+		int paradoEnemigo = enemigoActual->crearCiclo(1, 100, 125, 1, 1);
+		int caminarEnemigo = enemigoActual->crearCiclo(2, 100, 125, 6, 12);
+		enemigoActual->setAnimacionActual(caminarEnemigo, SDL_FLIP_NONE);
 	}
 
 }
@@ -44,11 +44,11 @@ void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
 	Personaje* personaje = (Personaje*)jugador->getDibujable();
 
 	int parado = personaje->crearCiclo(1, 120, 120, 1, 10);
-	int caminar = personaje->crearCiclo(2, 120, 120, 12, 4);
+	int caminar = personaje->crearCiclo(2, 120, 120, 12, 10);
 	int salto = personaje->crearCiclo(3, 120, 120, 8, 6);
-	int golpear = personaje->crearCiclo(4, 120, 120, 9, 5);
+	int golpear = personaje->crearCiclo(4, 120, 120, 9, 15);
 	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 9);
-	int agachado = personaje->crearCiclo(1, 120, 120, 4, 5);
+	int agachado = personaje->crearCiclo(1, 120, 120, 4, 15);
 	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
 
 	int accionActual = parado;

@@ -15,7 +15,11 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->canios = cantCanios;
 	this->barriles = cantBarriles;
 	this->enemigos = cantEnemigos;
-	this->animacionActual = ACCION_PARADO;
+	this->agachado = false;
+
+	for (int i = 0; i < cantClientes; i++){
+		this->animacionActual[i] = ACCION_PARADO;
+	}
 
 	FactoryEntidadUbicada factory;
 
@@ -95,6 +99,7 @@ void Juego::cambiarDeNivel(){
 void Juego::procesarInfo(struct informacionRec infoRec){
 
 	int numeroDeCliente = infoRec.numeroDeCliente;
+	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
 	switch(infoRec.movimiento){
 	case RIGHT: this->movimientoDerecha(numeroDeCliente);
@@ -107,11 +112,42 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	break;
 	case STAND: break;
 	}
-	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
-	if(animacionActual != infoRec.animacionActual){
+	switch(infoRec.animacionActual){
+	//case ACCION_SALTO: saltando = true;
+	//	break;
+	//case ACCION_GOLPEAR: golpear = true;
+	/*if((4 - cody->getTicks()) < 0 && golpeando){
+				golpeando = false;
+				jugador->setAnimacionActual(parado, spriteFlip);	NECESITO MANEJAR LOS TICKS
+				accionActual = parado;
+				infoEnv.animacionActual = accionActual;
+				infoEnv.flip = spriteFlip;
+				mandar al servidor que updatee la animacion
+			}*/
+	//	break;
+	//case ACCION_SALTO_PATADA: saltando = true;
+	//	break;
+	case ACCION_AGACHADO: 	agachado = true;
+							cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+							animacionActual[numeroDeCliente] = infoRec.animacionActual;
+		break;
+	//case ACCION_SALTO_VERTICAL: saltando = true;
+	//	break;
+	}
+
+	if(agachado){
+		if((2 - cody->getTicks()) < 0 ){
+				agachado = false;
+				infoRec.animacionActual = ACCION_PARADO;
+				cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+				animacionActual[numeroDeCliente] = infoRec.animacionActual;
+		}
+	}
+
+	if(animacionActual[numeroDeCliente] != infoRec.animacionActual /*!saltando*/ && !agachado /*&&!pegando*/){
 		cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
-		animacionActual = infoRec.animacionActual;
+		animacionActual[numeroDeCliente] = infoRec.animacionActual;
 	}
 
 	nivel->actualizarAnimaciones();
