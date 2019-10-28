@@ -45,11 +45,11 @@ void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
 
 	int parado = personaje->crearCiclo(1, 120, 120, 1, 10);
 	int caminar = personaje->crearCiclo(2, 120, 120, 12, 10);
-	int salto = personaje->crearCiclo(3, 120, 120, 8, 6);
+	int salto = personaje->crearCiclo(3, 120, 120, 8, 16);
 	int golpear = personaje->crearCiclo(4, 120, 120, 9, 15);
-	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 9);
+	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 16);
 	int agachado = personaje->crearCiclo(1, 120, 120, 4, 15);
-	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
+	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 16);
 
 	int accionActual = parado;
 	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);

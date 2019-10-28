@@ -1,10 +1,3 @@
-/*
- * Juego.cpp
- *
- *  Created on: Sep 3, 2019
- *      Author: franco
- */
-
 #include "Juego.h"
 #include "../Logger.h"
 
@@ -15,10 +8,12 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->canios = cantCanios;
 	this->barriles = cantBarriles;
 	this->enemigos = cantEnemigos;
-	this->agachado = false;
 
 	for (int i = 0; i < cantClientes; i++){
 		this->animacionActual[i] = ACCION_PARADO;
+		this->agachado[i] = false;
+		this->golpear[i] = false;
+		this->saltando[i] = false;
 	}
 
 	FactoryEntidadUbicada factory;
@@ -102,50 +97,84 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
 	switch(infoRec.movimiento){
-	case RIGHT: this->movimientoDerecha(numeroDeCliente);
-	break;
-	case LEFT: this->movimientoIzquierda(numeroDeCliente);
-	break;
-	case UP: this->movimientoArriba(numeroDeCliente);
-	break;
-	case DOWN: this->movimientoAbajo(numeroDeCliente);
-	break;
-	case STAND: break;
-	}
-
-	switch(infoRec.animacionActual){
-	//case ACCION_SALTO: saltando = true;
-	//	break;
-	//case ACCION_GOLPEAR: golpear = true;
-	/*if((4 - cody->getTicks()) < 0 && golpeando){
-				golpeando = false;
-				jugador->setAnimacionActual(parado, spriteFlip);	NECESITO MANEJAR LOS TICKS
-				accionActual = parado;
-				infoEnv.animacionActual = accionActual;
-				infoEnv.flip = spriteFlip;
-				mandar al servidor que updatee la animacion
-			}*/
-	//	break;
-	//case ACCION_SALTO_PATADA: saltando = true;
-	//	break;
-	case ACCION_AGACHADO: 	agachado = true;
-							cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
-							animacionActual[numeroDeCliente] = infoRec.animacionActual;
+		case RIGHT: this->movimientoDerecha(numeroDeCliente);
 		break;
-	//case ACCION_SALTO_VERTICAL: saltando = true;
-	//	break;
+		case LEFT: this->movimientoIzquierda(numeroDeCliente);
+		break;
+		case UP: this->movimientoArriba(numeroDeCliente);
+		break;
+		case DOWN: this->movimientoAbajo(numeroDeCliente);
+		break;
+		case STAND: break;
 	}
 
-	if(agachado){
-		if((2 - cody->getTicks()) < 0 ){
-				agachado = false;
-				infoRec.animacionActual = ACCION_PARADO;
-				cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
-				animacionActual[numeroDeCliente] = infoRec.animacionActual;
+	if(!saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
+		switch(infoRec.animacionActual){
+			case ACCION_SALTO: 		saltando[numeroDeCliente] = true;
+									alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
+									alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
+									if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
+										cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+										animacionActual[numeroDeCliente] = infoRec.animacionActual;
+									}
+			break;
+			case ACCION_GOLPEAR: 	golpear[numeroDeCliente] = true;
+									if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
+										cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+										animacionActual[numeroDeCliente] = infoRec.animacionActual;
+									}
+			break;
+			//case ACCION_SALTO_PATADA: saltando = true;
+			//	break;
+			case ACCION_AGACHADO: 	agachado[numeroDeCliente] = true;
+									if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
+										cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+										animacionActual[numeroDeCliente] = infoRec.animacionActual;
+									}
+			break;
+			case ACCION_SALTO_VERTICAL: saltando[numeroDeCliente] = true;
+										alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
+										alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
+										if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
+											cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+											animacionActual[numeroDeCliente] = infoRec.animacionActual;
+										}
+			break;
 		}
 	}
 
-	if(animacionActual[numeroDeCliente] != infoRec.animacionActual /*!saltando*/ && !agachado /*&&!pegando*/){
+	if(agachado[numeroDeCliente]){
+		if((3 - cody->getTicks()) == 0 ){
+			agachado[numeroDeCliente] = false;
+			infoRec.animacionActual = ACCION_PARADO;
+		}
+	}
+
+	if (golpear[numeroDeCliente]){
+		if((8 - cody->getTicks()) == 0){
+			golpear[numeroDeCliente] = false;
+			infoRec.animacionActual = ACCION_PARADO;
+		}
+	}
+
+	if (saltando[numeroDeCliente] && alturaActualSalto < alturaMaximaSalto){
+		this->movimientoSalto(numeroDeCliente);
+		alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
+		switch(infoRec.movimiento){
+		case RIGHT: this->movimientoDerecha(numeroDeCliente);
+		break;
+		case LEFT: 	this->movimientoIzquierda(numeroDeCliente);
+		break;
+		}
+
+	}
+	if(saltando[numeroDeCliente] && alturaActualSalto > alturaMaximaSalto){
+		this->terminadoSalto(numeroDeCliente);
+		saltando[numeroDeCliente] = false;
+		infoRec.animacionActual = ACCION_PARADO;
+	}
+
+	if(animacionActual[numeroDeCliente] != infoRec.animacionActual && !saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
 		cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
 		animacionActual[numeroDeCliente] = infoRec.animacionActual;
 	}

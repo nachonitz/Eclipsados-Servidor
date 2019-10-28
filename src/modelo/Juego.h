@@ -53,8 +53,8 @@ private:
 	int cajas,barriles,canios,cuchillos,enemigos;
 
 	int animacionActual[cantClientes];
-	bool agachado;
-
+	bool agachado[cantClientes],golpear[cantClientes],saltando[cantClientes];
+	double alturaActualSalto, alturaMaximaSalto;
 
 };
 
