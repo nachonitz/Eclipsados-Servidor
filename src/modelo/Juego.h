@@ -25,11 +25,12 @@ public:
 	void movimientoAbajo(int numeroJugador);
 	void movimientoSalto(int numeroJugador);
 	void terminadoSalto(int numeroJugador);
-	bool terminoElNivel();
-	void cambiarDeNivel();
+
 	void moverEnemigos();
 	void actualizarAnimaciones(){this->nivel->actualizarAnimaciones();}
 	void procesarInfo(struct informacionRec infoRec);
+
+	void chequearCambioDeNivel();
 
 	struct informacionEnv getInformacion(){return this->nivel->getInformacion();}
 	Personaje* getJugador(int numeroJugador);
@@ -55,6 +56,10 @@ private:
 	int animacionActual[cantClientes];
 	bool agachado[cantClientes],golpear[cantClientes],saltando[cantClientes];
 	double alturaActualSalto, alturaMaximaSalto;
+
+	bool terminoElNivel();
+	void cambiarDeNivel();
+
 
 };
 

@@ -4,6 +4,8 @@
 
 Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos) {
 
+	this->numeroNivel = numeroNivel;
+
 	musicaFondo = new Sonido(numeroNivel);
 	(*musicaFondo).play();
 

@@ -5,7 +5,6 @@
 #include "modelo/nivel/Nivel.h"
 #include <queue>
 
-
 vector<Cliente*> clientes;
 char mensaje[1000], client_reply[1000];
 Servidor servidor;
@@ -28,22 +27,30 @@ void* message_send(void*arg){
 	while(1){
 
 		// vaciar TODA la cola y procesar toda la info
-		//pthread_mutex_lock(&mutexQueue);				//<-- creeria que, en rigor, deberian ir esos mutex pero no estoy seguro
+		Logger::getInstance()->log(DEBUG, "Procesando datos recibidos.");
+		pthread_mutex_lock(&mutexQueue);				//<-- creeria que, en rigor, deberian ir esos mutex pero no estoy seguro
 		while (!colaInfoDeClientes.empty()) {
 			struct informacionRec info = colaInfoDeClientes.front();
 			juego->procesarInfo(info);
 			colaInfoDeClientes.pop();
 		}
-		//pthread_mutex_unlock(&mutexQueue);
+		pthread_mutex_unlock(&mutexQueue);
+
+		// actualizar modelo
+		juego->moverEnemigos();
+		juego->actualizarAnimaciones();
+		juego->chequearCambioDeNivel();
+
+		Logger::getInstance()->log(DEBUG, "Obteniendo informacion actual del modelo.");
 
 		// enviar
 		struct informacionEnv info = juego->getInformacion();
 
+		Logger::getInstance()->log(DEBUG, "Enviando info a clientes...");
+
 		for (int i = 0; i < cantClientes; i++)
 			servidor.sendInfo(clientes[i]->getSocket(),info);
-		juego->moverEnemigos();
-		juego->actualizarAnimaciones();
-		//----
+
 		SDL_Delay(1000/60);
 	}
 }
@@ -52,13 +59,14 @@ void* message_recieve(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
 	while(1){
+		Logger::getInstance()->log(DEBUG, "Recibiendo informacion del cliente numero " + to_string(numberOfClient) + ".");
+
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
 
 		infoRecv.numeroDeCliente = numberOfClient;
 
 		pthread_mutex_lock(&mutexQueue);
 		colaInfoDeClientes.push(infoRecv);
-		//juego->procesarInfo(infoRecv);
 		pthread_mutex_unlock(&mutexQueue);
 	}
 }
@@ -66,14 +74,26 @@ void* message_recieve(void*arg){
 
 int main(int argc, char *argv[]) {
 
+	Logger::getInstance()->createLogFile();
+
+	Logger::getInstance()->setLevel(DEBUG);
+
+	Logger::getInstance()->log(DEBUG, "Creando modelo...");
+
 	juego = new Juego(3,3,3,3,3,cantClientes);
 
 	servidor.setPort(argv[1]);
 
+
+	Logger::getInstance()->log(DEBUG, "Creando clientes e iniciado accepts...");
+
 	for(int i = 0; i < cantClientes; i++){
 
 		Cliente* cliente = new Cliente(&servidor);
+
 		clientes.push_back(cliente);
+
+		Logger::getInstance()->log(DEBUG, "Cliente numero " + to_string(clientes.size()) + " conectado.");
 
 	}
 	//servidor.reSendMessage(clientes[numberOfClient1]->getSocket(), clientes[numberOfClient2]->getSocket(), "Nombre de Usuario", "Server", "Server");
@@ -82,6 +102,8 @@ int main(int argc, char *argv[]) {
 
 	//pthread_mutex_init(&mutexProcesar,NULL);
 
+	Logger::getInstance()->log(DEBUG, "Inicializar MUTEX en main.");
+
 	pthread_mutex_init(&mutexQueue,NULL);
 
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
@@ -89,6 +111,8 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
 	}
+
+	Logger::getInstance()->log(DEBUG, "Inicializar JOIN en main.");
 
 	pthread_join(hiloSendBroadcast,NULL);
 	for (int i = 0; i < cantClientes; i++) {

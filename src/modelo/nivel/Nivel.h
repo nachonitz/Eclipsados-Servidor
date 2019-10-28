@@ -73,6 +73,8 @@ public:
 
 	Personaje* getPersonaje(int numeroJugador);
 
+	bool esPrimerNivel() {return this->numeroNivel==1;};
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();
@@ -109,6 +111,8 @@ private:
 	std::vector<EntidadUbicada*> elementos;
 
 	vector<EntidadUbicada*> jugadores;
+
+	int numeroNivel;
 
 	Capa capa1;
 	Capa capa2;

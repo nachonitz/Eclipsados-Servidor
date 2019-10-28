@@ -81,15 +81,24 @@ bool Juego::terminoElNivel(){
 
 void Juego::cambiarDeNivel(){
 
-	//TODO AAAAAAAAAAAAAAAAAAA CAMBIARNIVEL
-  Logger::getInstance()->log(INFO, "******** NIVEL 2 ********");
-	//entidad->seCambioElNivel(personaje);
+	//Logger::getInstance()->log(INFO, "******** NIVEL 2 ********");
+
+	for (EntidadUbicada* jugador : jugadores) {
+		jugador->seCambioElNivel(jugador->getDibujable());
+	}
+
 	delete(nivel);
-	//delete(entidad);
-	//entidad = new EntidadUbicada(personaje);
-	//nivel = new Nivel(2,entidad, cuchillos, cajas, canios, barriles, enemigos);
+
+	nivel = new Nivel(2,jugadores, cuchillos, cajas, canios, barriles, enemigos);
 
 }
+
+void Juego::chequearCambioDeNivel() {
+	if(terminoElNivel() && nivel->esPrimerNivel()){
+		cambiarDeNivel();
+	}
+}
+
 
 void Juego::procesarInfo(struct informacionRec infoRec){
 
