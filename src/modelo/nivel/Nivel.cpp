@@ -11,6 +11,14 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	this->jugadores = jugadores;
 
+	for (int i = 0; i<jugadores.size(); i++){
+		if (i == 0){
+			jugadoresActivos.push_back(true);
+		}
+		else{
+		jugadoresActivos.push_back(false);
+		}
+	}
 	for (EntidadUbicada* entidad : jugadores) {
 		inicializarCiclos(entidad);
 	}
@@ -69,9 +77,15 @@ Nivel::~Nivel() {
 }
 
 void Nivel::actualizarAnimaciones(){
+	int i = 0;
+	for (EntidadUbicada* jugador : jugadores){
+		if (jugadoresActivos[i] == true){ //Porque solo se hace animacion si estas conectado
+			((Personaje*)jugador->getDibujable())->updateAnim();
+		}
+		i++;
+	}
 
-	for (EntidadUbicada* jugador : jugadores)
-		((Personaje*)jugador->getDibujable())->updateAnim();
+
 
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
@@ -165,14 +179,14 @@ void Nivel::moverElementosIzquierda(){
 
 void Nivel::moverJugadoresIzquierdaExcepto(int numeroJugador){
 	for (uint i = 0; i < jugadores.size(); i++){
-		if (i != numeroJugador)
+		if (i != numeroJugador && !jugadores[i]->llegoBordeLocalIzquierdo())
 			jugadores[i]->moverLocalIzquierda();
 	}
 }
 
 void Nivel::moverJugadoresDerechaExcepto(int numeroJugador){
 	for (uint i = 0; i < jugadores.size(); i++){
-		if (i != numeroJugador)
+		if (i != numeroJugador && !jugadores[i]->llegoBordeLocalDerecho())
 			jugadores[i]->moverLocalDerecha();
 	}
 }
@@ -220,6 +234,12 @@ void Nivel::movimientoIzquierda(int numeroJugador){
 				return;
 			}
 
+			for (int i = 0; i < jugadores.size(); i++){
+				if (jugadores[i]->llegoBordeLocalDerecho() && jugadoresActivos[i] == false){
+					jugadores[i]->moverGlobalIzquierda();
+				}
+			}
+
 			pos_borde_izquierda -= VELOCIDAD_CODY;
 			pos_borde_derecha -= VELOCIDAD_CODY;
 			moverCapasDerecha();
@@ -245,6 +265,12 @@ void Nivel::movimientoDerecha(int numeroJugador){
 				return;
 			}
 
+			for (int i = 0; i < jugadores.size(); i++){
+				if (jugadores[i]->llegoBordeLocalIzquierdo() && jugadoresActivos[i] == false){
+					jugadores[i]->moverGlobalDerecha();
+				}
+			}
+
 			pos_borde_derecha += VELOCIDAD_CODY;
 			pos_borde_izquierda += VELOCIDAD_CODY;
 			moverCapasIzquierda();
@@ -261,18 +287,23 @@ void Nivel::movimientoDerecha(int numeroJugador){
 }
 
 bool Nivel::alguienLlegoBordeLocalDerecho() {
+	int i = 0;
 	for (EntidadUbicada* jugador : jugadores) {
-		if (jugador->llegoBordeLocalDerecho())
+		if (jugador->llegoBordeLocalDerecho() && jugadoresActivos[i] == true)
 			return true;
+		i++;
 	}
 
 	return false;
 }
 
 bool Nivel::alguienLlegoBordeLocalIzquierdo() {
+	int i = 0;
 	for (EntidadUbicada* jugador : jugadores) {
-		if (jugador->llegoBordeLocalIzquierdo())
+		if (jugador->llegoBordeLocalIzquierdo() && jugadoresActivos[i] == true)
 			return true;
+
+		i++;
 	}
 
 	return false;

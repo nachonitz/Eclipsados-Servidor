@@ -3,6 +3,7 @@
 
 #include "dibujable/Dibujable.h"
 #include "PosicionGlobal.h"
+#include "../../defs.h"
 
 
 class EntidadUbicada {
