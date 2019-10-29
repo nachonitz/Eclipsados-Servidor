@@ -9,7 +9,7 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->barriles = cantBarriles;
 	this->enemigos = cantEnemigos;
 
-	for (int i = 0; i < cantClientes; i++){
+	for (int i = 0; i < MAX_CLIENTES; i++){
 		this->animacionActual[i] = ACCION_PARADO;
 		this->agachado[i] = false;
 		this->golpear[i] = false;

@@ -46,6 +46,6 @@
 #define ACCION_AGACHADO 5
 #define ACCION_SALTO_VERTICAL 6
 
-#define cantClientes 2
+#define MAX_CLIENTES 4		// usado en Juego.h
 
 #endif /* SRC_DEFS_H_ */

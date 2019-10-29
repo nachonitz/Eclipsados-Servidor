@@ -5,6 +5,12 @@
 #include "modelo/nivel/Nivel.h"
 #include <queue>
 
+#include "ParserXML.h"
+
+#include <map>
+
+std::map<std::string, std::string> usuarios;
+
 vector<Cliente*> clientes;
 char mensaje[1000], client_reply[1000];
 Servidor servidor;
@@ -12,6 +18,8 @@ Servidor servidor;
 //pthread_mutex_t mutex;
 //pthread_mutex_init(&mutex,NULL);
 int clientNumbers[] = {0,1,2,3};
+
+int cantClientes = 2;
 
 pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage[4];
@@ -59,7 +67,7 @@ void* message_recieve(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
 	while(1){
-		Logger::getInstance()->log(DEBUG, "Recibiendo informacion del cliente numero " + to_string(numberOfClient) + ".");
+		//Logger::getInstance()->log(DEBUG, "Recibiendo informacion del cliente numero " + to_string(numberOfClient) + ".");
 
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
 
@@ -74,9 +82,17 @@ void* message_recieve(void*arg){
 
 int main(int argc, char *argv[]) {
 
+	std::string customXmlPath = "xmlServerCustom.xml";
+
 	Logger::getInstance()->createLogFile();
 
 	Logger::getInstance()->setLevel(DEBUG);
+
+	int cantCuchillos = 0, cantBarriles = 0, cantEnemigos = 0, cantCanios = 0, cantCajas = 0;
+
+	ParserXML parser(customXmlPath);
+
+	parser.parsearConfig(&cantEnemigos, &cantCuchillos, &cantCajas, &cantCanios, &cantBarriles, &cantClientes, usuarios);
 
 	Logger::getInstance()->log(DEBUG, "Creando modelo...");
 
@@ -124,6 +140,8 @@ int main(int argc, char *argv[]) {
 		clientes[i]->~Cliente();
 	}
 
+
+	delete Logger::getInstance();
 
 	return 0;
 }
