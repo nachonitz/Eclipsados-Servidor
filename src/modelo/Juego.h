@@ -53,7 +53,7 @@ private:
 	//Personaje* cody;
 	int cajas,barriles,canios,cuchillos,enemigos;
 
-	int animacionActual[cantClientes];
+	int animacionActual[cantClientes], direccionSalto[cantClientes];
 	bool agachado[cantClientes],golpear[cantClientes],saltando[cantClientes];
 	double alturaActualSalto, alturaMaximaSalto;
 

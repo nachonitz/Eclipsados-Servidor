@@ -14,6 +14,7 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 		this->agachado[i] = false;
 		this->golpear[i] = false;
 		this->saltando[i] = false;
+		this->direccionSalto[i] = 0;
 	}
 
 	FactoryEntidadUbicada factory;
@@ -105,21 +106,33 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	int numeroDeCliente = infoRec.numeroDeCliente;
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
-	switch(infoRec.movimiento){
-		case RIGHT: this->movimientoDerecha(numeroDeCliente);
-		break;
-		case LEFT: this->movimientoIzquierda(numeroDeCliente);
-		break;
-		case UP: this->movimientoArriba(numeroDeCliente);
-		break;
-		case DOWN: this->movimientoAbajo(numeroDeCliente);
-		break;
-		case STAND: break;
+	if(!saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
+		switch(infoRec.movimiento){
+				case RIGHT: this->movimientoDerecha(numeroDeCliente);
+				break;
+				case LEFT: this->movimientoIzquierda(numeroDeCliente);
+				break;
+				case UP: this->movimientoArriba(numeroDeCliente);
+				break;
+				case DOWN: this->movimientoAbajo(numeroDeCliente);
+				break;
+				case STAND: break;
+			}
+
 	}
 
 	if(!saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
 		switch(infoRec.animacionActual){
 			case ACCION_SALTO: 		saltando[numeroDeCliente] = true;
+									switch(infoRec.movimiento){
+									case RIGHT:
+										this->direccionSalto[numeroDeCliente] = 1;
+										break;
+									case LEFT:
+										this->direccionSalto[numeroDeCliente] = -1;
+										break;
+									}
+
 									alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
 									alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
 									if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
@@ -169,10 +182,13 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	if (saltando[numeroDeCliente] && alturaActualSalto < alturaMaximaSalto){
 		this->movimientoSalto(numeroDeCliente);
 		alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
-		switch(infoRec.movimiento){
-		case RIGHT: this->movimientoDerecha(numeroDeCliente);
+		switch(direccionSalto[numeroDeCliente]){
+		case 1: this->movimientoDerecha(numeroDeCliente);
 		break;
-		case LEFT: 	this->movimientoIzquierda(numeroDeCliente);
+
+		case 0: break;
+
+		case -1: 	this->movimientoIzquierda(numeroDeCliente);
 		break;
 		}
 
@@ -180,6 +196,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	if(saltando[numeroDeCliente] && alturaActualSalto > alturaMaximaSalto){
 		this->terminadoSalto(numeroDeCliente);
 		saltando[numeroDeCliente] = false;
+		direccionSalto[numeroDeCliente] = 0;
 		infoRec.animacionActual = ACCION_PARADO;
 	}
 
