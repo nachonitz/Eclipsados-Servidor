@@ -46,11 +46,10 @@ public:
 	vector<EntidadUbicada*> getEnemigos(){return nivel->getEnemigos();}
 
 private:
-	//EntidadUbicada* entidad;
+
 	Nivel* nivel;
 	vector<EntidadUbicada*> jugadores;
-	//Dibujable* personaje;
-	//Personaje* cody;
+
 	int cajas,barriles,canios,cuchillos,enemigos;
 
 	int animacionActual[MAX_CLIENTES], direccionSalto[MAX_CLIENTES];
