@@ -63,6 +63,8 @@ void ParserXML::setDebugLevelFromDefault() {
 
 void ParserXML::parsearConfig(int *cantEnemigos, int *cantCuchillos, int *cantCajas, int *cantCanios, int *cantBarriles, int *cantJugadores, std::map<std::string, std::string>& usuarios) {
 
+	Logger::getInstance()->log(INFO, "Iniciando parseo de XML.");
+
 	if (pConfig == &configDefault) {
 		//TODO: estoy parseando el default, no debo chequear errores
 		//parsearConfigDefault(cantEnemigos, cantCuchillos, cantCajas, cantCanios, cantBarriles, nivel1, nivel2);
