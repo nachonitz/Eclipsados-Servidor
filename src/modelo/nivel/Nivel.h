@@ -111,6 +111,7 @@ private:
 	std::vector<EntidadUbicada*> elementos;
 
 	vector<EntidadUbicada*> jugadores;
+	vector<bool>jugadoresActivos;
 
 	int numeroNivel;
 
