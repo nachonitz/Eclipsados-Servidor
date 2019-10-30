@@ -138,6 +138,7 @@ struct informacionEnv Nivel::getInformacion(){
 	struct capa capa1;
 	capa1.dest = this->capa1.getDest();
 	capa1.src = this->capa1.getSource();
+	capa1.nivel = this->numeroNivel;
 	//capa1.txt= this->capa1.getTexture();
 
 	info.capas[0] = capa1;
@@ -145,6 +146,7 @@ struct informacionEnv Nivel::getInformacion(){
 	struct capa capa2;
 	capa2.dest = this->capa2.getDest();
 	capa2.src = this->capa2.getSource();
+	capa2.nivel = this->numeroNivel;
 	//capa2.txt = this->capa2.getTexture();
 
 	info.capas[1] = capa2;
@@ -152,6 +154,7 @@ struct informacionEnv Nivel::getInformacion(){
 	struct capa capa3;
 	capa3.dest = this->capa3.getDest();
 	capa3.src = this->capa3.getSource();
+	capa3.nivel = this->numeroNivel;
 	//capa3.txt = this->capa3.getTexture();
 
 	info.capas[2] = capa3;

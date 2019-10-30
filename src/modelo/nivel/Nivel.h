@@ -30,6 +30,7 @@ struct elemento{
 
 struct capa{
 	//SDL_Texture* txt;
+	int nivel;
 	SDL_Rect dest;
 	SDL_Rect src;
 };
