@@ -76,6 +76,7 @@ void Servidor::verificarCredenciales(struct credencial* credencialPorValidar, st
 	auto pair = usuarios.find(credencialPorValidar->usuario);
 
 	if (pair != usuarios.end() && pair->second == std::string(credencialPorValidar->contrasenia)) {
+		Logger::getInstance()->log(DEBUG, "PAR ENCONTRADO: " + pair->first + " - " + pair->second);
 		credencialPorValidar->credencialValida = true;
 	}
 }

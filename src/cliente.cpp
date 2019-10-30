@@ -37,7 +37,9 @@ struct informacionRec Cliente::recieveInfo(){
 struct credencial Cliente::recieveCredentials(){
 
 	struct credencial credencialesPorValidar;
-		recv(socks, &credencialesPorValidar, sizeof(struct credencial), 0);
+	Logger::getInstance()->log(DEBUG, "RECIBIENDO...");
+	recv(socks, &credencialesPorValidar, sizeof(struct credencial), 0);
+	Logger::getInstance()->log(DEBUG, "RECIBIDAS CREDENCIALES: " + std::string(credencialesPorValidar.usuario) + " - " + std::string(credencialesPorValidar.contrasenia));
 	return credencialesPorValidar;
 }
 

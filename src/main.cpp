@@ -85,19 +85,20 @@ void* validateCredentials(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
 	struct credencial credencialesCliente;
-	bool credencialesValidas = false;
 
 	Cliente* cliente = new Cliente(&servidor);
 	pthread_mutex_lock(&mutexPushCliente);
 	clientes.push_back(cliente);
 	pthread_mutex_unlock(&mutexPushCliente);
 
-	Logger::getInstance()->log(DEBUG, "Cliente numero " + to_string(clientes.size()) + " conectado.");
+	//Logger::getInstance()->log(DEBUG, "Cliente numero " + to_string(clientes.size()) + " conectado.");
 
 
 	while(!credencialesCliente.credencialValida){
 		credencialesCliente = clientes[numberOfClient]->recieveCredentials();
 		servidor.verificarCredenciales(&credencialesCliente, usuarios);
+
+		Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
 		send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
 	}
 

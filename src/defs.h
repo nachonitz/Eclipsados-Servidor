@@ -52,4 +52,8 @@
 
 #define MAX_CANT_ELEMENTOS 500
 
+#define MAX_USER_LEN 30
+
+#define MAX_PASS_LEN 30
+
 #endif /* SRC_DEFS_H_ */
