@@ -108,6 +108,7 @@ struct informacionEnv Nivel::getInformacion(){
 		animadoActual.src = pjActual->getSource();
 		animadoActual.flip = pjActual->getFlip();
 		//animados.push_back(animadoActual);
+		animadoActual.estaActivo = jugadoresActivos[i];
 		info.animados[i] = animadoActual;
 
 		i++;
@@ -121,6 +122,7 @@ struct informacionEnv Nivel::getInformacion(){
 		animadoActual.src = enemigoActual->getSource();
 		//animadoActual.txt = enemigoActual->getTexture();
 		animadoActual.flip = enemigoActual->getFlip();
+		animadoActual.estaActivo = true;
 		//animados.push_back(animadoActual);
 		info.animados[i + jugadores.size()] = animadoActual;
 	}
@@ -138,6 +140,7 @@ struct informacionEnv Nivel::getInformacion(){
 	struct capa capa1;
 	capa1.dest = this->capa1.getDest();
 	capa1.src = this->capa1.getSource();
+	capa1.nivel = this->numeroNivel;
 	//capa1.txt= this->capa1.getTexture();
 
 	info.capas[0] = capa1;
@@ -145,6 +148,7 @@ struct informacionEnv Nivel::getInformacion(){
 	struct capa capa2;
 	capa2.dest = this->capa2.getDest();
 	capa2.src = this->capa2.getSource();
+	capa2.nivel = this->numeroNivel;
 	//capa2.txt = this->capa2.getTexture();
 
 	info.capas[1] = capa2;
@@ -152,6 +156,7 @@ struct informacionEnv Nivel::getInformacion(){
 	struct capa capa3;
 	capa3.dest = this->capa3.getDest();
 	capa3.src = this->capa3.getSource();
+	capa3.nivel = this->numeroNivel;
 	//capa3.txt = this->capa3.getTexture();
 
 	info.capas[2] = capa3;

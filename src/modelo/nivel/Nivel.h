@@ -17,6 +17,7 @@
 //#include "cody.h"
 struct animado{
 	//SDL_Texture* txt;
+	bool estaActivo;
 	SDL_Rect dest;
 	SDL_Rect src;
 	SDL_RendererFlip flip;
@@ -30,14 +31,15 @@ struct elemento{
 
 struct capa{
 	//SDL_Texture* txt;
+	int nivel;
 	SDL_Rect dest;
 	SDL_Rect src;
 };
 
 struct informacionEnv{
-	struct elemento elementos[15];
+	struct elemento elementos[MAX_CANT_ELEMENTOS];
 	struct capa capas[3];
-	struct animado animados[9];
+	struct animado animados[MAX_CANT_ANIMADOS];
 	int cantAnimados;
 	int cantElementos;
 	int cantJugadores;

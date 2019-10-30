@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
 
 	Logger::getInstance()->log(DEBUG, "Creando modelo...");
 
-	juego = new Juego(3,3,3,3,3,cantClientes);
+	juego = new Juego(cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos,cantClientes);
 
 	servidor.setPort(argv[1]);
 

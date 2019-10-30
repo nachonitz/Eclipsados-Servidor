@@ -48,4 +48,8 @@
 
 #define MAX_CLIENTES 4		// usado en Juego.h
 
+#define MAX_CANT_ANIMADOS 500
+
+#define MAX_CANT_ELEMENTOS 500
+
 #endif /* SRC_DEFS_H_ */
