@@ -38,6 +38,33 @@ struct informacionRec Cliente::recieveInfo(){
 
 }
 
+void Cliente::assignCredentials(struct credencial cred) {
+	this->credencialCliente = cred;
+}
+
+
+bool Cliente::tieneEstasCredenciales(struct credencial credencialesCliente) {
+
+
+	bool user = strcmp(this->credencialCliente.usuario, credencialesCliente.usuario) ==0;
+
+	Logger::getInstance()->log(DEBUG, "CHEQUEANDO USER: " + std::string(this->credencialCliente.usuario) + " VS " + std::string(credencialesCliente.usuario));
+
+	Logger::getInstance()->log(DEBUG, "RESULTADO USER: " +std::to_string(user));
+
+	bool pass = strcmp(this->credencialCliente.contrasenia, credencialesCliente.contrasenia) == 0;
+
+
+	Logger::getInstance()->log(DEBUG, "CHEQUEANDO PASS: " + std::string(this->credencialCliente.contrasenia) + " VS " + std::string(credencialesCliente.contrasenia));
+
+	Logger::getInstance()->log(DEBUG, "RESULTADO PASS: " +std::to_string(pass));
+
+	return user && pass;
+
+}
+
+
+
 struct credencial Cliente::recieveCredentials(){
 
 	struct credencial credencialesPorValidar;

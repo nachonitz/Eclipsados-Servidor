@@ -56,4 +56,6 @@
 
 #define MAX_PASS_LEN 30
 
+#define CANT_HILOS_RECONEXION 50
+
 #endif /* SRC_DEFS_H_ */

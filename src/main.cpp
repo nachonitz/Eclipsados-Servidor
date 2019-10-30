@@ -25,6 +25,9 @@ pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage[4];
 pthread_t hiloValidarCredenciales[4];
 
+pthread_t hiloMidGameConnects[CANT_HILOS_RECONEXION];
+
+
 Juego* juego;
 //pthread_mutex_t mutexProcesar							// ya no haria falta porque hay un solo thread modificando el juego
 pthread_mutex_t mutexQueue;
@@ -61,6 +64,9 @@ void* message_send(void*arg){
 		for (int i = 0; i < cantClientes; i++) {
 
 			if (juego->jugadorConectado(i)) {
+
+				Logger::getInstance()->log(DEBUG, "Enviando informacion a jugador conectado: " + std::to_string(i));
+
 				int resultSend = servidor.sendInfo(clientes[i]->getSocket(),info);
 
 				if (resultSend <= 0)
@@ -89,7 +95,59 @@ void* message_recieve(void*arg){
 			colaInfoDeClientes.push(infoRecv);
 			pthread_mutex_unlock(&mutexQueue);
 		}
+
+/*		if (!juego->jugadorConectado(numberOfClient)) {
+			//close(clientes[numberOfClient]->getSocket());
+			//break;
+		}*/
 	}
+}
+
+void* manageMidGameConnects(void* arg) {
+
+	struct credencial credencialesCliente;
+
+	Cliente* cliente = new Cliente(&servidor);
+
+	Logger::getInstance()->log(INFO, "Cliente conectado a medio juego! Pidiendo credenciales");
+
+	while(!credencialesCliente.credencialValida){
+		credencialesCliente = cliente->recieveCredentials();
+		servidor.verificarCredenciales(&credencialesCliente, usuarios);
+
+		//credencialesCliente.myIdx = numberOfClient;
+
+		Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
+		send(cliente->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
+	}
+
+	cliente->assignCredentials(credencialesCliente);
+
+	bool noMandoNada = true;
+
+	for (int i = 0; i < clientes.size(); i++) {
+
+
+		Logger::getInstance()->log(DEBUG, "chequeando si algun cliente viejo toma su lugar...");
+
+		Logger::getInstance()->log(DEBUG, "Viendo jugador si conectado: " + std::to_string(juego->jugadorConectado(i)));
+
+		if (clientes[i]->tieneEstasCredenciales(credencialesCliente) && !juego->jugadorConectado(i)) {
+			Logger::getInstance()->log(DEBUG, "ENCONTRADO CLIENTE VIEJO! ");
+			clientes[i] = cliente;
+			noMandoNada = true;
+			send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
+			juego->conexionDeJugador(i);
+			break;
+		}
+
+		noMandoNada = false;
+
+	}
+
+	if (!noMandoNada)
+		send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
+
 }
 
 void* validateCredentials(void*arg){
@@ -113,6 +171,8 @@ void* validateCredentials(void*arg){
 		Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
 		send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
 	}
+
+	clientes[numberOfClient]->assignCredentials(credencialesCliente);
 
 }
 
@@ -156,9 +216,13 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_create(&hiloValidarCredenciales[i],NULL,validateCredentials,&clientNumbers[i]);
 	}
+
+
+
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_join(hiloValidarCredenciales[i],NULL);
 	}
+
 	bool noMandoNada = true;
 	for(int i =0 ; i< cantClientes; i++){
 		send(clientes[i]->getSocket(), &noMandoNada, sizeof(bool), 0);
@@ -171,6 +235,11 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
 	}
+
+	for (int i = 0; i < CANT_HILOS_RECONEXION; i++) {
+		pthread_create(&hiloMidGameConnects[i],NULL,manageMidGameConnects,0);
+	}
+
 
 	Logger::getInstance()->log(DEBUG, "Inicializar JOIN en main.");
 

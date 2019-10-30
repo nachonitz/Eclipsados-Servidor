@@ -67,7 +67,7 @@ void Servidor::setPort(char* puerto){
 
 	//Listen
 	printf("Listening on port %s. Waiting for acceptance... \n", puerto);
-	listen(socket_desc, 4);
+	listen(socket_desc, MAX_CLIENTES + 2);
 	fflush(stdout);
 }
 

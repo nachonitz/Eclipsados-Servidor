@@ -13,6 +13,10 @@ public:
 	char* getUserName(){return name;}
 	struct credencial recieveCredentials();
 
+	void assignCredentials(struct credencial cred);
+
+	bool tieneEstasCredenciales(struct credencial credencialesCliente);
+
 private:
 	struct sockaddr_in cliente;
 	int c;
@@ -24,6 +28,8 @@ private:
 		char mrec[1000];
 	};
 	rec sClient;
+
+	struct credencial credencialCliente;
 
 };
 
