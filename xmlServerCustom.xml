@@ -12,8 +12,8 @@
 	</escenario>
 	<usuarios>
 		<usuario>
-			<nombre>windows</nombre>
-			<password>1234</password>
+			<nombre>hola</nombre>
+			<password>hola</password>
 		</usuario>
 		<usuario>
 			<nombre>custom</nombre>

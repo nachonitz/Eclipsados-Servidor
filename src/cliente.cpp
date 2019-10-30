@@ -34,6 +34,13 @@ struct informacionRec Cliente::recieveInfo(){
 
 }
 
+struct credencial Cliente::recieveCredentials(){
+
+	struct credencial credencialesPorValidar;
+		recv(socks, &credencialesPorValidar, sizeof(struct credencial), 0);
+	return credencialesPorValidar;
+}
+
 /*void Cliente::setUser(char userName[1000]){
 
 	recibirMensaje(userName);

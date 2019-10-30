@@ -11,6 +11,7 @@ public:
 	int getSocket(){return socks;}
 	void setUser(char userName[1000]);
 	char* getUserName(){return name;}
+	struct credencial recieveCredentials();
 
 private:
 	struct sockaddr_in cliente;

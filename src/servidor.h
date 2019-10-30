@@ -12,7 +12,14 @@
 #include <unistd.h>
 #include <vector>
 #include "modelo/Juego.h"
+#include <map>
 using namespace std;
+
+struct credencial {
+	const char* usuario;
+	const char* contrasenia;
+	bool credencialValida;
+} ;
 
 
 class Servidor {
@@ -26,6 +33,7 @@ public:
 	void reciveInfo();
 	void reSendMessage(int client1Socket,  int client2Socket, char * message, char* user1Name, char* user2Name);
 	void setPort(char* port);
+	void verificarCredenciales(struct credencial* credencialPorValidar, std::map<std::string, std::string> & usuarios);
 
 private:
 	struct sockaddr_in server;

@@ -23,10 +23,12 @@ int cantClientes = 2;
 
 pthread_t hiloSendBroadcast;
 pthread_t hiloRecieveMessage[4];
+pthread_t hiloValidarCredenciales[4];
+
 Juego* juego;
 //pthread_mutex_t mutexProcesar							// ya no haria falta porque hay un solo thread modificando el juego
 pthread_mutex_t mutexQueue;
-
+pthread_mutex_t mutexPushCliente;
 
 queue <struct informacionRec> colaInfoDeClientes;
 
@@ -79,6 +81,28 @@ void* message_recieve(void*arg){
 	}
 }
 
+void* validateCredentials(void*arg){
+	int * arg_ptr = (int*)arg;
+	int numberOfClient = *arg_ptr;
+	struct credencial credencialesCliente;
+	bool credencialesValidas = false;
+
+	Cliente* cliente = new Cliente(&servidor);
+	pthread_mutex_lock(&mutexPushCliente);
+	clientes.push_back(cliente);
+	pthread_mutex_unlock(&mutexPushCliente);
+
+	Logger::getInstance()->log(DEBUG, "Cliente numero " + to_string(clientes.size()) + " conectado.");
+
+
+	while(!credencialesCliente.credencialValida){
+		credencialesCliente = clientes[numberOfClient]->recieveCredentials();
+		servidor.verificarCredenciales(&credencialesCliente, usuarios);
+		send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
+	}
+
+}
+
 
 int main(int argc, char *argv[]) {
 
@@ -103,15 +127,7 @@ int main(int argc, char *argv[]) {
 
 	Logger::getInstance()->log(DEBUG, "Creando clientes e iniciado accepts...");
 
-	for(int i = 0; i < cantClientes; i++){
 
-		Cliente* cliente = new Cliente(&servidor);
-
-		clientes.push_back(cliente);
-
-		Logger::getInstance()->log(DEBUG, "Cliente numero " + to_string(clientes.size()) + " conectado.");
-
-	}
 	//servidor.reSendMessage(clientes[numberOfClient1]->getSocket(), clientes[numberOfClient2]->getSocket(), "Nombre de Usuario", "Server", "Server");
 	//clientes[numberOfClient1]->setUser(client_reply);
 	//clientes[numberOfClient2]->setUser(client_reply);
@@ -121,7 +137,22 @@ int main(int argc, char *argv[]) {
 	Logger::getInstance()->log(DEBUG, "Inicializar MUTEX en main.");
 
 	pthread_mutex_init(&mutexQueue,NULL);
+	pthread_mutex_init(&mutexPushCliente,NULL);
 
+	//-> Comienzo hilos para el loggin
+	for (int i = 0; i < cantClientes; i++) {
+		pthread_create(&hiloValidarCredenciales[i],NULL,validateCredentials,&clientNumbers[i]);
+	}
+	for (int i = 0; i < cantClientes; i++) {
+		pthread_join(hiloValidarCredenciales[i],NULL);
+	}
+	bool noMandoNada = true;
+	for(int i =0 ; i< cantClientes; i++){
+		send(clientes[i]->getSocket(), &noMandoNada, sizeof(bool), 0);
+	}
+
+
+	//-> Comienzo hilos de juego
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
 
 	for (int i = 0; i < cantClientes; i++) {
@@ -131,14 +162,15 @@ int main(int argc, char *argv[]) {
 	Logger::getInstance()->log(DEBUG, "Inicializar JOIN en main.");
 
 	pthread_join(hiloSendBroadcast,NULL);
+
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_join(hiloRecieveMessage[i],NULL);
 	}
 
-	servidor.~Servidor();
-	for(int i =0; i < cantClientes; i++){
-		clientes[i]->~Cliente();
-	}
+//	servidor.~Servidor();
+//	for(int i =0; i < cantClientes; i++){
+//		clientes[i]->~Cliente();
+//	}
 
 
 	delete Logger::getInstance();

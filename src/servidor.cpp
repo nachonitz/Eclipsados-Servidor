@@ -70,3 +70,12 @@ void Servidor::setPort(char* puerto){
 	listen(socket_desc, 4);
 	fflush(stdout);
 }
+
+void Servidor::verificarCredenciales(struct credencial* credencialPorValidar, std::map<std::string, std::string> & usuarios){
+
+	auto pair = usuarios.find(credencialPorValidar->usuario);
+
+	if (pair != usuarios.end() && pair->second == std::string(credencialPorValidar->contrasenia)) {
+		credencialPorValidar->credencialValida = true;
+	}
+}
