@@ -108,6 +108,7 @@ struct informacionEnv Nivel::getInformacion(){
 		animadoActual.src = pjActual->getSource();
 		animadoActual.flip = pjActual->getFlip();
 		//animados.push_back(animadoActual);
+		animadoActual.estaActivo = jugadoresActivos[i];
 		info.animados[i] = animadoActual;
 
 		i++;
@@ -121,6 +122,7 @@ struct informacionEnv Nivel::getInformacion(){
 		animadoActual.src = enemigoActual->getSource();
 		//animadoActual.txt = enemigoActual->getTexture();
 		animadoActual.flip = enemigoActual->getFlip();
+		animadoActual.estaActivo = true;
 		//animados.push_back(animadoActual);
 		info.animados[i + jugadores.size()] = animadoActual;
 	}
