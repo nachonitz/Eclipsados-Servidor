@@ -21,6 +21,7 @@ struct animado{
 	SDL_Rect dest;
 	SDL_Rect src;
 	SDL_RendererFlip flip;
+	int ID;
 };
 
 struct elemento{
@@ -65,6 +66,11 @@ public:
 	struct informacionEnv getInformacion();
 
 	void moverEnemigos();
+
+	void desconexionDeJugador(int i);
+	void conexionDeJugador(int i);
+
+	bool jugadorConectado(int i);
 
 	Capa* getCapa1(){return &capa1;}
 	Capa* getCapa2(){return &capa2;}

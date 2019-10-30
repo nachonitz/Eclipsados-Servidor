@@ -37,7 +37,7 @@ void* message_send(void*arg){
 	while(1){
 
 		// vaciar TODA la cola y procesar toda la info
-		Logger::getInstance()->log(DEBUG, "Procesando datos recibidos.");
+		//Logger::getInstance()->log(DEBUG, "Procesando datos recibidos.");
 		pthread_mutex_lock(&mutexQueue);				//<-- creeria que, en rigor, deberian ir esos mutex pero no estoy seguro
 		while (!colaInfoDeClientes.empty()) {
 			struct informacionRec info = colaInfoDeClientes.front();
@@ -51,16 +51,24 @@ void* message_send(void*arg){
 		juego->actualizarAnimaciones();
 		juego->chequearCambioDeNivel();
 
-		Logger::getInstance()->log(DEBUG, "Obteniendo informacion actual del modelo.");
+		//Logger::getInstance()->log(DEBUG, "Obteniendo informacion actual del modelo.");
 
 		// enviar
 		struct informacionEnv info = juego->getInformacion();
 
-		Logger::getInstance()->log(DEBUG, "Enviando info a clientes...");
+		//Logger::getInstance()->log(DEBUG, "Enviando info a clientes...");
 
-		for (int i = 0; i < cantClientes; i++)
-			servidor.sendInfo(clientes[i]->getSocket(),info);
+		for (int i = 0; i < cantClientes; i++) {
 
+			if (juego->jugadorConectado(i)) {
+				int resultSend = servidor.sendInfo(clientes[i]->getSocket(),info);
+
+				if (resultSend <= 0)
+					juego->desconexionDeJugador(i);
+				else
+					juego->conexionDeJugador(i);
+			}
+		}
 		SDL_Delay(1000/60);
 	}
 }
@@ -73,11 +81,14 @@ void* message_recieve(void*arg){
 
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
 
-		infoRecv.numeroDeCliente = numberOfClient;
+		if (infoRecv.numeroDeCliente >= 0) {
 
-		pthread_mutex_lock(&mutexQueue);
-		colaInfoDeClientes.push(infoRecv);
-		pthread_mutex_unlock(&mutexQueue);
+			infoRecv.numeroDeCliente = numberOfClient;
+
+			pthread_mutex_lock(&mutexQueue);
+			colaInfoDeClientes.push(infoRecv);
+			pthread_mutex_unlock(&mutexQueue);
+		}
 	}
 }
 
@@ -91,12 +102,13 @@ void* validateCredentials(void*arg){
 	clientes.push_back(cliente);
 	pthread_mutex_unlock(&mutexPushCliente);
 
-	//Logger::getInstance()->log(DEBUG, "Cliente numero " + to_string(clientes.size()) + " conectado.");
-
+	Logger::getInstance()->log(INFO, "Cliente numero " + to_string(clientes.size()) + " conectado.");
 
 	while(!credencialesCliente.credencialValida){
 		credencialesCliente = clientes[numberOfClient]->recieveCredentials();
 		servidor.verificarCredenciales(&credencialesCliente, usuarios);
+
+		credencialesCliente.myIdx = numberOfClient;
 
 		Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
 		send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);

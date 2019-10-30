@@ -12,12 +12,7 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 	this->jugadores = jugadores;
 
 	for (int i = 0; i<jugadores.size(); i++){
-		if (i == 0){
-			jugadoresActivos.push_back(true);
-		}
-		else{
-		jugadoresActivos.push_back(false);
-		}
+		jugadoresActivos.push_back(true);
 	}
 	for (EntidadUbicada* entidad : jugadores) {
 		inicializarCiclos(entidad);
@@ -107,6 +102,7 @@ struct informacionEnv Nivel::getInformacion(){
 		//animadoActual.txt = personaje->getTexture();
 		animadoActual.src = pjActual->getSource();
 		animadoActual.flip = pjActual->getFlip();
+		animadoActual.ID = i;
 		//animados.push_back(animadoActual);
 		animadoActual.estaActivo = jugadoresActivos[i];
 		info.animados[i] = animadoActual;
@@ -123,6 +119,7 @@ struct informacionEnv Nivel::getInformacion(){
 		//animadoActual.txt = enemigoActual->getTexture();
 		animadoActual.flip = enemigoActual->getFlip();
 		animadoActual.estaActivo = true;
+		animadoActual.ID = -1;
 		//animados.push_back(animadoActual);
 		info.animados[i + jugadores.size()] = animadoActual;
 	}
@@ -442,6 +439,18 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 		enemigos.push_back(enemigo);
 	}
 
+}
+
+void Nivel::desconexionDeJugador(int i) {
+	jugadoresActivos[i] = false;
+}
+
+void Nivel::conexionDeJugador(int i) {
+	jugadoresActivos[i] = true;
+}
+
+bool Nivel::jugadorConectado(int i) {
+	return jugadoresActivos[i];
 }
 
 void Nivel::moverEnemigos(){

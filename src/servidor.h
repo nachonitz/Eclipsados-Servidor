@@ -19,6 +19,7 @@ struct credencial {
 	char usuario[MAX_USER_LEN];
 	char contrasenia[MAX_PASS_LEN];
 	bool credencialValida;
+	int myIdx;
 } ;
 
 
@@ -29,7 +30,7 @@ public:
 	~Servidor();
 
 	int getSocketDesc(){return socket_desc;}
-	void sendInfo(int clientSocket, struct informacionEnv info);
+	int sendInfo(int clientSocket, struct informacionEnv info);
 	void reciveInfo();
 	void reSendMessage(int client1Socket,  int client2Socket, char * message, char* user1Name, char* user2Name);
 	void setPort(char* port);

@@ -14,9 +14,9 @@ Servidor::~Servidor(){
 
 }
 
-void Servidor::sendInfo(int clientSocket, struct informacionEnv info){
+int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 
-	send(clientSocket, &info, sizeof(struct informacionEnv), 0);
+	return send(clientSocket, &info, sizeof(struct informacionEnv), 0);
 }
 
 void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){
@@ -76,7 +76,7 @@ void Servidor::verificarCredenciales(struct credencial* credencialPorValidar, st
 	auto pair = usuarios.find(credencialPorValidar->usuario);
 
 	if (pair != usuarios.end() && pair->second == std::string(credencialPorValidar->contrasenia)) {
-		Logger::getInstance()->log(DEBUG, "PAR ENCONTRADO: " + pair->first + " - " + pair->second);
+		Logger::getInstance()->log(INFO, "Jugador logeado! Nombre: " + pair->first);
 		credencialPorValidar->credencialValida = true;
 	}
 }

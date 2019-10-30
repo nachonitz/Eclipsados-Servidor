@@ -42,6 +42,19 @@ PosicionGlobal* Juego::getPosicionJugador(int numeroJugador) {
 	return jugadores.at(numeroJugador)->getPosicionGlobal();
 }
 
+void Juego::desconexionDeJugador(int i) {
+	this->nivel->desconexionDeJugador(i);
+}
+
+void Juego::conexionDeJugador(int i) {
+	this->nivel->conexionDeJugador(i);
+}
+
+bool Juego::jugadorConectado(int i) {
+	return this->nivel->jugadorConectado(i);
+}
+
+
 void Juego::moverEnemigos(){
 	nivel->moverEnemigos();
 }

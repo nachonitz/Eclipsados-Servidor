@@ -37,6 +37,10 @@ public:
 
 	PosicionGlobal* getPosicionJugador(int numeroJugador);
 
+	void desconexionDeJugador(int i);
+	void conexionDeJugador(int i);
+
+	bool jugadorConectado(int i);
 
 	Capa* getCapa1(){return nivel->getCapa1();}
 	Capa* getCapa2(){return nivel->getCapa2();}
