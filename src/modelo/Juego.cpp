@@ -146,8 +146,20 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 										animacionActual[numeroDeCliente] = infoRec.animacionActual;
 									}
 			break;
-			//case ACCION_SALTO_PATADA: saltando = true;
-			//	break;
+			case ACCION_SALTO_PATADA: saltando[numeroDeCliente] = true;
+									switch(infoRec.movimiento){
+										case RIGHT:	this->direccionSalto[numeroDeCliente] = 1;
+										break;
+										case LEFT:	this->direccionSalto[numeroDeCliente] = -1;
+										break;
+										}
+										alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
+										alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
+										if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
+											cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
+											animacionActual[numeroDeCliente] = infoRec.animacionActual;
+									}
+			break;
 			case ACCION_AGACHADO: 	agachado[numeroDeCliente] = true;
 									if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
 										cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
@@ -188,7 +200,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 
 		case 0: break;
 
-		case -1: 	this->movimientoIzquierda(numeroDeCliente);
+		case -1: this->movimientoIzquierda(numeroDeCliente);
 		break;
 		}
 

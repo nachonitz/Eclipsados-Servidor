@@ -57,7 +57,7 @@ void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
 	int caminar = personaje->crearCiclo(2, 120, 120, 12, 10);
 	int salto = personaje->crearCiclo(3, 120, 120, 8, 16);
 	int golpear = personaje->crearCiclo(4, 120, 120, 9, 15);
-	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 16);
+	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 25);
 	int agachado = personaje->crearCiclo(1, 120, 120, 4, 15);
 	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 16);
 
