@@ -152,28 +152,55 @@ void* manageMidGameConnects(void* arg) {
 }
 
 void* validateCredentials(void*arg){
-	int * arg_ptr = (int*)arg;
-	int numberOfClient = *arg_ptr;
-	struct credencial credencialesCliente;
+	while (1){
+		int * arg_ptr = (int*)arg;
+		int numberOfClient = *arg_ptr;
+		struct credencial credencialesCliente;
+		credencialesCliente.credencialValida = false;
 
-	Cliente* cliente = new Cliente(&servidor);
-	pthread_mutex_lock(&mutexPushCliente);
-	clientes.push_back(cliente);
-	pthread_mutex_unlock(&mutexPushCliente);
+		Cliente* cliente = new Cliente(&servidor);
+		pthread_mutex_lock(&mutexPushCliente);
+		clientes.push_back(cliente);
+		numberOfClient= clientes.size()-1;
+		pthread_mutex_unlock(&mutexPushCliente);
 
-	Logger::getInstance()->log(INFO, "Cliente numero " + to_string(clientes.size()) + " conectado.");
+		Logger::getInstance()->log(INFO, "Cliente numero " + to_string(clientes.size()) + " conectado.");
+		int enviado;
+		while(!credencialesCliente.credencialValida){
+			credencialesCliente = clientes[numberOfClient]->recieveCredentials();
+			servidor.verificarCredenciales(&credencialesCliente, usuarios);
 
-	while(!credencialesCliente.credencialValida){
-		credencialesCliente = clientes[numberOfClient]->recieveCredentials();
-		servidor.verificarCredenciales(&credencialesCliente, usuarios);
+			credencialesCliente.myIdx = numberOfClient;
 
-		credencialesCliente.myIdx = numberOfClient;
+			//VERIFICO QUE NO SE CONECTE OTRO CON EL MISMO USUARIO
+			for (int i = 0; i<clientes.size();i++){
+				if (i == numberOfClient){
+					continue;
+				}
+				if (clientes[i]->tieneEstasCredenciales(credencialesCliente)){
+					credencialesCliente.credencialValida = false;
+				}
+			}
 
-		Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
-		send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
+			Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
+			enviado = send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
+			if (enviado <= 0){
+				break;
+			}
+		}
+		if (enviado <= 0){
+			pthread_mutex_lock(&mutexPushCliente);
+			clientes.pop_back();
+			pthread_mutex_unlock(&mutexPushCliente);
+			Logger::getInstance()->log(DEBUG, "SE DESCONECTO EL CLIENTE SIN CREDENCIALES");
+			continue;
+		}else{
+			Logger::getInstance()->log(DEBUG, "Se conecto con credenciales el cliente " + std::to_string(numberOfClient));
+			clientes[numberOfClient]->assignCredentials(credencialesCliente);
+			break;
+		}
+
 	}
-
-	clientes[numberOfClient]->assignCredentials(credencialesCliente);
 
 }
 

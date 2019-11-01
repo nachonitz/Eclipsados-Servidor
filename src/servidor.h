@@ -29,6 +29,8 @@ public:
 	Servidor();
 	~Servidor();
 
+	int sendCantidades(int clientSocket, int elementos, int enemigos, int usuarios);
+
 	int getSocketDesc(){return socket_desc;}
 	int sendInfo(int clientSocket, struct informacionEnv info);
 	void reciveInfo();

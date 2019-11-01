@@ -79,7 +79,11 @@ struct credencial Cliente::recieveCredentials(){
 
 	struct credencial credencialesPorValidar;
 	Logger::getInstance()->log(DEBUG, "RECIBIENDO...");
-	recv(socks, &credencialesPorValidar, sizeof(struct credencial), 0);
+	int recibido = recv(socks, &credencialesPorValidar, sizeof(struct credencial), 0);
+	if (recibido <= 0){
+		Logger::getInstance()->log(DEBUG, "NO SE PUDO RECIBIR LA CREDENCIAL");
+	}
+	Logger::getInstance()->log(DEBUG, "SE PUDO RECIBIR LA CREDENCIAL");
 	Logger::getInstance()->log(DEBUG, "RECIBIDAS CREDENCIALES: " + std::string(credencialesPorValidar.usuario) + " - " + std::string(credencialesPorValidar.contrasenia));
 	return credencialesPorValidar;
 }
