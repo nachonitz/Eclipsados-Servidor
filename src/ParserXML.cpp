@@ -179,12 +179,6 @@ void ParserXML::asignarMapa(std::map<std::string, std::string> &mapa, XMLElement
 
 			std::string pass = ePass->GetText();
 
-
-			// a lower case...
-			std::transform(nombre.begin(), nombre.end(), nombre.begin(), ::tolower);
-
-			std::transform(pass.begin(), pass.end(), pass.begin(), ::tolower);
-
 			mapa.insert({ nombre, pass });
 			Logger::getInstance()->log(DEBUG, "Agregado usuario " + nombre + " con password de longitud: " + std::to_string(pass.length()));
 		}
