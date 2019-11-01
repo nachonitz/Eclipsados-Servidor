@@ -16,6 +16,7 @@ public:
 	void assignCredentials(struct credencial cred);
 
 	bool tieneEstasCredenciales(struct credencial credencialesCliente);
+	bool estadoTransferencia();
 
 private:
 	struct sockaddr_in cliente;

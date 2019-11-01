@@ -99,11 +99,9 @@ struct informacionEnv Nivel::getInformacion(){
 		struct animado animadoActual;
 		animadoActual.dest = pjActual->getDest();
 		animadoActual.src = pjActual->getSource();
-		//animadoActual.txt = personaje->getTexture();
 		animadoActual.src = pjActual->getSource();
 		animadoActual.flip = pjActual->getFlip();
 		animadoActual.ID = i;
-		//animados.push_back(animadoActual);
 		animadoActual.estaActivo = jugadoresActivos[i];
 		info.animados[i] = animadoActual;
 
@@ -114,14 +112,14 @@ struct informacionEnv Nivel::getInformacion(){
 	for (uint i = 0; i<enemigos.size(); i++){
 		struct animado animadoActual;
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
-		animadoActual.dest = enemigoActual->getDest();
-		animadoActual.src = enemigoActual->getSource();
-		//animadoActual.txt = enemigoActual->getTexture();
-		animadoActual.flip = enemigoActual->getFlip();
-		animadoActual.estaActivo = true;
-		animadoActual.ID = -1;
-		//animados.push_back(animadoActual);
-		info.animados[i + jugadores.size()] = animadoActual;
+		//if(enemigoActual->getDest() > pos_borde_izquierda  && enemigoActual->getDest() < pos_borde_derecha){
+			animadoActual.dest = enemigoActual->getDest();
+			animadoActual.src = enemigoActual->getSource();
+			animadoActual.flip = enemigoActual->getFlip();
+			animadoActual.estaActivo = true;
+			animadoActual.ID = -1;
+			info.animados[i + jugadores.size()] = animadoActual;
+		//}
 	}
 
 	for (uint i = 0;i<elementos.size();i++){
@@ -129,8 +127,6 @@ struct informacionEnv Nivel::getInformacion(){
 		Dibujable* dibujable = elementos[i]->getDibujable();
 		elementoActual.dest = dibujable->getDest();
 		elementoActual.src = dibujable->getSource();
-		//elementoActual.txt = dibujable->getTexture();
-		//objetos.push_back(elementoActual);
 		info.elementos[i] = elementoActual;
 	}
 
@@ -138,7 +134,6 @@ struct informacionEnv Nivel::getInformacion(){
 	capa1.dest = this->capa1.getDest();
 	capa1.src = this->capa1.getSource();
 	capa1.nivel = this->numeroNivel;
-	//capa1.txt= this->capa1.getTexture();
 
 	info.capas[0] = capa1;
 
@@ -146,7 +141,6 @@ struct informacionEnv Nivel::getInformacion(){
 	capa2.dest = this->capa2.getDest();
 	capa2.src = this->capa2.getSource();
 	capa2.nivel = this->numeroNivel;
-	//capa2.txt = this->capa2.getTexture();
 
 	info.capas[1] = capa2;
 
@@ -154,7 +148,6 @@ struct informacionEnv Nivel::getInformacion(){
 	capa3.dest = this->capa3.getDest();
 	capa3.src = this->capa3.getSource();
 	capa3.nivel = this->numeroNivel;
-	//capa3.txt = this->capa3.getTexture();
 
 	info.capas[2] = capa3;
 

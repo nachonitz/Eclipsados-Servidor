@@ -16,7 +16,21 @@ Servidor::~Servidor(){
 
 int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 
-	return send(clientSocket, &info, sizeof(struct informacionEnv), 0);
+	enviar:
+
+	int info0 = send(clientSocket, &info.cantAnimados, sizeof(info.cantAnimados), 0);
+	info0 += send(clientSocket, &info.cantJugadores, sizeof(info.cantJugadores), 0);
+	info0 += send(clientSocket, &info.cantElementos, sizeof(info.cantElementos), 0);
+	for(int i=0; i < info.cantAnimados; i++){
+		info0 += send(clientSocket, &info.animados[i] , sizeof(info.animados[i]), 0);
+	}
+	for(int i=0; i < 3; i++){
+		info0 += send(clientSocket, &info.capas[i], sizeof(info.capas[i]), 0);
+	}
+	for(int i=0; i < info.cantElementos; i++){
+		info0 += send(clientSocket, &info.elementos[i], sizeof(info.elementos[i]), 0);
+	}
+	return info0;
 }
 
 void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){

@@ -146,8 +146,8 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 										break;
 									}
 
-									alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
-									alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
+									alturaActualSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical();
+									alturaMaximaSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
 									if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
 										cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
 										animacionActual[numeroDeCliente] = infoRec.animacionActual;
@@ -166,8 +166,8 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 										case LEFT:	this->direccionSalto[numeroDeCliente] = -1;
 										break;
 										}
-										alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
-										alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
+										alturaActualSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical();
+										alturaMaximaSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
 										if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
 											cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
 											animacionActual[numeroDeCliente] = infoRec.animacionActual;
@@ -180,8 +180,8 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 									}
 			break;
 			case ACCION_SALTO_VERTICAL: saltando[numeroDeCliente] = true;
-										alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
-										alturaMaximaSalto = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
+										alturaActualSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical();
+										alturaMaximaSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical() + 25;
 										if(animacionActual[numeroDeCliente] != infoRec.animacionActual){
 											cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
 											animacionActual[numeroDeCliente] = infoRec.animacionActual;
@@ -204,9 +204,9 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 		}
 	}
 
-	if (saltando[numeroDeCliente] && alturaActualSalto < alturaMaximaSalto){
+	if (saltando[numeroDeCliente] && alturaActualSalto[numeroDeCliente] < alturaMaximaSalto[numeroDeCliente]){
 		this->movimientoSalto(numeroDeCliente);
-		alturaActualSalto = this->getPosicionJugador(numeroDeCliente)->getVertical();
+		alturaActualSalto[numeroDeCliente] = this->getPosicionJugador(numeroDeCliente)->getVertical();
 		switch(direccionSalto[numeroDeCliente]){
 		case 1: this->movimientoDerecha(numeroDeCliente);
 		break;
@@ -218,7 +218,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 		}
 
 	}
-	if(saltando[numeroDeCliente] && alturaActualSalto > alturaMaximaSalto){
+	if(saltando[numeroDeCliente] && alturaActualSalto[numeroDeCliente] > alturaMaximaSalto[numeroDeCliente]){
 		this->terminadoSalto(numeroDeCliente);
 		saltando[numeroDeCliente] = false;
 		direccionSalto[numeroDeCliente] = 0;

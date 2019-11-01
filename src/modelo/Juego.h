@@ -58,7 +58,7 @@ private:
 
 	int animacionActual[MAX_CLIENTES], direccionSalto[MAX_CLIENTES];
 	bool agachado[MAX_CLIENTES],golpear[MAX_CLIENTES],saltando[MAX_CLIENTES];
-	double alturaActualSalto, alturaMaximaSalto;
+	double alturaActualSalto[MAX_CLIENTES], alturaMaximaSalto[MAX_CLIENTES];
 
 	bool terminoElNivel();
 	void cambiarDeNivel();

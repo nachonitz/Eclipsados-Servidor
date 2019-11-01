@@ -75,7 +75,7 @@ void* message_send(void*arg){
 					juego->conexionDeJugador(i);
 			}
 		}
-		SDL_Delay(1000/60);
+		SDL_Delay(1000/90);
 	}
 }
 
@@ -87,6 +87,10 @@ void* message_recieve(void*arg){
 
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
 
+		if (!juego->jugadorConectado(numberOfClient)) {
+			break;
+		}
+
 		if (infoRecv.numeroDeCliente >= 0) {
 
 			infoRecv.numeroDeCliente = numberOfClient;
@@ -96,10 +100,6 @@ void* message_recieve(void*arg){
 			pthread_mutex_unlock(&mutexQueue);
 		}
 
-/*		if (!juego->jugadorConectado(numberOfClient)) {
-			//close(clientes[numberOfClient]->getSocket());
-			//break;
-		}*/
 	}
 }
 
@@ -138,6 +138,7 @@ void* manageMidGameConnects(void* arg) {
 			noMandoNada = true;
 			send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
 			juego->conexionDeJugador(i);
+			pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
 			break;
 		}
 

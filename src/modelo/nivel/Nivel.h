@@ -16,7 +16,6 @@
 #include "SDL2/SDL_image.h"
 //#include "cody.h"
 struct animado{
-	//SDL_Texture* txt;
 	bool estaActivo;
 	SDL_Rect dest;
 	SDL_Rect src;
@@ -25,22 +24,20 @@ struct animado{
 };
 
 struct elemento{
-	//SDL_Texture* txt;
 	SDL_Rect dest;
 	SDL_Rect src;
 };
 
 struct capa{
-	//SDL_Texture* txt;
 	int nivel;
 	SDL_Rect dest;
 	SDL_Rect src;
 };
 
 struct informacionEnv{
-	struct elemento elementos[MAX_CANT_ELEMENTOS];
+	struct elemento elementos[100];
 	struct capa capas[3];
-	struct animado animados[MAX_CANT_ANIMADOS];
+	struct animado animados[25];
 	int cantAnimados;
 	int cantElementos;
 	int cantJugadores;

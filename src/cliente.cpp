@@ -38,6 +38,16 @@ struct informacionRec Cliente::recieveInfo(){
 
 }
 
+bool Cliente::estadoTransferencia(){
+
+	bool estadoTransferencia;
+
+	recv(socks, &estadoTransferencia, sizeof(bool), 0);
+
+	return estadoTransferencia;
+
+}
+
 void Cliente::assignCredentials(struct credencial cred) {
 	this->credencialCliente = cred;
 }

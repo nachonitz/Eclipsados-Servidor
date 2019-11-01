@@ -3,11 +3,11 @@
 	<jugadores>2</jugadores>
 	<escenario>
 		<cantidades>
-			<cuchillo>12</cuchillo>
-			<barril>11</barril>
-			<canio>10</canio>
-			<caja>9</caja>
-			<enemigo>8</enemigo>
+			<cuchillo>7</cuchillo>
+			<barril>3</barril>
+			<canio>3</canio>
+			<caja>5</caja>
+			<enemigo>3</enemigo>
 		</cantidades>
 	</escenario>
 	<usuarios>
