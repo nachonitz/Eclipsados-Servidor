@@ -16,8 +16,6 @@ Servidor::~Servidor(){
 
 int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 
-	enviar:
-
 	int info0 = send(clientSocket, &info.cantAnimados, sizeof(info.cantAnimados), 0);
 	info0 += send(clientSocket, &info.cantJugadores, sizeof(info.cantJugadores), 0);
 	info0 += send(clientSocket, &info.cantElementos, sizeof(info.cantElementos), 0);
