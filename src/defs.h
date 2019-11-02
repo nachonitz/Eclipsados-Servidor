@@ -48,6 +48,8 @@
 
 #define MAX_CLIENTES 4		// usado en Juego.h
 
+#define FRAME_DELAY 1000/60
+
 #define MAX_CANT_ANIMADOS 500
 
 #define MAX_CANT_ELEMENTOS 500

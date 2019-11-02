@@ -75,7 +75,7 @@ void* message_send(void*arg){
 					juego->conexionDeJugador(i);
 			}
 		}
-		SDL_Delay(1000/90);
+		SDL_Delay(FRAME_DELAY);
 	}
 }
 

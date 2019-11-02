@@ -10,7 +10,6 @@ struct informacionRec{
 	int movimiento;
 	SDL_RendererFlip flip;
 	int numeroDeCliente;
-	int tickActual;
 };
 
 
