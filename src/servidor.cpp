@@ -15,20 +15,56 @@ Servidor::~Servidor(){
 }
 
 int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
+	int enviado = 0;
+	while(enviado < sizeof(int)){
+		enviado += send(clientSocket, &info.cantAnimados+enviado, sizeof(info.cantAnimados)-enviado, 0);
+		if (enviado < 0){
+			return -1;
+		}
+	}
+	enviado = 0;
+	while(enviado < sizeof(int)){
+		enviado += send(clientSocket, &info.cantJugadores+enviado, sizeof(info.cantJugadores)-enviado, 0);
+		if (enviado < 0){
+			return -1;
+		}
+	}
+	enviado = 0;
+	while(enviado < sizeof(int)){
+		enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.cantElementos)-enviado, 0);
+		if (enviado < 0){
+			return -1;
+		}
+	}
 
-	int info0 = send(clientSocket, &info.cantAnimados, sizeof(info.cantAnimados), 0);
-	info0 += send(clientSocket, &info.cantJugadores, sizeof(info.cantJugadores), 0);
-	info0 += send(clientSocket, &info.cantElementos, sizeof(info.cantElementos), 0);
 	for(int i=0; i < info.cantAnimados; i++){
-		info0 += send(clientSocket, &info.animados[i] , sizeof(info.animados[i]), 0);
+		enviado = 0;
+		while(enviado < sizeof(struct animado)){
+			enviado += send(clientSocket, &info.animados[i]+enviado , sizeof(info.animados[i])-enviado, 0);
+			if (enviado < 0){
+				return -1;
+			}
+		}
 	}
 	for(int i=0; i < 3; i++){
-		info0 += send(clientSocket, &info.capas[i], sizeof(info.capas[i]), 0);
+		enviado = 0;
+		while(enviado < sizeof(struct capa)){
+			enviado += send(clientSocket, &info.capas[i]+enviado, sizeof(info.capas[i])-enviado, 0);
+			if (enviado < 0){
+				return -1;
+			}
+		}
 	}
 	for(int i=0; i < info.cantElementos; i++){
-		info0 += send(clientSocket, &info.elementos[i], sizeof(info.elementos[i]), 0);
+		enviado = 0;
+		while(enviado < sizeof(struct elemento)){
+			enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.elementos[i])-enviado, 0);
+			if (enviado < 0){
+				return -1;
+			}
+		}
 	}
-	return info0;
+	return 1;
 }
 
 void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){
