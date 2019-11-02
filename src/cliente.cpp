@@ -29,11 +29,12 @@ Cliente::~Cliente(){
 struct informacionRec Cliente::recieveInfo(){
 
 	struct informacionRec info;
-	int res = recv(socks, &info, sizeof(struct informacionRec), 0);
-
-	if (res <= 0)
-		info.numeroDeCliente = -1;
-
+	int recibido = 0;
+	while (recibido < sizeof(struct informacionRec)){
+		recibido += recv(socks, &info+recibido, sizeof(struct informacionRec)-recibido, 0);
+		if (recibido < 0)
+			info.numeroDeCliente = -1;
+	}
 	return info;
 
 }
