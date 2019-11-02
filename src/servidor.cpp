@@ -11,6 +11,7 @@ Servidor::Servidor(){
 Servidor::~Servidor(){
 
 	close(socket_desc);
+	printf("Socket numero %d Closed\n", socket_desc);
 
 }
 

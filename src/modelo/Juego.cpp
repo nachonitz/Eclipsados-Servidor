@@ -131,7 +131,6 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 				break;
 				case STAND: break;
 			}
-
 	}
 
 	if(!saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
@@ -216,8 +215,8 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 		case -1: this->movimientoIzquierda(numeroDeCliente);
 		break;
 		}
-
 	}
+
 	if(saltando[numeroDeCliente] && alturaActualSalto[numeroDeCliente] > alturaMaximaSalto[numeroDeCliente]){
 		this->terminadoSalto(numeroDeCliente);
 		saltando[numeroDeCliente] = false;

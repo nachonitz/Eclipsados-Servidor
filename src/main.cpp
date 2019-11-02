@@ -18,10 +18,11 @@ Servidor servidor;
 //pthread_mutex_t mutex;
 //pthread_mutex_init(&mutex,NULL);
 int clientNumbers[] = {0,1,2,3};
-
+int cantDesconectados = 0;
 int cantClientes = 2;
 
 pthread_t hiloSendBroadcast;
+pthread_t hiloDesconexionJugadores;
 pthread_t hiloRecieveMessage[4];
 pthread_t hiloValidarCredenciales[4];
 
@@ -204,6 +205,24 @@ void* validateCredentials(void*arg){
 
 }
 
+void* desconexion_jugadores(void*arg){
+
+	while(1){
+		cantDesconectados = 0;
+
+		for(int i = 0; i < cantClientes; i++){
+			if(!juego->jugadorConectado(i)){
+				cantDesconectados ++;
+			}
+		}
+		if(cantDesconectados == cantClientes){
+			printf("All Players Disconnected\n");
+			printf("Server Shutting Down\n");
+			exit(0);
+		}
+	}
+}
+
 
 int main(int argc, char *argv[]) {
 
@@ -259,6 +278,7 @@ int main(int argc, char *argv[]) {
 
 	//-> Comienzo hilos de juego
 	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
+	pthread_create(&hiloDesconexionJugadores,NULL,desconexion_jugadores,NULL);
 
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
@@ -272,16 +292,11 @@ int main(int argc, char *argv[]) {
 	Logger::getInstance()->log(DEBUG, "Inicializar JOIN en main.");
 
 	pthread_join(hiloSendBroadcast,NULL);
+	pthread_join(hiloDesconexionJugadores,NULL);
 
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_join(hiloRecieveMessage[i],NULL);
 	}
-
-//	servidor.~Servidor();
-//	for(int i =0; i < cantClientes; i++){
-//		clientes[i]->~Cliente();
-//	}
-
 
 	delete Logger::getInstance();
 
