@@ -59,7 +59,7 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	for(int i=0; i < info.cantElementos; i++){
 		enviado = 0;
 		while(enviado < sizeof(struct elemento)){
-			enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.elementos[i])-enviado, MSG_NOSIGNAL);
+			enviado += send(clientSocket, &info.elementos[i]+enviado, sizeof(info.elementos[i])-enviado, MSG_NOSIGNAL);
 			if (enviado < 0){
 				return -1;
 			}

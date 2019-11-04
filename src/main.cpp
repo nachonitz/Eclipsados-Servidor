@@ -71,7 +71,7 @@ void* message_send(void*arg){
 
 			if (juego->jugadorConectado(i)) {
 
-				Logger::getInstance()->log(DEBUG, "Enviando informacion a jugador conectado: " + std::to_string(i));
+				//Logger::getInstance()->log(DEBUG, "Enviando informacion a jugador conectado: " + std::to_string(i));
 
 				int resultSend = servidor.sendInfo(clientes[i]->getSocket(),info);
 
@@ -211,7 +211,6 @@ void* validateCredentials(void*arg){
 			pthread_mutex_lock(&mutexPushCliente);
 			clientes.pop_back();
 			pthread_mutex_unlock(&mutexPushCliente);
-			Logger::getInstance()->log(DEBUG, "SE DESCONECTO EL CLIENTE SIN CREDENCIALES");
 			Logger::getInstance()->log(ERROR, "Cliente desconectado en pantalla de inicio sin loggearse.");
 			continue;
 		}else{
