@@ -161,6 +161,10 @@ void ParserXML::asignarValor(int* variable, const char* nombre, XMLHandle base, 
 		Logger::getInstance()->log(ERROR, "Etiqueta <" + std::string(nombre) + "> inexistente o con datos erroneos/nulos. Utilizando valor predeterminado.");
 		backup->FirstChildElement(nombre)->QueryIntText(variable);
 	}
+	else if (*variable > MAX_CANT_VALOR) {
+		Logger::getInstance()->log(ERROR, "Etiqueta <" + std::string(nombre) + "> muy grande para manejar con trafico en red (maximo " + std::to_string(MAX_CANT_VALOR) + "). Utilizando el valor predeterminado.");
+		backup->FirstChildElement(nombre)->QueryIntText(variable);
+	}
 
 
 }
