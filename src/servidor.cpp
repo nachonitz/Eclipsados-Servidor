@@ -18,21 +18,21 @@ Servidor::~Servidor(){
 int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	int enviado = 0;
 	while(enviado < sizeof(int)){
-		enviado += send(clientSocket, &info.cantAnimados+enviado, sizeof(info.cantAnimados)-enviado, 0);
+		enviado += send(clientSocket, &info.cantAnimados+enviado, sizeof(info.cantAnimados)-enviado, MSG_NOSIGNAL);
 		if (enviado < 0){
 			return -1;
 		}
 	}
 	enviado = 0;
 	while(enviado < sizeof(int)){
-		enviado += send(clientSocket, &info.cantJugadores+enviado, sizeof(info.cantJugadores)-enviado, 0);
+		enviado += send(clientSocket, &info.cantJugadores+enviado, sizeof(info.cantJugadores)-enviado, MSG_NOSIGNAL);
 		if (enviado < 0){
 			return -1;
 		}
 	}
 	enviado = 0;
 	while(enviado < sizeof(int)){
-		enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.cantElementos)-enviado, 0);
+		enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.cantElementos)-enviado, MSG_NOSIGNAL);
 		if (enviado < 0){
 			return -1;
 		}
@@ -41,7 +41,7 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	for(int i=0; i < info.cantAnimados; i++){
 		enviado = 0;
 		while(enviado < sizeof(struct animado)){
-			enviado += send(clientSocket, &info.animados[i]+enviado , sizeof(info.animados[i])-enviado, 0);
+			enviado += send(clientSocket, &info.animados[i]+enviado , sizeof(info.animados[i])-enviado, MSG_NOSIGNAL);
 			if (enviado < 0){
 				return -1;
 			}
@@ -50,7 +50,7 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	for(int i=0; i < 3; i++){
 		enviado = 0;
 		while(enviado < sizeof(struct capa)){
-			enviado += send(clientSocket, &info.capas[i]+enviado, sizeof(info.capas[i])-enviado, 0);
+			enviado += send(clientSocket, &info.capas[i]+enviado, sizeof(info.capas[i])-enviado, MSG_NOSIGNAL);
 			if (enviado < 0){
 				return -1;
 			}
@@ -59,7 +59,7 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	for(int i=0; i < info.cantElementos; i++){
 		enviado = 0;
 		while(enviado < sizeof(struct elemento)){
-			enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.elementos[i])-enviado, 0);
+			enviado += send(clientSocket, &info.cantElementos+enviado, sizeof(info.elementos[i])-enviado, MSG_NOSIGNAL);
 			if (enviado < 0){
 				return -1;
 			}

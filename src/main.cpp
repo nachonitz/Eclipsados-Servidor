@@ -12,19 +12,19 @@
 std::map<std::string, std::string> usuarios;
 
 vector<Cliente*> clientes;
-char mensaje[1000], client_reply[1000];
 Servidor servidor;
 
-//pthread_mutex_t mutex;
-//pthread_mutex_init(&mutex,NULL);
+
 int clientNumbers[] = {0,1,2,3};
 int cantDesconectados = 0;
-int cantClientes = 2;
+int cantClientes = 0;	// se leera del XML
 
 pthread_t hiloSendBroadcast;
 pthread_t hiloDesconexionJugadores;
 pthread_t hiloRecieveMessage[4];
 pthread_t hiloValidarCredenciales[4];
+
+pthread_mutex_t mutexNivel;
 
 pthread_t hiloMidGameConnects[CANT_HILOS_RECONEXION];
 
@@ -53,7 +53,11 @@ void* message_send(void*arg){
 		// actualizar modelo
 		juego->moverEnemigos();
 		juego->actualizarAnimaciones();
+
+		pthread_mutex_lock(&mutexNivel);
 		juego->chequearCambioDeNivel();
+		pthread_mutex_unlock(&mutexNivel);
+
 
 		//Logger::getInstance()->log(DEBUG, "Obteniendo informacion actual del modelo.");
 
@@ -210,11 +214,16 @@ void* desconexion_jugadores(void*arg){
 	while(1){
 		cantDesconectados = 0;
 
+		pthread_mutex_lock(&mutexNivel);
+
 		for(int i = 0; i < cantClientes; i++){
 			if(!juego->jugadorConectado(i)){
 				cantDesconectados ++;
 			}
 		}
+
+		pthread_mutex_unlock(&mutexNivel);
+
 		if(cantDesconectados == cantClientes){
 			printf("All Players Disconnected\n");
 			printf("Server Shutting Down\n");
@@ -244,20 +253,11 @@ int main(int argc, char *argv[]) {
 
 	servidor.setPort(argv[1]);
 
-
-	Logger::getInstance()->log(DEBUG, "Creando clientes e iniciado accepts...");
-
-
-	//servidor.reSendMessage(clientes[numberOfClient1]->getSocket(), clientes[numberOfClient2]->getSocket(), "Nombre de Usuario", "Server", "Server");
-	//clientes[numberOfClient1]->setUser(client_reply);
-	//clientes[numberOfClient2]->setUser(client_reply);
-
-	//pthread_mutex_init(&mutexProcesar,NULL);
-
 	Logger::getInstance()->log(DEBUG, "Inicializar MUTEX en main.");
 
 	pthread_mutex_init(&mutexQueue,NULL);
 	pthread_mutex_init(&mutexPushCliente,NULL);
+	pthread_mutex_init(&mutexNivel,NULL);
 
 	//-> Comienzo hilos para el loggin
 	for (int i = 0; i < cantClientes; i++) {

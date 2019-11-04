@@ -99,7 +99,6 @@ struct informacionEnv Nivel::getInformacion(){
 		struct animado animadoActual;
 		animadoActual.dest = pjActual->getDest();
 		animadoActual.src = pjActual->getSource();
-		animadoActual.src = pjActual->getSource();
 		animadoActual.flip = pjActual->getFlip();
 		animadoActual.ID = i;
 		animadoActual.estaActivo = jugadoresActivos[i];
