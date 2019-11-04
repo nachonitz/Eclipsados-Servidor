@@ -15,6 +15,8 @@ public:
 
 	void assignCredentials(struct credencial cred);
 
+	int getIDx(){return credencialCliente.myIdx;}
+
 	bool tieneEstasCredenciales(struct credencial credencialesCliente);
 	bool estadoTransferencia();
 

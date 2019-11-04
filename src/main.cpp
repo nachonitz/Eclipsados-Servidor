@@ -18,6 +18,7 @@ Servidor servidor;
 int clientNumbers[] = {0,1,2,3};
 int cantDesconectados = 0;
 int cantClientes = 0;	// se leera del XML
+int midGame = 0;
 
 pthread_t hiloSendBroadcast;
 pthread_t hiloDesconexionJugadores;
@@ -114,19 +115,29 @@ void* manageMidGameConnects(void* arg) {
 
 	Cliente* cliente = new Cliente(&servidor);
 
+	midGame ++;
+
+	pthread_create(&hiloMidGameConnects[midGame],NULL,manageMidGameConnects,0);
+
 	Logger::getInstance()->log(INFO, "Cliente conectado a medio juego! Pidiendo credenciales");
+
+	int i = 0;
 
 	while(!credencialesCliente.credencialValida){
 		credencialesCliente = cliente->recieveCredentials();
 		servidor.verificarCredenciales(&credencialesCliente, usuarios);
 
-		//credencialesCliente.myIdx = numberOfClient;
+		for(int i = 0; i < cantClientes; i++){
+			if(clientes[i]->tieneEstasCredenciales(credencialesCliente) && !juego->jugadorConectado(i)){
+				credencialesCliente.myIdx = clientes[i]->getIDx();
+			}
+		}
 
 		Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
-		send(cliente->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
+		send(cliente->getSocket(), &credencialesCliente, sizeof(struct credencial), MSG_NOSIGNAL);
 	}
 
-	cliente->assignCredentials(credencialesCliente);
+	//cliente->assignCredentials(credencialesCliente);
 
 	bool noMandoNada = true;
 
@@ -139,6 +150,7 @@ void* manageMidGameConnects(void* arg) {
 
 		if (clientes[i]->tieneEstasCredenciales(credencialesCliente) && !juego->jugadorConectado(i)) {
 			Logger::getInstance()->log(DEBUG, "ENCONTRADO CLIENTE VIEJO! ");
+			delete clientes[i];
 			clientes[i] = cliente;
 			noMandoNada = true;
 			send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
@@ -284,10 +296,7 @@ int main(int argc, char *argv[]) {
 		pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
 	}
 
-	for (int i = 0; i < CANT_HILOS_RECONEXION; i++) {
-		pthread_create(&hiloMidGameConnects[i],NULL,manageMidGameConnects,0);
-	}
-
+	pthread_create(&hiloMidGameConnects[midGame],NULL,manageMidGameConnects,0);
 
 	Logger::getInstance()->log(DEBUG, "Inicializar JOIN en main.");
 
