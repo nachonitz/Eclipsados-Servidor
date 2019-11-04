@@ -75,8 +75,10 @@ void* message_send(void*arg){
 
 				int resultSend = servidor.sendInfo(clientes[i]->getSocket(),info);
 
-				if (resultSend <= 0)
+				if (resultSend <= 0) {
 					juego->desconexionDeJugador(i);
+					Logger::getInstance()->log(ERROR, "Jugador " + std::to_string(i) + " desconectado! Nombre: " + clientes[i]->getUsuario());
+				}
 				else
 					juego->conexionDeJugador(i);
 			}
@@ -210,9 +212,10 @@ void* validateCredentials(void*arg){
 			clientes.pop_back();
 			pthread_mutex_unlock(&mutexPushCliente);
 			Logger::getInstance()->log(DEBUG, "SE DESCONECTO EL CLIENTE SIN CREDENCIALES");
+			Logger::getInstance()->log(ERROR, "Cliente desconectado en pantalla de inicio sin loggearse.");
 			continue;
 		}else{
-			Logger::getInstance()->log(DEBUG, "Se conecto con credenciales el cliente " + std::to_string(numberOfClient));
+			Logger::getInstance()->log(INFO, "Se conecto con credenciales el cliente " + std::to_string(numberOfClient));
 			clientes[numberOfClient]->assignCredentials(credencialesCliente);
 			break;
 		}
@@ -237,6 +240,7 @@ void* desconexion_jugadores(void*arg){
 		pthread_mutex_unlock(&mutexNivel);
 
 		if(cantDesconectados == cantClientes){
+			Logger::getInstance()->log(INFO, "Todos los jugadores desconectados, apagando servidor...");
 			printf("All Players Disconnected\n");
 			printf("Server Shutting Down\n");
 			exit(0);

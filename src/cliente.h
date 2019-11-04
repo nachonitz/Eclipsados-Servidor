@@ -20,6 +20,8 @@ public:
 	bool tieneEstasCredenciales(struct credencial credencialesCliente);
 	bool estadoTransferencia();
 
+	std::string getUsuario();
+
 private:
 	struct sockaddr_in cliente;
 	int c;

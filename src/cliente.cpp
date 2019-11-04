@@ -8,20 +8,30 @@ Cliente::Cliente(Servidor* server){
 	//Accept
 	socks = (accept( server->getSocketDesc(), (struct	 sockaddr *)&cliente, (socklen_t *) &c));
 	if (socks < 0){
+		Logger::getInstance()->log(ERROR, "No se pudo conectar con un nuevo cliente.");
+
 		perror("Acceptance Failed. Error");
 		close(socks);
 		exit(-1);
 	}else{
+		Logger::getInstance()->log(INFO, "Conexion con nuevo cliente exitosa!");
+
 		puts("Connection Accepted");
 		puts("Connection Successful");
 	}
 
 }
 
+std::string Cliente::getUsuario() {
+	return std::string(credencialCliente.usuario);
+}
+
 Cliente::~Cliente(){
 
 	close(socks);
 	printf("Socket numero: %d Closed\n", socks);
+	Logger::getInstance()->log(DEBUG, "Cerrado socket.");
+
 
 }
 
