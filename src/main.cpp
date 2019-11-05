@@ -46,7 +46,7 @@ void* timer(void*arg){
 	while (tiempoEsperaSend[numberOfClient] <= 5){
 		sleep(1);
 		pthread_mutex_lock(&mutexTimer[numberOfClient]);
-		tiempoEsperaSend[numberOfClient] ++;
+		tiempoEsperaSend[numberOfClient] = tiempoEsperaSend[numberOfClient] + 1;
 		pthread_mutex_unlock(&mutexTimer[numberOfClient]);
 	}
 	Logger::getInstance()->log(ERROR, "Tiempo de espera maximo alcanzado. Desconcetando al Jugador " + std::to_string(numberOfClient));
@@ -126,7 +126,7 @@ void* message_recieve(void*arg){
 		}
 
 		pthread_mutex_lock(&mutexTimer[numberOfClient]);
-		tiempoEsperaSend[numberOfClient] =0;
+		tiempoEsperaSend[numberOfClient] = 0;
 		pthread_mutex_unlock(&mutexTimer[numberOfClient]);
 
 	}
@@ -160,7 +160,7 @@ void* manageMidGameConnects(void* arg) {
 		send(cliente->getSocket(), &credencialesCliente, sizeof(struct credencial), MSG_NOSIGNAL);
 	}
 
-	//cliente->assignCredentials(credencialesCliente);
+	cliente->assignCredentials(credencialesCliente);
 
 	bool noMandoNada = true;
 
@@ -175,6 +175,7 @@ void* manageMidGameConnects(void* arg) {
 			Logger::getInstance()->log(DEBUG, "ENCONTRADO CLIENTE VIEJO! ");
 			delete clientes[i];
 			clientes[i] = cliente;
+			tiempoEsperaSend[i] = 0;
 			noMandoNada = true;
 			send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
 			juego->conexionDeJugador(i);

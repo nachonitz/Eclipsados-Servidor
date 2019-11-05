@@ -68,26 +68,7 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	return 1;
 }
 
-void Servidor::reSendMessage(int client1Socket, int client2Socket, char* message, char* user1Name, char* user2Name){
 
-	bzero(sClient1.userName, 1000);
-	bzero(sClient2.userName, 1000);
-	bzero(sClient1.mensaje, 1000);
-	bzero(sClient2.mensaje, 1000);
-
-	strcat(sClient1.userName, user2Name);
-	strcat(sClient1.mensaje, message);
-	strcat(sClient2.userName, user1Name);
-	strcat(sClient2.mensaje, message);
-
-	send(client1Socket, &sClient1, sizeof(struct envio), 0);
-	send(client2Socket, &sClient2, sizeof(struct envio), 0);
-
-}
-
-void Servidor::reciveInfo(){
-
-}
 void Servidor::setPort(char* puerto){
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;

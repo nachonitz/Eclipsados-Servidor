@@ -98,11 +98,3 @@ struct credencial Cliente::recieveCredentials(){
 	Logger::getInstance()->log(DEBUG, "RECIBIDAS CREDENCIALES: " + std::string(credencialesPorValidar.usuario) + " - " + std::string(credencialesPorValidar.contrasenia));
 	return credencialesPorValidar;
 }
-
-/*void Cliente::setUser(char userName[1000]){
-
-	recibirMensaje(userName);
-	strcat(name, sClient.mrec);
-
-
-}*/
