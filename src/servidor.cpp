@@ -10,8 +10,9 @@ Servidor::Servidor(){
 }
 Servidor::~Servidor(){
 
-	close(socket_desc);
+	Logger::getInstance()->log(INFO, "Cerrando socket: " + std::to_string(socket_desc));
 	printf("Socket numero %d Closed\n", socket_desc);
+	close(socket_desc);
 
 }
 

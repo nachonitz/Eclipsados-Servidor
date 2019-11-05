@@ -103,7 +103,7 @@ void* message_send(void*arg){
 
 			if (resultSend <= 0) {
 				juego->desconexionDeJugador(numberOfClient);
-				Logger::getInstance()->log(ERROR, "Jugador " + std::to_string(numberOfClient) + " desconectado! Nombre: " + clientes[numberOfClient]->getUsuario());
+				Logger::getInstance()->log(INFO, "Jugador " + std::to_string(numberOfClient) + " desconectado! Nombre: " + clientes[numberOfClient]->getUsuario());
 				matarHilo[numberOfClient] = true;
 			}
 			else
