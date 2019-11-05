@@ -4,9 +4,7 @@
 #include "modelo/Juego.h"
 #include "modelo/nivel/Nivel.h"
 #include <queue>
-
 #include "ParserXML.h"
-
 #include <map>
 
 std::map<std::string, std::string> usuarios;
@@ -24,7 +22,7 @@ pthread_t hiloSendBroadcast;
 pthread_t hiloDesconexionJugadores;
 pthread_t hiloRecieveMessage[4];
 pthread_t hiloValidarCredenciales[4];
-
+pthread_t hiloTimer[4];
 pthread_mutex_t mutexNivel;
 
 pthread_t hiloMidGameConnects[CANT_HILOS_RECONEXION];
@@ -34,9 +32,26 @@ Juego* juego;
 //pthread_mutex_t mutexProcesar							// ya no haria falta porque hay un solo thread modificando el juego
 pthread_mutex_t mutexQueue;
 pthread_mutex_t mutexPushCliente;
+pthread_mutex_t mutexTimer[4];
 
 queue <struct informacionRec> colaInfoDeClientes;
 
+int tiempoEsperaSend[4];
+
+
+void* timer(void*arg){
+	int * arg_ptr = (int*)arg;
+	int numberOfClient = *arg_ptr;
+	Logger::getInstance()->log(DEBUG, "Hilo Timer creado");
+	while (tiempoEsperaSend[numberOfClient] <= 5){
+		sleep(1);
+		pthread_mutex_lock(&mutexTimer[numberOfClient]);
+		tiempoEsperaSend[numberOfClient] ++;
+		pthread_mutex_unlock(&mutexTimer[numberOfClient]);
+	}
+	Logger::getInstance()->log(ERROR, "Tiempo de espera maximo alcanzado. Desconcetando al Jugador " + std::to_string(numberOfClient));
+	juego->desconexionDeJugador(numberOfClient);
+}
 
 void* message_send(void*arg){
 	while(1){
@@ -90,6 +105,8 @@ void* message_send(void*arg){
 void* message_recieve(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
+	tiempoEsperaSend[numberOfClient] = 0;
+	pthread_create(&hiloTimer[numberOfClient],NULL,timer,&numberOfClient);
 	while(1){
 		//Logger::getInstance()->log(DEBUG, "Recibiendo informacion del cliente numero " + to_string(numberOfClient) + ".");
 
@@ -107,6 +124,10 @@ void* message_recieve(void*arg){
 			colaInfoDeClientes.push(infoRecv);
 			pthread_mutex_unlock(&mutexQueue);
 		}
+
+		pthread_mutex_lock(&mutexTimer[numberOfClient]);
+		tiempoEsperaSend[numberOfClient] =0;
+		pthread_mutex_unlock(&mutexTimer[numberOfClient]);
 
 	}
 }
