@@ -13,6 +13,8 @@
 #define CANT_CAPAS 3
 #define CANT_SPRITES 5
 
+#define MAX_CANT_VALOR 50		//un valor asignado mediante asignarValor no puede superar esta cantidad, sino ira al default
+
 #include <string>
 
 #include <vector>
