@@ -101,10 +101,13 @@ void Juego::cambiarDeNivel(){
 		jugador->seCambioElNivel(jugador->getDibujable());
 	}
 
+	vector<bool> activos = nivel->getJugadoresActivos();
+
 	delete(nivel);
 
 	nivel = new Nivel(2,jugadores, cuchillos, cajas, canios, barriles, enemigos);
 
+	nivel->setJugadoresActivos(activos);
 }
 
 void Juego::chequearCambioDeNivel() {

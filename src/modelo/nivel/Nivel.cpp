@@ -433,6 +433,14 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 }
 
+
+vector<bool> Nivel::getJugadoresActivos() {
+	return this->jugadoresActivos;
+}
+void Nivel::setJugadoresActivos(vector<bool> jugadores) {
+	this->jugadoresActivos = jugadores;
+}
+
 void Nivel::desconexionDeJugador(int i) {
 	jugadoresActivos[i] = false;
 }

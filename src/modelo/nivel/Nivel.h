@@ -80,6 +80,9 @@ public:
 
 	bool esPrimerNivel() {return this->numeroNivel==1;};
 
+	vector<bool> getJugadoresActivos();
+	void setJugadoresActivos(vector<bool> jugadores);
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();
