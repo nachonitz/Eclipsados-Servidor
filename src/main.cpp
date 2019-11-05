@@ -18,11 +18,12 @@ int cantDesconectados = 0;
 int cantClientes = 0;	// se leera del XML
 int midGame = 0;
 
-pthread_t hiloSendBroadcast;
+pthread_t hiloSendBroadcast[4];
 pthread_t hiloDesconexionJugadores;
 pthread_t hiloRecieveMessage[4];
 pthread_t hiloValidarCredenciales[4];
 pthread_t hiloTimer[4];
+pthread_t procesarInformacion;
 pthread_mutex_t mutexNivel;
 
 pthread_t hiloMidGameConnects[CANT_HILOS_RECONEXION];
@@ -33,29 +34,31 @@ Juego* juego;
 pthread_mutex_t mutexQueue;
 pthread_mutex_t mutexPushCliente;
 pthread_mutex_t mutexTimer[4];
+pthread_mutex_t mutexDesconexion[4];
 
 queue <struct informacionRec> colaInfoDeClientes;
 
 int tiempoEsperaSend[4];
+bool matarHilo[4] = {false, false, false, false};
 
 
 void* timer(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
-	Logger::getInstance()->log(DEBUG, "Hilo Timer creado");
+	Logger::getInstance()->log(DEBUG, "Hilo Timer creado " + std::to_string(numberOfClient));
 	while (tiempoEsperaSend[numberOfClient] <= 5){
 		sleep(1);
 		pthread_mutex_lock(&mutexTimer[numberOfClient]);
-		tiempoEsperaSend[numberOfClient] = tiempoEsperaSend[numberOfClient] + 1;
+		tiempoEsperaSend[numberOfClient] ++;
 		pthread_mutex_unlock(&mutexTimer[numberOfClient]);
 	}
 	Logger::getInstance()->log(ERROR, "Tiempo de espera maximo alcanzado. Desconcetando al Jugador " + std::to_string(numberOfClient));
 	juego->desconexionDeJugador(numberOfClient);
+	matarHilo[numberOfClient] = true;
 }
 
-void* message_send(void*arg){
+void* procesar_info(void*arg){
 	while(1){
-
 		// vaciar TODA la cola y procesar toda la info
 		//Logger::getInstance()->log(DEBUG, "Procesando datos recibidos.");
 		pthread_mutex_lock(&mutexQueue);				//<-- creeria que, en rigor, deberian ir esos mutex pero no estoy seguro
@@ -64,40 +67,49 @@ void* message_send(void*arg){
 			juego->procesarInfo(info);
 			colaInfoDeClientes.pop();
 		}
-		pthread_mutex_unlock(&mutexQueue);
 
 		// actualizar modelo
 		juego->moverEnemigos();
 		juego->actualizarAnimaciones();
+		pthread_mutex_unlock(&mutexQueue);
+
 
 		pthread_mutex_lock(&mutexNivel);
 		juego->chequearCambioDeNivel();
 		pthread_mutex_unlock(&mutexNivel);
 
+		SDL_Delay(FRAME_DELAY);
+	}
 
 		//Logger::getInstance()->log(DEBUG, "Obteniendo informacion actual del modelo.");
+}
+
+void* message_send(void*arg){
+	int * arg_ptr = (int*)arg;
+	int numberOfClient = *arg_ptr;
+	while(!matarHilo[numberOfClient]){
 
 		// enviar
 		struct informacionEnv info = juego->getInformacion();
 
 		//Logger::getInstance()->log(DEBUG, "Enviando info a clientes...");
 
-		for (int i = 0; i < cantClientes; i++) {
 
-			if (juego->jugadorConectado(i)) {
+		if (juego->jugadorConectado(numberOfClient)) {
 
-				//Logger::getInstance()->log(DEBUG, "Enviando informacion a jugador conectado: " + std::to_string(i));
+			//Logger::getInstance()->log(DEBUG, "Enviando informacion a jugador conectado: " + std::to_string(i));
 
-				int resultSend = servidor.sendInfo(clientes[i]->getSocket(),info);
+			int resultSend = servidor.sendInfo(clientes[numberOfClient]->getSocket(),info);
 
-				if (resultSend <= 0) {
-					juego->desconexionDeJugador(i);
-					Logger::getInstance()->log(ERROR, "Jugador " + std::to_string(i) + " desconectado! Nombre: " + clientes[i]->getUsuario());
-				}
-				else
-					juego->conexionDeJugador(i);
+			if (resultSend <= 0) {
+				juego->desconexionDeJugador(numberOfClient);
+				Logger::getInstance()->log(ERROR, "Jugador " + std::to_string(numberOfClient) + " desconectado! Nombre: " + clientes[numberOfClient]->getUsuario());
+				matarHilo[numberOfClient] = true;
 			}
+			else
+				juego->conexionDeJugador(numberOfClient);
 		}
+
 		SDL_Delay(FRAME_DELAY);
 	}
 }
@@ -105,14 +117,15 @@ void* message_send(void*arg){
 void* message_recieve(void*arg){
 	int * arg_ptr = (int*)arg;
 	int numberOfClient = *arg_ptr;
-	tiempoEsperaSend[numberOfClient] = 0;
-	pthread_create(&hiloTimer[numberOfClient],NULL,timer,&numberOfClient);
-	while(1){
+	/*tiempoEsperaSend[numberOfClient] = 0;
+	pthread_create(&hiloTimer[numberOfClient],NULL,timer,&numberOfClient);*/
+	while(!matarHilo[numberOfClient]){
 		//Logger::getInstance()->log(DEBUG, "Recibiendo informacion del cliente numero " + to_string(numberOfClient) + ".");
 
 		struct informacionRec infoRecv = clientes[numberOfClient]->recieveInfo();
 
 		if (!juego->jugadorConectado(numberOfClient)) {
+			matarHilo[numberOfClient] = true;
 			break;
 		}
 
@@ -143,8 +156,6 @@ void* manageMidGameConnects(void* arg) {
 	pthread_create(&hiloMidGameConnects[midGame],NULL,manageMidGameConnects,0);
 
 	Logger::getInstance()->log(INFO, "Cliente conectado a medio juego! Pidiendo credenciales");
-
-	int i = 0;
 
 	while(!credencialesCliente.credencialValida){
 		credencialesCliente = cliente->recieveCredentials();
@@ -177,9 +188,14 @@ void* manageMidGameConnects(void* arg) {
 			clientes[i] = cliente;
 			tiempoEsperaSend[i] = 0;
 			noMandoNada = true;
+			matarHilo[i] = false;
 			send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
 			juego->conexionDeJugador(i);
 			pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
+			pthread_create(&hiloSendBroadcast[i],NULL,message_send,&clientNumbers[i]);
+			pthread_mutex_init(&mutexTimer[i],NULL);
+			pthread_create(&hiloTimer[i],NULL,timer,&clientNumbers[i]);
+			tiempoEsperaSend[i] = 0;
 			break;
 		}
 
@@ -314,18 +330,27 @@ int main(int argc, char *argv[]) {
 
 
 	//-> Comienzo hilos de juego
-	pthread_create(&hiloSendBroadcast,NULL,message_send,NULL);
+	pthread_create(&procesarInformacion,NULL,procesar_info,NULL);
+
+	for (int i = 0; i < cantClientes; i++) {
+		pthread_create(&hiloSendBroadcast[i],NULL,message_send,&clientNumbers[i]);
+	}
 	pthread_create(&hiloDesconexionJugadores,NULL,desconexion_jugadores,NULL);
 
 	for (int i = 0; i < cantClientes; i++) {
+		pthread_mutex_init(&mutexTimer[clientNumbers[i]],NULL);
+		pthread_create(&hiloTimer[i],NULL,timer,&clientNumbers[i]);
 		pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
+		tiempoEsperaSend[clientNumbers[i]] = 0;
 	}
 
 	pthread_create(&hiloMidGameConnects[midGame],NULL,manageMidGameConnects,0);
 
 	Logger::getInstance()->log(DEBUG, "Inicializar JOIN en main.");
 
-	pthread_join(hiloSendBroadcast,NULL);
+	for (int i = 0; i < cantClientes; i++) {
+		pthread_join(hiloSendBroadcast[i],NULL);
+	}
 	pthread_join(hiloDesconexionJugadores,NULL);
 
 	for (int i = 0; i < cantClientes; i++) {
