@@ -61,6 +61,7 @@ private:
 
 	bool terminoElNivel();
 	void cambiarDeNivel();
+	bool cambiandoNivel[MAX_CLIENTES];
 
 
 };

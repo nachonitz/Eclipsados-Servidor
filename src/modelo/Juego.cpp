@@ -15,6 +15,8 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 		this->golpear[i] = false;
 		this->saltando[i] = false;
 		this->direccionSalto[i] = 0;
+		this->cambiandoNivel[i] = false;
+
 	}
 
 	FactoryEntidadUbicada factory;
@@ -113,6 +115,9 @@ void Juego::cambiarDeNivel(){
 void Juego::chequearCambioDeNivel() {
 	if(terminoElNivel() && nivel->esPrimerNivel()){
 		cambiarDeNivel();
+		for(int i = 0; i < MAX_CLIENTES; i++){
+			cambiandoNivel[i] = true;
+		}
 	}
 }
 
@@ -121,6 +126,11 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 
 	int numeroDeCliente = infoRec.numeroDeCliente;
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
+
+	if(cambiandoNivel[numeroDeCliente]){
+		cambiandoNivel[numeroDeCliente] = false;
+		saltando[numeroDeCliente] = false;
+	}
 
 	if(!saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
 		switch(infoRec.movimiento){
