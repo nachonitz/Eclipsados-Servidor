@@ -3,21 +3,30 @@
 	<jugadores>2</jugadores>
 	<escenario>
 		<cantidades>
-			<cuchillo>45</cuchillo>
-			<barril>45</barril>
-			<canio>45</canio>
-			<caja>45</caja>
-			<enemigo>45</enemigo>
+			<cuchillo>5</cuchillo>
+			<barril>5</barril>
+			<canio>5</canio>
+			<caja>5</caja>
+			<enemigo>10</enemigo>
 		</cantidades>
 	</escenario>
 	<usuarios>
 		<usuario>
-			<nombre>hola</nombre>
-			<password>hola</password>
+			<nombre>franco</nombre>
+			<password>1234</password>
 		</usuario>
 		<usuario>
-			<nombre>custom</nombre>
-			<password>hola</password>
+			<nombre>nacho</nombre>
+			<password>1234</password>
 		</usuario>
+		<usuario>
+			<nombre>facu</nombre>
+			<password>1234</password></usuario>
+		<usuario>
+			<nombre>lucas</nombre>
+			<password>1234</password></usuario>
+		<usuario>
+			<nombre>Usuario_99</nombre>
+			<password>Password</password></usuario>
 	</usuarios>
 </configuracionServidor>

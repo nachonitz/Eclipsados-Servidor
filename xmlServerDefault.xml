@@ -13,15 +13,15 @@
 	<usuarios>
 		<usuario>
 			<nombre>franco</nombre>
-			<password>1234</password>
+			<password>pass</password>
 		</usuario>
 		<usuario>
 			<nombre>nacho</nombre>
-			<password>hola</password>
+			<password>pass</password>
 		</usuario>
 		<usuario>
 			<nombre>facu</nombre>
-			<password>gato</password>
+			<password>pass</password>
 		</usuario>
 		<usuario>
 			<nombre>linux</nombre>
