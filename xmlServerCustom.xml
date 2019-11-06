@@ -1,6 +1,6 @@
 <configuracionServidor>
 	<debugLevel>DEBUG</debugLevel>
-	<jugadores>4</jugadores>
+	<jugadores>2</jugadores>
 	<escenario>
 		<cantidades>
 			<cuchillo>45</cuchillo>
