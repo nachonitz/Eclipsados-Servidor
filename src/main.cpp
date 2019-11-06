@@ -162,8 +162,13 @@ void* manageMidGameConnects(void* arg) {
 		servidor.verificarCredenciales(&credencialesCliente, usuarios);
 
 		for(int i = 0; i < cantClientes; i++){
-			if(clientes[i]->tieneEstasCredenciales(credencialesCliente) && !juego->jugadorConectado(i)){
-				credencialesCliente.myIdx = clientes[i]->getIDx();
+			if(clientes[i]->tieneEstasCredenciales(credencialesCliente)){
+				if(!juego->jugadorConectado(i)){
+					credencialesCliente.myIdx = clientes[i]->getIDx();
+				}
+				else{
+					credencialesCliente.credencialValida = false;
+				}
 			}
 		}
 
