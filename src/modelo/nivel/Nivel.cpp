@@ -42,6 +42,8 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 		enemigoActual->setAnimacionActual(caminarEnemigo, SDL_FLIP_NONE);
 	}
 
+	this->ia = new IA(enemigos, jugadores);
+
 }
 
 void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
@@ -454,7 +456,8 @@ bool Nivel::jugadorConectado(int i) {
 }
 
 void Nivel::moverEnemigos(){
-
+	this->ia->moverEnemigos(this->pos_borde_derecha, this->pos_borde_izquierda);
+	/*
 	for (int i = 0; i < enemigos.size(); i++){
 		Enemigo* enemigoDibujable = (Enemigo*) enemigos[i]->getDibujable();
 		SDL_RendererFlip flip = enemigoDibujable->getFlip();
@@ -480,7 +483,7 @@ void Nivel::moverEnemigos(){
 				enemigos[i]->moverLocalIzquierda();
 			}
 		}
-	}
+	}*/
 
 }
 Personaje* Nivel::getPersonaje(int numeroJugador) {

@@ -14,6 +14,7 @@
 #include "../../Logger.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "IA.h"
 //#include "cody.h"
 struct animado{
 	bool estaActivo;
@@ -59,6 +60,9 @@ public:
 
 	void moverCapaDerecha(){moverCapasIzquierda();}
 
+	int get_pos_borde_derecho(){return this->pos_borde_derecha;}
+	int get_pos_borde_izquierdo(){return this->pos_borde_izquierda;}
+
 	void actualizarAnimaciones();
 	struct informacionEnv getInformacion();
 
@@ -96,6 +100,8 @@ private:
 
 	void inicializarCiclos(EntidadUbicada* jugador);
 
+
+
 	int generarXaleatorio();
 	int generarYaleatorio();
 	int generarYaleatorioObjetos();
@@ -117,6 +123,8 @@ private:
 
 	std::vector<EntidadUbicada*> enemigos;
 	std::vector<EntidadUbicada*> elementos;
+
+	IA* ia;
 
 	vector<EntidadUbicada*> jugadores;
 	vector<bool>jugadoresActivos;
