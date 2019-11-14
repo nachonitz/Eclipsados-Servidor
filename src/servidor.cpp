@@ -19,6 +19,13 @@ Servidor::~Servidor(){
 int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 	int enviado = 0;
 	while(enviado < sizeof(int)){
+		enviado += send(clientSocket, &info.nivelActual+enviado, sizeof(info.nivelActual)-enviado, MSG_NOSIGNAL);
+		if (enviado < 0){
+			return -1;
+		}
+	}
+	enviado = 0;
+	while(enviado < sizeof(int)){
 		enviado += send(clientSocket, &info.cantAnimados+enviado, sizeof(info.cantAnimados)-enviado, MSG_NOSIGNAL);
 		if (enviado < 0){
 			return -1;

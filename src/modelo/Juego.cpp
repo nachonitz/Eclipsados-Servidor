@@ -242,8 +242,6 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 		animacionActual[numeroDeCliente] = infoRec.animacionActual;
 	}
 
-	//nivel->actualizarAnimaciones();
-
 }
 
 

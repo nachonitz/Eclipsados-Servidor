@@ -42,6 +42,7 @@ struct informacionEnv{
 	int cantAnimados;
 	int cantElementos;
 	int cantJugadores;
+	int nivelActual;
 };
 class Nivel {
 public:

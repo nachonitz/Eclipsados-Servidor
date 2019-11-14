@@ -6,8 +6,8 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	this->numeroNivel = numeroNivel;
 
-	musicaFondo = new Sonido(numeroNivel);
-	(*musicaFondo).play();
+	/*musicaFondo = new Sonido(numeroNivel);
+	(*musicaFondo).play();*/
 
 	this->jugadores = jugadores;
 
@@ -66,7 +66,7 @@ void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
 
 Nivel::~Nivel() {
 	//delete cody;
-	delete musicaFondo;
+	//delete musicaFondo;
 
 	for (uint i = 0; i < elementos.size(); i++) {
 		delete elementos[i];
@@ -156,6 +156,7 @@ struct informacionEnv Nivel::getInformacion(){
 	info.cantAnimados = enemigos.size() + jugadores.size();
 	info.cantElementos = elementos.size();
 	info.cantJugadores = jugadores.size();
+	info.nivelActual = this->numeroNivel;
 
 	return info;
 }
