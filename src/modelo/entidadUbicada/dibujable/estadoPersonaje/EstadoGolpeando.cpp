@@ -27,7 +27,7 @@ EstadoGolpeando::~EstadoGolpeando() {
 }
 
 EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
-
+	return this;
 }
 
 

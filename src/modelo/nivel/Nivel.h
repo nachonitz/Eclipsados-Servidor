@@ -99,7 +99,7 @@ private:
 	void moverJugadoresDerechaExcepto(int numeroJugador);
 	void moverJugadoresIzquierdaExcepto(int numeroJugador);
 
-	void inicializarCiclos(EntidadUbicada* jugador);
+	//void inicializarCiclos(EntidadUbicada* jugador);
 
 
 

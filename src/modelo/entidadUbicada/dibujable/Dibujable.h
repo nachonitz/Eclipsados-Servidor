@@ -41,7 +41,7 @@ public:
 	int getWidth(){return src.w;}
 	int getHeight(){return src.h;}
 
-	virtual void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) = 0;
+	//virtual void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) = 0;
 
 protected:
 	SDL_Texture* tex;

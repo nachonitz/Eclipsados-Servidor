@@ -15,7 +15,8 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 		jugadoresActivos.push_back(true);
 	}
 	for (EntidadUbicada* entidad : jugadores) {
-		inicializarCiclos(entidad);
+		Personaje* personaje = (Personaje*)entidad->getDibujable();
+		personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
 	}
 
 	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
@@ -45,7 +46,7 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 	this->ia = new IA(enemigos, jugadores);
 
 }
-
+/*
 void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
 
 	Personaje* personaje = (Personaje*)jugador->getDibujable();
@@ -62,7 +63,7 @@ void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
 	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
 	personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
 	personaje->updateAnim();
-}
+}*/
 
 Nivel::~Nivel() {
 	//delete cody;

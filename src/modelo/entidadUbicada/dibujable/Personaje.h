@@ -36,8 +36,8 @@ public:
 	Personaje();
 	virtual ~Personaje();
 
-	int crearCiclo(int f, int w, int h, int cant, int vel);
-	void setAnimacionActual(int c, SDL_RendererFlip flip);
+	//int crearCiclo(int f, int w, int h, int cant, int vel);
+	//void setAnimacionActual(int c, SDL_RendererFlip flip);
 	void updateAnim();
 	//void updateDest(int x, int y);
 	//SDL_Rect getDest() const {return dest;}
@@ -52,8 +52,6 @@ public:
 
 	void procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable);
 
-
-	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 };
 
 #endif /* PERSONAJE_H_ */
