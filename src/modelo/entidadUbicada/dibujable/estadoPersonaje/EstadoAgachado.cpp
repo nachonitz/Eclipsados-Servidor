@@ -29,7 +29,7 @@ EstadoAgachado::~EstadoAgachado() {
 }
 
 EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
-
+	return this;		//ninguna accion, solo animacion de momento
 }
 
 
