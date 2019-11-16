@@ -129,6 +129,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 
 
 /*
+
 	if(cambiandoNivel[numeroDeCliente]){
 		cambiandoNivel[numeroDeCliente] = false;
 		saltando[numeroDeCliente] = false;
@@ -242,7 +243,8 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	if(animacionActual[numeroDeCliente] != infoRec.animacionActual && !saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
 		cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
 		animacionActual[numeroDeCliente] = infoRec.animacionActual;
-	}*/
+	}
+*/
 
 
 }

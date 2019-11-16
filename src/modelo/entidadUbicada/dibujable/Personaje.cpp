@@ -17,7 +17,10 @@ void Personaje::procesarAccion(struct informacionRec info, EntidadUbicada& entid
 	this->estadoActual = estadoActual->procesarAccion(info, entidadResponsable);
 }
 
-
+void Personaje::resetearEstado() {
+	delete estadoActual;
+	this->estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
+}
 
 /*
 int Personaje::crearCiclo(int f, int w, int h, int cantSprites, int vel){

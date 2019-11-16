@@ -52,6 +52,8 @@ public:
 
 	void procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable);
 
+	void resetearEstado();
+
 };
 
 #endif /* PERSONAJE_H_ */

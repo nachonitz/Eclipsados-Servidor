@@ -49,9 +49,9 @@ private:
 
 	int cajas,barriles,canios,cuchillos,enemigos;
 
-	int animacionActual[MAX_CLIENTES], direccionSalto[MAX_CLIENTES];
+/*	int animacionActual[MAX_CLIENTES], direccionSalto[MAX_CLIENTES];
 	bool agachado[MAX_CLIENTES],golpear[MAX_CLIENTES],saltando[MAX_CLIENTES];
-	double alturaActualSalto[MAX_CLIENTES], alturaMaximaSalto[MAX_CLIENTES];
+	double alturaActualSalto[MAX_CLIENTES], alturaMaximaSalto[MAX_CLIENTES];*/
 
 	bool terminoElNivel();
 	void cambiarDeNivel();
