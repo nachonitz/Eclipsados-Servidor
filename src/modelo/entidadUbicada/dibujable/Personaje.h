@@ -7,6 +7,8 @@ using namespace  std;
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
+#include "estadoPersonaje/EstadoQuieto.h"
+
 
 //#define SPEED 10
 
@@ -22,13 +24,13 @@ private:
 		int vel;
 		int tick;
 	};
-	vector<cycle> animaciones;
-	SDL_Texture* tex;
+	//vector<cycle> animaciones;
+/*	SDL_Texture* tex;
 	SDL_RendererFlip spriteFlip;
 	int animActual;
-	int empezar;
-	bool rev,nAb;
-	int newAnim;
+	int empezar;*/
+
+	EstadoPersonaje* estadoActual;
 
 public:
 	Personaje();
@@ -41,12 +43,14 @@ public:
 	//SDL_Rect getDest() const {return dest;}
 	//SDL_Rect getSource() const {return src;}
 	//SDL_Texture* getTexture() const {return tex;}
-	SDL_RendererFlip getFlip() const {return spriteFlip;}
-	int getTicks(){return animaciones[animActual].tick;}
+	SDL_RendererFlip getFlip() const {return estadoActual->getFlip();}
+	int getTicks(){return estadoActual->getTicks();}
 	//void setDest(int x, int y, int w, int h);
 	//void setSource(int x, int y, int w, int h);
 	//void setImage(SDL_Renderer *ren);
 	bool llegoAlBorde(int Xpos, int WindowSizeHorizontal);
+
+	void procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable);
 
 
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);

@@ -5,12 +5,6 @@
 #include "entidadUbicada/dibujable/Personaje.h"
 #include "nivel/Nivel.h"
 
-struct informacionRec{
-	int animacionActual;
-	int movimiento;
-	SDL_RendererFlip flip;
-	int numeroDeCliente;
-};
 
 
 class Juego {

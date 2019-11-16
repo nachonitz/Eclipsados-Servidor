@@ -10,13 +10,7 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->enemigos = cantEnemigos;
 
 	for (int i = 0; i < MAX_CLIENTES; i++){
-		this->animacionActual[i] = ACCION_PARADO;
-		this->agachado[i] = false;
-		this->golpear[i] = false;
-		this->saltando[i] = false;
-		this->direccionSalto[i] = 0;
 		this->cambiandoNivel[i] = false;
-
 	}
 
 	FactoryEntidadUbicada factory;
@@ -29,6 +23,8 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 
   Logger::getInstance()->log(INFO, "******** NIVEL 1 ********");
 	this-> nivel = new Nivel(1,jugadores, cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos);
+
+	EstadoPersonaje::setNivel(nivel);
 
 }
 
@@ -110,6 +106,8 @@ void Juego::cambiarDeNivel(){
 	nivel = new Nivel(2,jugadores, cuchillos, cajas, canios, barriles, enemigos);
 
 	nivel->setJugadoresActivos(activos);
+
+	EstadoPersonaje::setNivel(nivel);
 }
 
 void Juego::chequearCambioDeNivel() {
@@ -127,6 +125,10 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	int numeroDeCliente = infoRec.numeroDeCliente;
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
+	cody->procesarAccion(infoRec, *jugadores[numeroDeCliente]);
+
+/*
+
 	if(cambiandoNivel[numeroDeCliente]){
 		cambiandoNivel[numeroDeCliente] = false;
 		saltando[numeroDeCliente] = false;
@@ -143,7 +145,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 				case DOWN: this->movimientoAbajo(numeroDeCliente);
 				break;
 				case STAND: break;
-			}
+		}
 	}
 
 	if(!saltando[numeroDeCliente] && !agachado[numeroDeCliente] && !golpear[numeroDeCliente]){
@@ -241,6 +243,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 		cody->setAnimacionActual(infoRec.animacionActual, infoRec.flip);
 		animacionActual[numeroDeCliente] = infoRec.animacionActual;
 	}
+*/
 
 }
 

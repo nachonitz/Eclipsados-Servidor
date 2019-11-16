@@ -1,6 +1,15 @@
 #ifndef SRC_DEFS_H_
 #define SRC_DEFS_H_
 
+#include "SDL2/SDL_image.h"
+
+struct informacionRec{
+	int animacionActual;
+	int movimiento;
+	SDL_RendererFlip flip;
+	int numeroDeCliente;
+};
+
 
 #define WINDOW_SIZE_HORIZONTAL 800
 #define WINDOW_SIZE_VERTICAL 600
@@ -32,12 +41,16 @@
 #define SALTO_DERECHA 1
 #define SALTO_IZQUIERDA 2
 
+
+//infoRec.movimiento
 #define RIGHT 0
 #define LEFT 1
 #define UP 2
 #define DOWN 3
 #define STAND 4
 
+
+//infoRec.animacionActual:
 #define ACCION_PARADO 0
 #define ACCION_CAMINAR 1
 #define ACCION_SALTO 2

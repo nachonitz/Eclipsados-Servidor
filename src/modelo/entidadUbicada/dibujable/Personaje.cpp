@@ -1,6 +1,10 @@
 #include "Personaje.h"
 
 Personaje::Personaje() {
+
+	estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
+
+
 	this->imagen = "sprites/SpriteCodyCompleto.png";
 }
 
@@ -9,37 +13,38 @@ Personaje::~Personaje() {
 	//SDL_DestroyTexture(tex); Lo saco porque lo hice en dibujable
 }
 
+void Personaje::procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable) {
+	this->estadoActual = estadoActual->procesarAccion(info, entidadResponsable);
+}
+
+
 
 int Personaje::crearCiclo(int f, int w, int h, int cantSprites, int vel){
-	cycle tmp;
-	tmp.fil=f-1;
-	tmp.w=w;
-	tmp.cantSprites=cantSprites;
-	tmp.vel=vel;
-	tmp.tick=0;
-	tmp.h = h;
-	animaciones.push_back(tmp);
+	cycle ciclo;
+	ciclo.fil=f-1;
+	ciclo.w=w;
+	ciclo.cantSprites=cantSprites;
+	ciclo.vel=vel;
+	ciclo.tick=0;
+	ciclo.h = h;
+/*
+	animaciones.push_back(ciclo);
 	return animaciones.size()-1;
+*/
+
 }
 
 void Personaje::updateAnim(){
 
-	setSource(animaciones[animActual].w*animaciones[animActual].tick, animaciones[animActual].fil*animaciones[animActual].h, animaciones[animActual].w, animaciones[animActual].h);
-	if(empezar>animaciones[animActual].vel){
-		animaciones[animActual].tick++;
-		empezar=0;
-	}
-	empezar++;
-	if(animaciones[animActual].tick >= animaciones[animActual].cantSprites) {
-		animaciones[animActual].tick = 0;
-	}
+	estadoActual = estadoActual->actualizarAnimacion(src);
+
 }
 
 void Personaje::setAnimacionActual(int c, SDL_RendererFlip flip) {
-	empezar = 0;
+/*	empezar = 0;
 	animaciones[c].tick = 0;
 	animActual = c;
-	spriteFlip = flip;
+	spriteFlip = flip;*/
 }
 /*
 bool Personaje::llegoAlBorde(int Xpos, int WindowSizeHorizontal){
