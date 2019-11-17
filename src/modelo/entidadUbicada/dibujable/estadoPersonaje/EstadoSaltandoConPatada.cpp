@@ -10,7 +10,7 @@
 
 #include "../../../nivel/Nivel.h"
 
-EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, int alturaInicial) {
+EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaInicial) {
 
 	alturaActualSalto = alturaInicial;
 	alturaMaximaSalto = alturaInicial + 25;
@@ -30,14 +30,13 @@ EstadoSaltandoConPatada::~EstadoSaltandoConPatada() {
 	// TODO Auto-generated destructor stub
 }
 
-EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (alturaActualSalto < alturaMaximaSalto) {
-		entidad.moverLocalSalto();
-		entidad.moverGlobalSalto();
-		alturaActualSalto = entidad.getPosicionGlobal()->getVertical();
+		nivelActual->movimientoSalto(info.numeroDeCliente);
+		alturaActualSalto = nivelActual->getAlturaJugador(info.numeroDeCliente);
 
 		resolverMovimientoHorizontal(info.numeroDeCliente);
 
@@ -45,9 +44,7 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info, En
 
 	if(alturaActualSalto > alturaMaximaSalto){
 
-		entidad.terminoGlobalSalto();
-		entidad.terminoLocalSalto();
-
+		nivelActual->terminoSalto(info.numeroDeCliente);
 		nuevoEstado = new EstadoQuieto(info.flip);
 
 	}

@@ -17,7 +17,7 @@ public:
 	EstadoQuieto(SDL_RendererFlip flip);
 	virtual ~EstadoQuieto();
 
-	EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad);
+	EstadoPersonaje* procesarAccion(informacionRec info);
 
 };
 

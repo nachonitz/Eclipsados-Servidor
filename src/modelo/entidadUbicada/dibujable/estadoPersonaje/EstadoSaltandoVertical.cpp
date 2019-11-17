@@ -8,7 +8,10 @@
 #include "EstadoQuieto.h"
 #include "EstadoSaltandoVertical.h"
 
-EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, int alturaInicial) {
+#include "../../../nivel/Nivel.h"
+
+
+EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaInicial) {
 
 	alturaActualSalto = alturaInicial;
 	alturaMaximaSalto = alturaInicial + 25;
@@ -30,21 +33,19 @@ EstadoSaltandoVertical::~EstadoSaltandoVertical() {
 }
 
 
-EstadoPersonaje* EstadoSaltandoVertical::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoSaltandoVertical::procesarAccion(informacionRec info) {
 
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (alturaActualSalto < alturaMaximaSalto) {
-		entidad.moverLocalSalto();
-		entidad.moverGlobalSalto();
-		alturaActualSalto = entidad.getPosicionGlobal()->getVertical();
+		nivelActual->movimientoSalto(info.numeroDeCliente);
+		alturaActualSalto = nivelActual->getAlturaJugador(info.numeroDeCliente);
 
 	}
 
 	if(alturaActualSalto > alturaMaximaSalto) {
 
-		entidad.terminoGlobalSalto();
-		entidad.terminoLocalSalto();
+		nivelActual->terminoSalto(info.numeroDeCliente);
 
 		nuevoEstado = new EstadoQuieto(info.flip);
 

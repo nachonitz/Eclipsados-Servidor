@@ -13,15 +13,15 @@
 
 class EstadoSaltando : public EstadoPersonaje {
 private:
-	int alturaActualSalto, alturaMaximaSalto;
+	float alturaActualSalto, alturaMaximaSalto;
 	void resolverMovimientoHorizontal(int numeroCliente);
 
 
 public:
-	EstadoSaltando(SDL_RendererFlip flip, int alturaInicial);
+	EstadoSaltando(SDL_RendererFlip flip, float alturaInicial);
 	virtual ~EstadoSaltando();
 
-	EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad);
+	EstadoPersonaje* procesarAccion(informacionRec info);
 
 };
 

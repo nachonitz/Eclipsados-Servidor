@@ -12,7 +12,7 @@
 
 
 
-EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, int alturaInicial) {
+EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial) {
 
 	alturaActualSalto = alturaInicial;
 	alturaMaximaSalto = alturaInicial + 25;
@@ -33,14 +33,13 @@ EstadoSaltando::~EstadoSaltando() {
 	// TODO Auto-generated destructor stub
 }
 
-EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info) {
 
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (alturaActualSalto < alturaMaximaSalto) {
-		entidad.moverLocalSalto();
-		entidad.moverGlobalSalto();
-		alturaActualSalto = entidad.getPosicionGlobal()->getVertical();
+		nivelActual->movimientoSalto(info.numeroDeCliente);
+		alturaActualSalto = nivelActual->getAlturaJugador(info.numeroDeCliente);
 
 		resolverMovimientoHorizontal(info.numeroDeCliente);
 
@@ -48,8 +47,7 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info, EntidadUbic
 
 	if(alturaActualSalto > alturaMaximaSalto){
 
-		entidad.terminoGlobalSalto();
-		entidad.terminoLocalSalto();
+		nivelActual->terminoSalto(info.numeroDeCliente);
 
 		nuevoEstado = new EstadoQuieto(info.flip);
 

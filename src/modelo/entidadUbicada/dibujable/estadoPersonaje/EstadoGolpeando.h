@@ -15,7 +15,7 @@ public:
 	EstadoGolpeando(SDL_RendererFlip flip);
 	virtual ~EstadoGolpeando();
 
-	EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad);
+	EstadoPersonaje* procesarAccion(informacionRec info);
 
 };
 

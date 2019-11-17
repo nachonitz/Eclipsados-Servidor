@@ -14,6 +14,9 @@
 #include "EstadoSaltandoConPatada.h"
 #include "EstadoSaltandoVertical.h"
 
+#include "../../../nivel/Nivel.h"
+
+
 
 EstadoQuieto::EstadoQuieto(SDL_RendererFlip flip) {
 
@@ -32,14 +35,14 @@ EstadoQuieto::~EstadoQuieto() {
 	// TODO Auto-generated destructor stub
 }
 
-EstadoPersonaje* EstadoQuieto::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoQuieto::procesarAccion(informacionRec info) {
 
 	EstadoPersonaje* nuevoEstado = this;
 
 	switch(info.animacionActual){
 
 		case ACCION_SALTO_VERTICAL:
-			nuevoEstado = new EstadoSaltandoVertical(info.flip, entidad.getPosicionGlobal()->getVertical());
+			nuevoEstado = new EstadoSaltandoVertical(info.flip, nivelActual->getAlturaJugador(info.numeroDeCliente));
 			break;
 
 		case ACCION_GOLPEAR:

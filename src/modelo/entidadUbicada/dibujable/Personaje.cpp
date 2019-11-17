@@ -17,9 +17,9 @@ Personaje::~Personaje() {
 	//SDL_DestroyTexture(tex); Lo saco porque lo hice en dibujable
 }
 
-void Personaje::procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable) {
+void Personaje::procesarAccion(struct informacionRec info) {
 
-	this->estadoActual = estadoActual->procesarAccion(info, entidadResponsable);
+	this->estadoActual = estadoActual->procesarAccion(info);
 
 }
 

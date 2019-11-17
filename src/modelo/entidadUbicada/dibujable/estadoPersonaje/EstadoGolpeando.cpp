@@ -26,7 +26,7 @@ EstadoGolpeando::~EstadoGolpeando() {
 	// TODO Auto-generated destructor stub
 }
 
-EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info) {
 	if (ciclo.tick < 0)
 		return new EstadoQuieto(info.flip);
 

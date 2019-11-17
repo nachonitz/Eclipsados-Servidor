@@ -50,7 +50,7 @@ public:
 	//void setImage(SDL_Renderer *ren);
 	bool llegoAlBorde(int Xpos, int WindowSizeHorizontal);
 
-	void procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable);
+	void procesarAccion(struct informacionRec info);
 
 	void resetearEstado();
 

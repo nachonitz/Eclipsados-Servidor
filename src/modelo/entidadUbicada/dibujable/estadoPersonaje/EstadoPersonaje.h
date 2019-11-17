@@ -15,7 +15,7 @@ class Nivel;
 class EstadoPersonaje {
 public:
 
-	virtual EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad) = 0;
+	virtual EstadoPersonaje* procesarAccion(informacionRec info) = 0;
 
 	virtual void actualizarAnimacion(SDL_Rect& srcDibujable);
 

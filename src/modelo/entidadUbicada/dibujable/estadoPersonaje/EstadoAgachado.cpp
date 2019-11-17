@@ -28,7 +28,7 @@ EstadoAgachado::~EstadoAgachado() {
 	// TODO Auto-generated destructor stub
 }
 
-EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info) {
 
 	if (ciclo.tick < 0)
 		return new EstadoQuieto(info.flip);

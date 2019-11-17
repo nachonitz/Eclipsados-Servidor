@@ -34,7 +34,7 @@ EstadoCaminando::~EstadoCaminando() {
 	// TODO Auto-generated destructor stub
 }
 
-EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
 	/*if (info.animacionActual != ACCION_CAMINAR)
 		throw std::invalid_argument("EstadoCaminando: intento procesar animacionActual != ACCION_CAMINAR!");
 	*/
@@ -42,14 +42,14 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info, EntidadUbi
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (info.animacionActual == ACCION_CAMINAR) {
-		seguirCaminando(info, entidad);
+		seguirCaminando(info);
 		return nuevoEstado;
 	}
 
 	switch(info.animacionActual){
 
 		case ACCION_SALTO:
-			nuevoEstado = new EstadoSaltando(info.flip, entidad.getPosicionGlobal()->getVertical());
+			nuevoEstado = new EstadoSaltando(info.flip, nivelActual->getAlturaJugador(info.numeroDeCliente));
 			break;
 
 		case ACCION_GOLPEAR:
@@ -61,7 +61,7 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info, EntidadUbi
 			break;
 
 		case ACCION_SALTO_PATADA:
-			nuevoEstado = new EstadoSaltandoConPatada(info.flip, entidad.getPosicionGlobal()->getVertical());
+			nuevoEstado = new EstadoSaltandoConPatada(info.flip, nivelActual->getAlturaJugador(info.numeroDeCliente));
 			break;
 
 		case ACCION_PARADO:
@@ -69,26 +69,29 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info, EntidadUbi
 			break;
 	}
 
-	return nuevoEstado->procesarAccion(info, entidad);
-
+	return nuevoEstado;
 
 }
 
 
-void EstadoCaminando::seguirCaminando(informacionRec info, EntidadUbicada& entidad) {
+void EstadoCaminando::seguirCaminando(informacionRec info) {
 	switch(info.movimiento){
-		case RIGHT: nivelActual->movimientoDerecha(info.numeroDeCliente);//this->movimientoDerecha(numeroDeCliente); //TODO:?????????????
-		break;
-		case LEFT: nivelActual->movimientoIzquierda(info.numeroDeCliente);//this->movimientoIzquierda(numeroDeCliente);
-		break;
+		case RIGHT:
+			nivelActual->movimientoDerecha(info.numeroDeCliente);
+			break;
+
+		case LEFT:
+			nivelActual->movimientoIzquierda(info.numeroDeCliente);
+			break;
+
 		case UP:
-			entidad.moverLocalArriba();
-			entidad.moverGlobalArriba();
+			nivelActual->movimientoArriba(info.numeroDeCliente);
 			break;
+
 		case DOWN:
-			entidad.moverLocalAbajo();
-			entidad.moverGlobalAbajo();
+			nivelActual->movimientoAbajo(info.numeroDeCliente);
 			break;
+
 		case STAND: break;
 	}
 }

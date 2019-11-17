@@ -15,7 +15,7 @@ public:
 	EstadoAgachado(SDL_RendererFlip flip);
 	virtual ~EstadoAgachado();
 
-	EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad);
+	EstadoPersonaje* procesarAccion(informacionRec info);
 
 };
 

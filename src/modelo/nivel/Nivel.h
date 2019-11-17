@@ -88,6 +88,8 @@ public:
 	vector<bool> getJugadoresActivos();
 	void setJugadoresActivos(vector<bool> jugadores);
 
+	float getAlturaJugador(int numeroJugador) {return jugadores[numeroJugador]->getPosicionGlobal()->getVertical();};
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();

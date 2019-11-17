@@ -15,10 +15,10 @@ public:
 	EstadoCaminando(SDL_RendererFlip flip);
 	virtual ~EstadoCaminando();
 
-	EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad);
+	EstadoPersonaje* procesarAccion(informacionRec info);
 
 private:
-	void seguirCaminando(informacionRec info, EntidadUbicada& entidad);
+	void seguirCaminando(informacionRec info);
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ESTADOPERSONAJE_ESTADOCAMINANDO_H_ */
