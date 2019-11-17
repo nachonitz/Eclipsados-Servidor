@@ -17,12 +17,14 @@ public:
 
 	virtual EstadoPersonaje* procesarAccion(informacionRec info, EntidadUbicada& entidad) = 0;
 
-	virtual EstadoPersonaje* actualizarAnimacion(SDL_Rect& srcDibujable);
+	virtual void actualizarAnimacion(SDL_Rect& srcDibujable);
 
 	SDL_RendererFlip getFlip() const {return flip;}
 	int getTicks(){return ciclo.tick;}
 
-	static void setNivel(Nivel* nivel);
+	static void setNivel(Nivel* nivel);	//para realizar movimientos derecha o izquierda, nada mas
+
+	virtual ~EstadoPersonaje() {};
 
 protected:
 	struct cycle {

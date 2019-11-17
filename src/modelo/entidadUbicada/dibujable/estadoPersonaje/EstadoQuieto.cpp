@@ -34,7 +34,7 @@ EstadoQuieto::~EstadoQuieto() {
 
 EstadoPersonaje* EstadoQuieto::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
 
-	EstadoPersonaje* nuevoEstado;
+	EstadoPersonaje* nuevoEstado = this;
 
 	switch(info.animacionActual){
 
@@ -58,7 +58,7 @@ EstadoPersonaje* EstadoQuieto::procesarAccion(informacionRec info, EntidadUbicad
 			return this;
 	}
 
-	return nuevoEstado->procesarAccion(info, entidad);
+	return nuevoEstado;
 
 }
 

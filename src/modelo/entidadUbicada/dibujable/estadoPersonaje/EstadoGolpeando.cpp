@@ -27,7 +27,10 @@ EstadoGolpeando::~EstadoGolpeando() {
 }
 
 EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
-	return this;
+	if (ciclo.tick < 0)
+		return new EstadoQuieto(info.flip);
+
+	return this;		//ninguna accion, solo animacion de momento
 }
 
 

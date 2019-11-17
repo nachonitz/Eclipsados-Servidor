@@ -29,6 +29,10 @@ EstadoAgachado::~EstadoAgachado() {
 }
 
 EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info, EntidadUbicada& entidad) {
+
+	if (ciclo.tick < 0)
+		return new EstadoQuieto(info.flip);
+
 	return this;		//ninguna accion, solo animacion de momento
 }
 

@@ -1,5 +1,9 @@
 #include "Personaje.h"
 
+#include "../../../Logger.h"
+
+
+
 Personaje::Personaje() {
 
 	estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
@@ -14,7 +18,9 @@ Personaje::~Personaje() {
 }
 
 void Personaje::procesarAccion(struct informacionRec info, EntidadUbicada& entidadResponsable) {
+
 	this->estadoActual = estadoActual->procesarAccion(info, entidadResponsable);
+
 }
 
 void Personaje::resetearEstado() {
@@ -41,7 +47,7 @@ int Personaje::crearCiclo(int f, int w, int h, int cantSprites, int vel){
 
 void Personaje::updateAnim(){
 
-	estadoActual = estadoActual->actualizarAnimacion(src);
+	estadoActual->actualizarAnimacion(src);
 
 }
 

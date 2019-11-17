@@ -60,8 +60,6 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info, EntidadUbic
 
 void EstadoSaltando::resolverMovimientoHorizontal(int numeroCliente) {
 
-	Logger::getInstance()->log(DEBUG, "FLIP: " + std::to_string(flip) + ". NUMERO CLIENTE:" + std::to_string(numeroCliente));
-
 	if (flip == SDL_FLIP_NONE)
 		nivelActual->movimientoDerecha(numeroCliente);
 

@@ -19,7 +19,10 @@ void EstadoPersonaje::setNivel(Nivel* nivel) {
 }
 
 
-EstadoPersonaje* EstadoPersonaje::actualizarAnimacion(SDL_Rect& srcDibujable) {
+void EstadoPersonaje::actualizarAnimacion(SDL_Rect& srcDibujable) {
+
+	if (ciclo.tick < 0)
+		ciclo.tick = 0;
 
 	int x=ciclo.w*ciclo.tick, y=ciclo.fil*ciclo.h, w=ciclo.w, h=ciclo.h;
 
@@ -35,10 +38,8 @@ EstadoPersonaje* EstadoPersonaje::actualizarAnimacion(SDL_Rect& srcDibujable) {
 
 	empezar++;
 	if(ciclo.tick >= ciclo.cantSprites) {
-		ciclo.tick = 0;
-		return new EstadoQuieto(flip);
-
+		ciclo.tick = -1;
+		//return new EstadoQuieto(flip);
 	}
 
-	return this;
 };

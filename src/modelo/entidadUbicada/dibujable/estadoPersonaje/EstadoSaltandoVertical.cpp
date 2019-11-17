@@ -15,10 +15,10 @@ EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, int altura
 
 	this->flip = flip;
 
-	ciclo.fil=4;
+	ciclo.fil=5;
 	ciclo.w=120;
 	ciclo.h = 120;
-	ciclo.cantSprites=6;
+	ciclo.cantSprites=7;
 	ciclo.vel=8;
 
 	ciclo.tick=0;
@@ -41,7 +41,7 @@ EstadoPersonaje* EstadoSaltandoVertical::procesarAccion(informacionRec info, Ent
 
 	}
 
-	if(alturaActualSalto > alturaMaximaSalto){
+	if(alturaActualSalto > alturaMaximaSalto) {
 
 		entidad.terminoGlobalSalto();
 		entidad.terminoLocalSalto();
