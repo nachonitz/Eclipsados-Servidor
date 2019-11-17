@@ -56,7 +56,7 @@ public:
 	void movimientoIzquierda(int numeroJugador);
 	void movimientoDerecha(int numeroJugador);
 	void movimientoSalto(int numeroJugador);
-	void terminoSalto(int numeroJugador);
+	void terminoSalto(int numeroJugador, int alturaLocalInicial);
 	bool terminoElNivel();
 
 	void moverCapaDerecha(){moverCapasIzquierda();}
@@ -88,7 +88,9 @@ public:
 	vector<bool> getJugadoresActivos();
 	void setJugadoresActivos(vector<bool> jugadores);
 
-	float getAlturaJugador(int numeroJugador) {return jugadores[numeroJugador]->getPosicionGlobal()->getVertical();};
+	float getAlturaGlobalJugador(int numeroJugador) {return jugadores[numeroJugador]->getPosicionGlobal()->getDistanciaDelPiso();};
+
+	float getAlturaLocalJugador(int numeroJugador) {return jugadores[numeroJugador]->getDibujable()->getDest().y;};
 
 private:
 	void moverCapasDerecha();

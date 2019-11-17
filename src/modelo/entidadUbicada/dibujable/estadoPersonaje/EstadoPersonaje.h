@@ -22,7 +22,7 @@ public:
 	SDL_RendererFlip getFlip() const {return flip;}
 	int getTicks(){return ciclo.tick;}
 
-	static void setNivel(Nivel* nivel);	//para realizar movimientos derecha o izquierda, nada mas
+	static void setNivel(Nivel* nivel);
 
 	virtual ~EstadoPersonaje() {};
 

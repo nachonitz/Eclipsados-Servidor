@@ -6,6 +6,7 @@ PosicionGlobal::PosicionGlobal() {
 	x = JUGADOR_POSICION_HORIZONTAL_INICIAL;
 	y = JUGADOR_POSICION_VERTICAL_INICIAL;
 	velocidadSalto = VELOCIDAD_SALTO_INICIAL;
+	z = 0;
 }
 
 /*
@@ -31,7 +32,7 @@ void PosicionGlobal::moverArriba(){
 }
 
 void PosicionGlobal::moverSalto(){
-	y = y - velocidadSalto * DELTA_T;
+	z = z - velocidadSalto * DELTA_T;
 	velocidadSalto = velocidadSalto + DELTA_T * GRAVEDAD;
 
 }
@@ -60,10 +61,13 @@ float PosicionGlobal::getHorizontal() {
 	return x;
 }
 
-
+float PosicionGlobal::getDistanciaDelPiso() {
+	return z;
+}
 
 
 void PosicionGlobal::trasladarA(float horizontal, float vertical) {
 	x = horizontal;
 	y = vertical;
+	z=0;
 }

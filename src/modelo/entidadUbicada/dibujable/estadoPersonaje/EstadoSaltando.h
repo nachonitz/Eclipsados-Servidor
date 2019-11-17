@@ -13,7 +13,9 @@
 
 class EstadoSaltando : public EstadoPersonaje {
 private:
-	float alturaActualSalto, alturaMaximaSalto;
+	float alturaActualSalto;
+	int alturaDestInicial;
+
 	void resolverMovimientoHorizontal(int numeroCliente);
 
 

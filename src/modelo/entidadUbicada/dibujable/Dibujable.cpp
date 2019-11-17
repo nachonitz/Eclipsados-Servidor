@@ -3,6 +3,8 @@
 #include "../../../Logger.h"
 #include "ContenedorDeTexturas.h"
 
+#include <math.h>
+
 Dibujable::Dibujable() {
 	dest.x = JUGADOR_POSICION_HORIZONTAL_INICIAL;
 	dest.y = JUGADOR_POSICION_VERTICAL_INICIAL;
@@ -52,7 +54,7 @@ void Dibujable::moverAbajo(){
 }
 
 void Dibujable::moverSalto(){
-	dest.y = dest.y - velocidadSalto * DELTA_T;
+	dest.y = dest.y - round(velocidadSalto * DELTA_T);
 	velocidadSalto = velocidadSalto + DELTA_T * GRAVEDAD;
 }
 

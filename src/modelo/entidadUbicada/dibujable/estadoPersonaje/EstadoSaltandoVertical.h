@@ -12,7 +12,8 @@
 
 class EstadoSaltandoVertical: public EstadoPersonaje {
 private:
-	float alturaMaximaSalto, alturaActualSalto;
+	float alturaActualSalto;
+	int alturaDestInicial;
 
 public:
 	EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaActual);

@@ -18,10 +18,12 @@ public:
 	void moverIzquierda();
 	void moverDerecha();
 	void moverSalto();
-	void terminoSalto(){velocidadSalto = VELOCIDAD_SALTO_INICIAL;}
+	void terminoSalto(){velocidadSalto = VELOCIDAD_SALTO_INICIAL; z = 0;}
 
 	float getHorizontal();
 	float getVertical();
+	float getDistanciaDelPiso();
+
 
 	bool estaBordeDerecho(){return x >= (ANCHO_CAPA_PIXELES_ESCALADA)- (MARGEN_DERECHO + 150);}
 	bool estaBordeIzquierdo(){return x <= MARGEN_IZQUIERDO;}
@@ -31,6 +33,7 @@ public:
 private:
 	float x=0;
 	float y=0;
+	float z=0;
 	float velocidadSalto;
 };
 

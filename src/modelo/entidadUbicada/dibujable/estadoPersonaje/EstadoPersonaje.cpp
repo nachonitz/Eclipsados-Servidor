@@ -38,8 +38,7 @@ void EstadoPersonaje::actualizarAnimacion(SDL_Rect& srcDibujable) {
 
 	empezar++;
 	if(ciclo.tick >= ciclo.cantSprites) {
-		ciclo.tick = -1;
-		//return new EstadoQuieto(flip);
+		ciclo.tick = -1;	//marco a procesarAccion que termino la animacion, por si deberia cambiar de estado
 	}
 
 };

@@ -12,8 +12,8 @@
 
 EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaInicial) {
 
-	alturaActualSalto = alturaInicial;
-	alturaMaximaSalto = alturaInicial + 25;
+	alturaActualSalto = 0;
+	alturaDestInicial = round(alturaInicial);
 
 	this->flip = flip;
 	ciclo.fil=4;
@@ -34,17 +34,17 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 
 	EstadoPersonaje* nuevoEstado = this;
 
-	if (alturaActualSalto < alturaMaximaSalto) {
+	if (alturaActualSalto <= 0) {
 		nivelActual->movimientoSalto(info.numeroDeCliente);
-		alturaActualSalto = nivelActual->getAlturaJugador(info.numeroDeCliente);
+		alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
 
 		resolverMovimientoHorizontal(info.numeroDeCliente);
 
 	}
 
-	if(alturaActualSalto > alturaMaximaSalto){
+	if(alturaActualSalto > 0){
 
-		nivelActual->terminoSalto(info.numeroDeCliente);
+		nivelActual->terminoSalto(info.numeroDeCliente, alturaDestInicial);
 		nuevoEstado = new EstadoQuieto(info.flip);
 
 	}

@@ -212,8 +212,8 @@ void Nivel::movimientoSalto(int numeroJugador){
 	jugadores.at(numeroJugador)->moverGlobalSalto();
 }
 
-void Nivel::terminoSalto(int numeroJugador) {
-	jugadores.at(numeroJugador)->terminoLocalSalto();
+void Nivel::terminoSalto(int numeroJugador, int alturaLocalInicial) {
+	jugadores.at(numeroJugador)->terminoLocalSalto(alturaLocalInicial);
 	jugadores.at(numeroJugador)->terminoGlobalSalto();
 }
 

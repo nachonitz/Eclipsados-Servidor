@@ -42,7 +42,7 @@ EstadoPersonaje* EstadoQuieto::procesarAccion(informacionRec info) {
 	switch(info.animacionActual){
 
 		case ACCION_SALTO_VERTICAL:
-			nuevoEstado = new EstadoSaltandoVertical(info.flip, nivelActual->getAlturaJugador(info.numeroDeCliente));
+			nuevoEstado = new EstadoSaltandoVertical(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente));
 			break;
 
 		case ACCION_GOLPEAR:

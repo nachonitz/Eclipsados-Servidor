@@ -26,7 +26,7 @@ public:
 	void moverLocalArriba(){entidad->moverArriba();}
 	void moverLocalAbajo(){entidad->moverAbajo();}
 	void moverLocalSalto(){entidad->moverSalto();}
-	void terminoLocalSalto(){entidad->terminoSalto();}
+	void terminoLocalSalto(int alturaLocalInicial){entidad->terminoSalto(alturaLocalInicial);}
 
 	PosicionGlobal* getPosicionGlobal();
 

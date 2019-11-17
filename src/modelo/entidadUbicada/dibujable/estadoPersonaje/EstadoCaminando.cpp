@@ -49,7 +49,7 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
 	switch(info.animacionActual){
 
 		case ACCION_SALTO:
-			nuevoEstado = new EstadoSaltando(info.flip, nivelActual->getAlturaJugador(info.numeroDeCliente));
+			nuevoEstado = new EstadoSaltando(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente));
 			break;
 
 		case ACCION_GOLPEAR:
@@ -61,7 +61,7 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
 			break;
 
 		case ACCION_SALTO_PATADA:
-			nuevoEstado = new EstadoSaltandoConPatada(info.flip, nivelActual->getAlturaJugador(info.numeroDeCliente));
+			nuevoEstado = new EstadoSaltandoConPatada(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente));
 			break;
 
 		case ACCION_PARADO:

@@ -32,7 +32,7 @@ public:
 	void moverIzquierda(){dest.x -= VELOCIDAD_CODY;}
 	void moverDerecha(){dest.x += VELOCIDAD_CODY;}
 	void moverSalto();
-	void terminoSalto(){velocidadSalto = VELOCIDAD_SALTO_INICIAL;}
+	void terminoSalto(int alturaLocalInicial){velocidadSalto = VELOCIDAD_SALTO_INICIAL; dest.y = alturaLocalInicial;}
 
 
 	bool estaBordeDerecho();

@@ -57,32 +57,6 @@ void Juego::moverEnemigos(){
 	nivel->moverEnemigos();
 }
 
-void Juego::movimientoArriba(int numeroJugador) {
-	nivel->movimientoArriba(numeroJugador);
-}
-
-void Juego::movimientoSalto(int numeroJugador) {
-	nivel->movimientoSalto(numeroJugador);
-}
-
-void Juego::terminadoSalto(int numeroJugador) {
-	nivel->terminoSalto(numeroJugador);
-}
-
-void Juego::movimientoAbajo(int numeroJugador) {
-	nivel->movimientoAbajo(numeroJugador);
-}
-
-void Juego::movimientoDerecha(int numeroJugador) {
-	//nivel->moverCapaDerecha();
-	nivel->movimientoDerecha(numeroJugador);
-}
-
-
-void Juego::movimientoIzquierda(int numeroJugador) {
-	nivel->movimientoIzquierda(numeroJugador);
-}
-
 Personaje* Juego::getJugador(int numeroJugador) {
 	return nivel->getPersonaje(numeroJugador);
 }
@@ -126,6 +100,12 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
 	cody->procesarAccion(infoRec);
+
+	PosicionGlobal* pos = jugadores[numeroDeCliente]->getPosicionGlobal();
+
+	Logger::getInstance()->log(DEBUG, "JUGADOR EN: " + std::to_string(pos->getHorizontal()) + " - "  + std::to_string(pos->getVertical()) + " - " + std::to_string(pos->getDistanciaDelPiso()));
+
+	Logger::getInstance()->log(DEBUG, "SEGUN DEST: " + std::to_string(cody->getDest().x) + " - "  + std::to_string(cody->getDest().y));
 
 
 /*
