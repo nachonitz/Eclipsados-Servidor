@@ -26,6 +26,9 @@ EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial) {
 
 	ciclo.tick=0;
 
+	// hitbox[j].set(...)
+	// ...
+
 
 }
 
@@ -38,7 +41,7 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info) {
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (alturaActualSalto <= 0) {
-		nivelActual->movimientoSalto(info.numeroDeCliente);
+		nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual]);
 		alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
 
 		resolverMovimientoHorizontal(info.numeroDeCliente);
@@ -59,10 +62,10 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info) {
 void EstadoSaltando::resolverMovimientoHorizontal(int numeroCliente) {
 
 	if (flip == SDL_FLIP_NONE)
-		nivelActual->movimientoDerecha(numeroCliente);
+		nivelActual->movimientoDerecha(numeroCliente, hitbox[hbxActual]);
 
 	else if (flip == SDL_FLIP_HORIZONTAL)
-		nivelActual->movimientoIzquierda(numeroCliente);
+		nivelActual->movimientoIzquierda(numeroCliente, hitbox[hbxActual]);
 
 }
 

@@ -11,6 +11,9 @@ Caja::Caja(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(0,200,100,100);
 	setDest(x, y, 100, 100);
+
+	hitboxElemento.set(9, 4, 80, 92, 50);
+
 }
 
 Caja::~Caja() {

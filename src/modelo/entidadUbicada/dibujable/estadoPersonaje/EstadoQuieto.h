@@ -18,6 +18,12 @@ public:
 	virtual ~EstadoQuieto();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
+	virtual Hitbox getHitboxActual() {return hitbox;}
+
+
+private:
+
+	Hitbox hitbox;
 
 };
 

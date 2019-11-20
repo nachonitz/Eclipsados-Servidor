@@ -202,14 +202,34 @@ void Nivel::moverEnemigosDerecha(){
 	}
 }
 
-void Nivel::movimientoArriba(int numeroJugador){
-	jugadores.at(numeroJugador)->moverLocalArriba();
-	jugadores.at(numeroJugador)->moverGlobalArriba();
+void Nivel::movimientoArriba(int numeroJugador, Hitbox& hitbox){
+	EntidadUbicada* jugador = jugadores[numeroJugador];
+
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	hitboxUbicada.desplazarArriba();
+
+	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+		return;
+
+
+	jugador->moverLocalArriba();
+	jugador->moverGlobalArriba();
 }
 
-void Nivel::movimientoSalto(int numeroJugador){
-	jugadores.at(numeroJugador)->moverLocalSalto();
-	jugadores.at(numeroJugador)->moverGlobalSalto();
+void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox){
+
+	EntidadUbicada* jugador = jugadores[numeroJugador];
+
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	//hitboxUbicada.desplazarIzquierda();		//TODO: ARREGLAR SALTOS
+
+	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+		return;
+
+	jugador->moverLocalSalto();
+	jugador->moverGlobalSalto();
 }
 
 void Nivel::terminoSalto(int numeroJugador, int alturaLocalInicial) {
@@ -217,17 +237,62 @@ void Nivel::terminoSalto(int numeroJugador, int alturaLocalInicial) {
 	jugadores.at(numeroJugador)->terminoGlobalSalto();
 }
 
-void Nivel::movimientoAbajo(int numeroJugador){
-	jugadores.at(numeroJugador)->moverLocalAbajo();
-	jugadores.at(numeroJugador)->moverGlobalAbajo();
+void Nivel::movimientoAbajo(int numeroJugador, Hitbox& hitbox){
+
+	EntidadUbicada* jugador = jugadores[numeroJugador];
+
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	hitboxUbicada.desplazarAbajo();
+
+	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+		return;
+
+	jugador->moverLocalAbajo();
+	jugador->moverGlobalAbajo();
 }
 
-void Nivel::movimientoIzquierda(int numeroJugador){
 
-	EntidadUbicada* cody = jugadores.at(numeroJugador);
+bool Nivel::colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario) {
 
-	if (!cody->llegoBordeGlobalIzquierdo()){
-		if (cody->llegoBordeLocalIzquierdo()){
+
+	for (EntidadUbicada* jugador : jugadores) {
+		if (jugador->getDibujable() != dibujablePropietario && jugador->colisionaCon(hitboxUbicada)) {
+			return true;
+		}
+	}
+
+	for (EntidadUbicada* elemento : elementos) {
+		if (elemento->getDibujable() != dibujablePropietario && elemento->colisionaCon(hitboxUbicada)) {
+			return true;
+		}
+	}
+
+	for (EntidadUbicada* enemigo : enemigos) {
+		if (enemigo->getDibujable() != dibujablePropietario && enemigo->colisionaCon(hitboxUbicada)) {
+			return true;
+		}
+	}
+
+
+	return false;
+}
+
+
+void Nivel::movimientoIzquierda(int numeroJugador, Hitbox& hitbox){
+
+	EntidadUbicada* jugador = jugadores.at(numeroJugador);
+
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	hitboxUbicada.desplazarIzquierda();
+
+	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+		return;
+
+
+	if (!jugador->llegoBordeGlobalIzquierdo()){
+		if (jugador->llegoBordeLocalIzquierdo()){
 
 			if (alguienLlegoBordeLocalDerecho()) {	// si alguien bloquea el movimiento...
 				return;
@@ -246,19 +311,26 @@ void Nivel::movimientoIzquierda(int numeroJugador){
 			moverEnemigosDerecha();
 			moverJugadoresDerechaExcepto(numeroJugador);
 		}else{
-			cody->moverLocalIzquierda();
+			jugador->moverLocalIzquierda();
 		}
-		cody->moverGlobalIzquierda();
+		jugador->moverGlobalIzquierda();
 	}
 
 }
 
-void Nivel::movimientoDerecha(int numeroJugador){
+void Nivel::movimientoDerecha(int numeroJugador, Hitbox& hitbox) {
 
-	EntidadUbicada* cody = jugadores.at(numeroJugador);
+	EntidadUbicada* jugador = jugadores.at(numeroJugador);
 
-	if (!cody->llegoBordeGlobalDerecho()){
-		if (cody->llegoBordeLocalDerecho()){
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	hitboxUbicada.desplazarDerecha();
+
+	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+		return;
+
+	if (!jugador->llegoBordeGlobalDerecho()){
+		if (jugador->llegoBordeLocalDerecho()){
 
 			if (alguienLlegoBordeLocalIzquierdo()) {	// si alguien bloquea el movimiento...
 				return;
@@ -277,10 +349,10 @@ void Nivel::movimientoDerecha(int numeroJugador){
 			moverEnemigosIzquierda();
 			moverJugadoresIzquierdaExcepto(numeroJugador);
 		}else {
-			cody->moverLocalDerecha();
+			jugador->moverLocalDerecha();
 		}
 
-		cody->moverGlobalDerecha();
+		jugador->moverGlobalDerecha();
 	}
 
 }

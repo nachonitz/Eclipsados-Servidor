@@ -7,6 +7,8 @@
 
 #include "../../../AsignadorDeTexturas.h"
 
+#include "Hitbox.h"
+
 #include <string>
 
 class Dibujable {
@@ -40,6 +42,8 @@ public:
 
 	int getWidth(){return src.w;}
 	int getHeight(){return src.h;}
+
+	virtual Hitbox getHitbox() = 0;
 
 	//virtual void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) = 0;
 

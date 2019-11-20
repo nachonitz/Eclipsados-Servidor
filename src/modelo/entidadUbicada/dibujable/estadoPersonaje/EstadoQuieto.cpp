@@ -29,6 +29,9 @@ EstadoQuieto::EstadoQuieto(SDL_RendererFlip flip) {
 	ciclo.vel=10;
 
 	ciclo.tick=0;
+
+	//hitbox(123.0,123.0,123.0,123.0,123.0);
+
 }
 
 EstadoQuieto::~EstadoQuieto() {

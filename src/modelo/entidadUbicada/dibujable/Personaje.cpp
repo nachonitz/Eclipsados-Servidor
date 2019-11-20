@@ -28,22 +28,9 @@ void Personaje::resetearEstado() {
 	this->estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
 }
 
-/*
-int Personaje::crearCiclo(int f, int w, int h, int cantSprites, int vel){
-	cycle ciclo;
-	ciclo.fil=f-1;
-	ciclo.w=w;
-	ciclo.cantSprites=cantSprites;
-	ciclo.vel=vel;
-	ciclo.tick=0;
-	ciclo.h = h;
-
-	animaciones.push_back(ciclo);
-	return animaciones.size()-1;
-
-
+Hitbox Personaje::getHitbox() {
+	return estadoActual->getHitboxActual();
 }
-*/
 
 void Personaje::updateAnim(){
 

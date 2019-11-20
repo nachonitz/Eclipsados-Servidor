@@ -11,9 +11,14 @@
 #include "../Dibujable.h"
 
 class Elemento : public Dibujable{
+protected:
+	Hitbox hitboxElemento;
+
 public:
 	Elemento();
 	virtual ~Elemento();
+
+	Hitbox getHitbox() {return hitboxElemento;}
 
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 };

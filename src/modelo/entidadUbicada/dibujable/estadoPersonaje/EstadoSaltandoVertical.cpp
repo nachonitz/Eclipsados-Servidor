@@ -39,7 +39,7 @@ EstadoPersonaje* EstadoSaltandoVertical::procesarAccion(informacionRec info) {
 
 	//recordar que el eje z esta invertido, por temas de SDL
 	if (alturaActualSalto <= 0) {
-		nivelActual->movimientoSalto(info.numeroDeCliente);
+		nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual]);
 		alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
 
 	}

@@ -15,6 +15,10 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "IA.h"
+
+#include "../entidadUbicada/HitboxUbicada.h"
+
+
 //#include "cody.h"
 struct animado{
 	bool estaActivo;
@@ -51,11 +55,11 @@ public:
 
 	void setImagesCapas(SDL_Renderer *ren, char const* imagen1, char const* imagen2, char const* imagen3);
 
-	void movimientoArriba(int numeroJugador);
-	void movimientoAbajo(int numeroJugador);
-	void movimientoIzquierda(int numeroJugador);
-	void movimientoDerecha(int numeroJugador);
-	void movimientoSalto(int numeroJugador);
+	void movimientoArriba(int numeroJugador, Hitbox& hitbox);
+	void movimientoAbajo(int numeroJugador, Hitbox& hitbox);
+	void movimientoIzquierda(int numeroJugador, Hitbox& hitbox);
+	void movimientoDerecha(int numeroJugador, Hitbox& hitbox);
+	void movimientoSalto(int numeroJugador, Hitbox& hitbox);
 	void terminoSalto(int numeroJugador, int alturaLocalInicial);
 	bool terminoElNivel();
 
@@ -103,8 +107,7 @@ private:
 	void moverJugadoresDerechaExcepto(int numeroJugador);
 	void moverJugadoresIzquierdaExcepto(int numeroJugador);
 
-	//void inicializarCiclos(EntidadUbicada* jugador);
-
+	bool colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario);
 
 
 	int generarXaleatorio();

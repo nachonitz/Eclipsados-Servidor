@@ -15,11 +15,18 @@ private:
 	float alturaActualSalto;
 	int alturaDestInicial;
 
+	Hitbox hitbox[7];
+
+	int hbxActual = 0;
+
 public:
 	EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaActual);
 	virtual ~EstadoSaltandoVertical();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
+
+	virtual Hitbox getHitboxActual() {return hitbox[hbxActual];}
+
 
 };
 

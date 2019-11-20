@@ -17,6 +17,9 @@ public:
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
 
+	virtual Hitbox getHitboxActual() {return Hitbox();}
+
+
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ESTADOPERSONAJE_ESTADOAGACHADO_H_ */

@@ -12,6 +12,8 @@ class Nivel;
 
 #include "../../EntidadUbicada.h"
 
+#include "../Hitbox.h"
+
 class EstadoPersonaje {
 public:
 
@@ -25,6 +27,8 @@ public:
 	static void setNivel(Nivel* nivel);
 
 	virtual ~EstadoPersonaje() {};
+
+	virtual Hitbox getHitboxActual() = 0;
 
 protected:
 	struct cycle {

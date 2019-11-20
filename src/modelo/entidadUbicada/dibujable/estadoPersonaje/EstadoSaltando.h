@@ -18,12 +18,18 @@ private:
 
 	void resolverMovimientoHorizontal(int numeroCliente);
 
+	Hitbox hitbox[8];
+
+	int hbxActual = 0;
+
 
 public:
 	EstadoSaltando(SDL_RendererFlip flip, float alturaInicial);
 	virtual ~EstadoSaltando();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
+	virtual Hitbox getHitboxActual() {return hitbox[hbxActual];}
+
 
 };
 

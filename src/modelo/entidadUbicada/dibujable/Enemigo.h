@@ -33,9 +33,21 @@ private:
 	bool rev,nAb;
 	int newAnim;
 	float x, y;
+
+
+	Hitbox hitboxParado;
+
+	Hitbox hitboxCaminando[6];
+
+	Hitbox hitboxGolpeando[666];	//TODO: chequear tamanio
+
+	int hbxActual = 0;
+
 public:
 	Enemigo(float horizontal, float vertical);
 	virtual ~Enemigo();
+
+	Hitbox getHitbox() {return hitboxParado;}
 
 	int animacionActual(){return this->animActual;}
 	int crearCiclo(int f, int w, int h, int cant, int vel);

@@ -36,6 +36,8 @@ public:
 	Personaje();
 	virtual ~Personaje();
 
+	virtual Hitbox getHitbox();
+
 	//int crearCiclo(int f, int w, int h, int cant, int vel);
 	//void setAnimacionActual(int c, SDL_RendererFlip flip);
 	void updateAnim();

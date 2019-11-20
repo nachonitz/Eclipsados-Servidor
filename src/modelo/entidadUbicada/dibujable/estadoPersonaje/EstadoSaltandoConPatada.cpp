@@ -35,7 +35,7 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (alturaActualSalto <= 0) {
-		nivelActual->movimientoSalto(info.numeroDeCliente);
+		nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual]);
 		alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
 
 		resolverMovimientoHorizontal(info.numeroDeCliente);
@@ -55,9 +55,9 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 void EstadoSaltandoConPatada::resolverMovimientoHorizontal(int numeroCliente) {
 
 	if (flip == SDL_FLIP_NONE)
-		nivelActual->movimientoDerecha(numeroCliente);
+		nivelActual->movimientoDerecha(numeroCliente, hitbox[hbxActual]);
 
 	else if (flip == SDL_FLIP_HORIZONTAL)
-		nivelActual->movimientoIzquierda(numeroCliente);
+		nivelActual->movimientoIzquierda(numeroCliente, hitbox[hbxActual]);
 
 }

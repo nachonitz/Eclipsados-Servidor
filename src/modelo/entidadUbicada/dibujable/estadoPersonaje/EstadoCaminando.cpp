@@ -28,6 +28,10 @@ EstadoCaminando::EstadoCaminando(SDL_RendererFlip flip) {
 
 	ciclo.tick=0;
 
+	//hitbox[0].set(123f,123f,123f,123f,123f);
+	//hitbox[1].set(666f,666f,666f,666f,666f);
+	// ...
+
 }
 
 EstadoCaminando::~EstadoCaminando() {
@@ -35,9 +39,8 @@ EstadoCaminando::~EstadoCaminando() {
 }
 
 EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
-	/*if (info.animacionActual != ACCION_CAMINAR)
-		throw std::invalid_argument("EstadoCaminando: intento procesar animacionActual != ACCION_CAMINAR!");
-	*/
+
+	hbxActual = ciclo.tick;
 
 	EstadoPersonaje* nuevoEstado = this;
 
@@ -77,19 +80,19 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
 void EstadoCaminando::seguirCaminando(informacionRec info) {
 	switch(info.movimiento){
 		case RIGHT:
-			nivelActual->movimientoDerecha(info.numeroDeCliente);
+			nivelActual->movimientoDerecha(info.numeroDeCliente, hitbox[hbxActual]);
 			break;
 
 		case LEFT:
-			nivelActual->movimientoIzquierda(info.numeroDeCliente);
+			nivelActual->movimientoIzquierda(info.numeroDeCliente, hitbox[hbxActual]);
 			break;
 
 		case UP:
-			nivelActual->movimientoArriba(info.numeroDeCliente);
+			nivelActual->movimientoArriba(info.numeroDeCliente, hitbox[hbxActual]);
 			break;
 
 		case DOWN:
-			nivelActual->movimientoAbajo(info.numeroDeCliente);
+			nivelActual->movimientoAbajo(info.numeroDeCliente, hitbox[hbxActual]);
 			break;
 
 		case STAND: break;

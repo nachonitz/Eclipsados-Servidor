@@ -2,7 +2,7 @@
 #define SRC_MODELO_ENTIDADUBICADA_ENTIDADUBICADA_H_
 
 #include "dibujable/Dibujable.h"
-#include "PosicionGlobal.h"
+#include "HitboxUbicada.h"
 #include "../../defs.h"
 
 
@@ -21,30 +21,32 @@ public:
 	void moverGlobalSalto(){posicion->moverSalto();}
 	void terminoGlobalSalto(){posicion->terminoSalto();}
 
-	void moverLocalIzquierda(){entidad->moverIzquierda();}
-	void moverLocalDerecha(){entidad->moverDerecha();}
-	void moverLocalArriba(){entidad->moverArriba();}
-	void moverLocalAbajo(){entidad->moverAbajo();}
-	void moverLocalSalto(){entidad->moverSalto();}
-	void terminoLocalSalto(int alturaLocalInicial){entidad->terminoSalto(alturaLocalInicial);}
+	void moverLocalIzquierda(){dibujable->moverIzquierda();}
+	void moverLocalDerecha(){dibujable->moverDerecha();}
+	void moverLocalArriba(){dibujable->moverArriba();}
+	void moverLocalAbajo(){dibujable->moverAbajo();}
+	void moverLocalSalto(){dibujable->moverSalto();}
+	void terminoLocalSalto(int alturaLocalInicial){dibujable->terminoSalto(alturaLocalInicial);}
 
 	PosicionGlobal* getPosicionGlobal();
 
-	bool llegoBordeLocalDerecho(){return entidad->estaBordeDerecho();}
-	bool llegoBordeLocalIzquierdo(){return entidad->estaBordeIzquierdo();}
+	bool llegoBordeLocalDerecho(){return dibujable->estaBordeDerecho();}
+	bool llegoBordeLocalIzquierdo(){return dibujable->estaBordeIzquierdo();}
 
 	bool llegoBordeGlobalIzquierdo(){return posicion->estaBordeIzquierdo();}
 	bool llegoBordeGlobalDerecho(){return posicion->estaBordeDerecho();}
 
-	Dibujable* getDibujable(){return entidad;}
+	Dibujable* getDibujable(){return dibujable;}
 
 	int getHorizontalGlobal(){return posicion->getHorizontal();}
 
 	void seCambioElNivel(Dibujable* entidad);
 
+	bool colisionaCon(HitboxUbicada& hitboxAjena);
+
 private:
 
-	Dibujable* entidad;
+	Dibujable* dibujable;
 	PosicionGlobal* posicion;
 };
 

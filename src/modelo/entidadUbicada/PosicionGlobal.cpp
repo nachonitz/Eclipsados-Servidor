@@ -9,6 +9,13 @@ PosicionGlobal::PosicionGlobal() {
 	z = 0;
 }
 
+PosicionGlobal::PosicionGlobal(const PosicionGlobal &obj) {
+	x = obj.x;
+	y = obj.y;
+	velocidadSalto = obj.velocidadSalto;
+	z = obj.z;
+}
+
 /*
 PosicionGlobal::PosicionGlobal(const PosicionGlobal &pos) {
 

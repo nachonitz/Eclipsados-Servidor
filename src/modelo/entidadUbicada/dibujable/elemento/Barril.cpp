@@ -11,6 +11,8 @@ Barril::Barril(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(200,190,100,100);
 	setDest(x, y, 100, 100);
+
+	hitboxElemento.set(19, 19, 58, 69, 50);
 }
 
 Barril::~Barril() {

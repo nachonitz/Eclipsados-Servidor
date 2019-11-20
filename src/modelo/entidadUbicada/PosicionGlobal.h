@@ -1,7 +1,6 @@
 #ifndef SRC_MODELO_ENTIDADUBICADA_POSICIONGLOBAL_H_
 #define SRC_MODELO_ENTIDADUBICADA_POSICIONGLOBAL_H_
 
-// Los mismos includes en PosicionGlobal y Vista !!!! arreglar posque puden quedar distintos
 
 #include "../../defs.h"
 
@@ -29,6 +28,8 @@ public:
 	bool estaBordeIzquierdo(){return x <= MARGEN_IZQUIERDO;}
 
 	void trasladarA(float horizontal, float vertical);
+
+	PosicionGlobal (const PosicionGlobal &obj);
 
 private:
 	float x=0;

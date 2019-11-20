@@ -11,6 +11,9 @@ Cuchillo::Cuchillo(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(0,0,70,70);
 	setDest(x, y, 70, 70);
+
+	hitboxElemento.set(14, 18, 31, 31, 50);
+
 }
 
 Cuchillo::~Cuchillo() {
