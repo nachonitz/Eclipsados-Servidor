@@ -101,11 +101,11 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 
 	cody->procesarAccion(infoRec);
 
-	PosicionGlobal* pos = jugadores[numeroDeCliente]->getPosicionGlobal();
+	//PosicionGlobal* pos = jugadores[numeroDeCliente]->getPosicionGlobal();
 
-	Logger::getInstance()->log(DEBUG, "JUGADOR EN: " + std::to_string(pos->getHorizontal()) + " - "  + std::to_string(pos->getVertical()) + " - " + std::to_string(pos->getDistanciaDelPiso()));
+	//Logger::getInstance()->log(DEBUG, "JUGADOR EN: " + std::to_string(pos->getHorizontal()) + " - "  + std::to_string(pos->getVertical()) + " - " + std::to_string(pos->getDistanciaDelPiso()));
 
-	Logger::getInstance()->log(DEBUG, "SEGUN DEST: " + std::to_string(cody->getDest().x) + " - "  + std::to_string(cody->getDest().y));
+	//Logger::getInstance()->log(DEBUG, "SEGUN DEST: " + std::to_string(cody->getDest().x) + " - "  + std::to_string(cody->getDest().y));
 
 
 /*

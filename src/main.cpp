@@ -322,11 +322,13 @@ int main(int argc, char *argv[]) {
 		pthread_create(&hiloValidarCredenciales[i],NULL,validateCredentials,&clientNumbers[i]);
 	}
 
-
-
+	//Espera a que todos se registren
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_join(hiloValidarCredenciales[i],NULL);
 	}
+
+	//Espera 2 segundos para que al ultimo logeado le muestre el personaje
+	sleep(2);
 
 	bool noMandoNada = true;
 	for(int i =0 ; i< cantClientes; i++){

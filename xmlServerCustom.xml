@@ -28,5 +28,11 @@
 		<usuario>
 			<nombre>Usuario_99</nombre>
 			<password>Password</password></usuario>
+		<usuario>
+			<nombre>q</nombre>
+			<password>q</password></usuario>
+		<usuario>
+			<nombre>w</nombre>
+			<password>w</password></usuario>
 	</usuarios>
 </configuracionServidor>
