@@ -51,13 +51,8 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
 void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 	//TODO: COLISIONES ENEMIGOS
-/*	HitboxUbicada hitboxUbicada(, *enemigo->getPosicionGlobal());
+	HitboxUbicada hitboxUbicadaEnemigo(enemigo->getDibujable()->getHitbox(), *enemigo->getPosicionGlobal());
 
-	hitboxUbicada.desplazarIzquierda();
-
-	if (this->colisionaConOtroDibujable(hitboxUbicada, enemigo->getDibujable()))
-		return;*/
-/*
 
 	int x_enemigo = enemigo->getPosicionGlobal()->getHorizontal();
 	int y_enemigo = enemigo->getPosicionGlobal()->getVertical()-50;
@@ -68,33 +63,44 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 	Enemigo* enemigoDibujable = (Enemigo*) enemigo->getDibujable();
 
-	if (distancia_x <= 120 && distancia_y <= 30){
-		return;
-	}
 
-	if (distancia_x > distancia_y && distancia_x > 120){
+	if (distancia_x > distancia_y){
 		if (x_jugador > x_enemigo){
+			hitboxUbicadaEnemigo.desplazarDerecha();
+			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				return;
+			}
 			enemigo->moverGlobalDerecha();
 			enemigo->moverLocalDerecha();
 			enemigoDibujable->setFlip(SDL_FLIP_NONE);
 		}else{
+			hitboxUbicadaEnemigo.desplazarIzquierda();
+			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				return;
+			}
 			enemigo->moverGlobalIzquierda();
 			enemigo->moverLocalIzquierda();
 			enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 		}
 	}
 	else{
-		if (distancia_y <= 30){
-			return;
-		}
 		if (y_jugador < y_enemigo){
+			hitboxUbicadaEnemigo.desplazarArriba();
+			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				return;
+			}
 			enemigo->moverGlobalArriba();
 			enemigo->moverLocalArriba();
 		}else{
+			hitboxUbicadaEnemigo.desplazarAbajo();
+
+			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				return;
+			}
 			enemigo->moverGlobalAbajo();
 			enemigo->moverLocalAbajo();
 		}
-	}*/
+	}
 }
 
 void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){
