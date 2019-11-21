@@ -47,7 +47,7 @@ public:
 	Enemigo(float horizontal, float vertical);
 	virtual ~Enemigo();
 
-	Hitbox getHitbox() {return hitboxParado;}
+	Hitbox getHitbox() {return hitboxParado;}		//TODO: HARDCODEADO SIEMPRE PARADO!
 
 	int animacionActual(){return this->animActual;}
 	int crearCiclo(int f, int w, int h, int cant, int vel);

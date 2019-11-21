@@ -9,8 +9,6 @@ public:
 	PosicionGlobal();
 	virtual ~PosicionGlobal();
 
-	//constructor de copia, no hace falta pero por las dudas
-	//PosicionGlobal(const PosicionGlobal &pos);
 
 	void moverArriba();
 	void moverAbajo();

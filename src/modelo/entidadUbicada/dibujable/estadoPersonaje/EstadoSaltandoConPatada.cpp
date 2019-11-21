@@ -17,8 +17,8 @@ EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float al
 
 	this->flip = flip;
 	ciclo.fil=4;
-	ciclo.w=120;
-	ciclo.h = 120;
+	ciclo.w=230;
+	ciclo.h = 280;
 	ciclo.cantSprites=6;
 	ciclo.vel=9;
 

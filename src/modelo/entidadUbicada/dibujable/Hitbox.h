@@ -11,15 +11,15 @@
 class Hitbox {
 public:
 	Hitbox();
-	Hitbox(float deltax, float deltaz, float width, float height, float depth);
+	Hitbox(float deltax, float deltay, float width, float height, float depth);
 	virtual ~Hitbox();
 
-	void set(float deltax, float deltaz, float width, float height, float depth);
+	void set(float deltax, float deltay, float width, float height, float depth);
 
 	Hitbox (const Hitbox &obj);
 
 private:
-	float deltax=0, deltaz=0, width=0, height=0, depth=0;
+	float deltax=0, deltay=0, width=0, height=0, depth=0;
 
 	friend class HitboxUbicada;
 };

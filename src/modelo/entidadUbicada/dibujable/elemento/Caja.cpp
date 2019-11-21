@@ -12,7 +12,7 @@ Caja::Caja(float x, float y) {
 	setSource(0,200,100,100);
 	setDest(x, y, 100, 100);
 
-	hitboxElemento.set(9, 4, 80, 92, 50);
+	hitboxElemento.set(9, 4, 80, 92, HBX_DEPTH_DEFECTO);
 
 }
 

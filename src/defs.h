@@ -73,4 +73,7 @@ struct informacionRec{
 
 #define CANT_HILOS_RECONEXION 50
 
+// HITBOX
+#define HBX_DEPTH_DEFECTO 12
+
 #endif /* SRC_DEFS_H_ */

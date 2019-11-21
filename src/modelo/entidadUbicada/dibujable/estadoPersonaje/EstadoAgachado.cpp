@@ -15,8 +15,8 @@ EstadoAgachado::EstadoAgachado(SDL_RendererFlip flip) {
 
 	this->flip = flip;
 	ciclo.fil=0;
-	ciclo.w=120;
-	ciclo.h = 120;
+	ciclo.w=230;
+	ciclo.h = 280;
 	ciclo.cantSprites=4;
 	ciclo.vel=5;
 

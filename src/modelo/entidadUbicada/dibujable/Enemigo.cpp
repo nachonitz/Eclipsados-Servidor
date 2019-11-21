@@ -10,7 +10,9 @@
 Enemigo::Enemigo(float horizontal, float vertical) {
 	/*x = horizontal;
 	y = vertical;*/
-	this->setDest(horizontal, vertical, 120*2.2, 100*2.2);
+	this->setDest(horizontal, vertical, 220, 264);
+
+	hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
 
 }
 

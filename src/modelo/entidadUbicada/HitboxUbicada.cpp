@@ -33,8 +33,8 @@ void HitboxUbicada::desplazarAbajo() {
 bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	// 		 posX + deltaX <= miRangoX <= posX + deltaX + width
-	//		 posZ + deltaZ <= miRangoZ <= posZ + deltaZ + height
-	// 		 posY - depth / 2 <= miRangoY <= posY + depth / 2
+	//		 posZ  		   <= miRangoZ <= posZ + height
+	// 		 posY + deltaY  + height + - depth / 2 <= miRangoY <= posY + deltaY + height + depth / 2
 
 
 	float miRangoXmin = this->posicion.getHorizontal() + this->hitbox.deltax;
@@ -47,43 +47,50 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 
 
-	if (miRangoXmax < suRangoXmin || suRangoXmax < miRangoXmin)
+	if (miRangoXmax < suRangoXmin || suRangoXmax < miRangoXmin) {
+		Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
+	}
 
 	//Logger::getInstance()->log(DEBUG, "HITBOXUBICADA.CPP: COLISIONA EN X");
-	//Logger::getInstance()->log(DEBUG, "RANGOSX: (" + std::to_string(miRangoXmin) + ", " + std::to_string(miRangoXmax) + ") vs ("+ std::to_string(suRangoXmin) + ", "+ std::to_string(suRangoXmax) + ")");
+	Logger::getInstance()->log(DEBUG, "COLISIONA! RANGOSX: (" + std::to_string(miRangoXmin) + ", " + std::to_string(miRangoXmax) + ") vs ("+ std::to_string(suRangoXmin) + ", "+ std::to_string(suRangoXmax) + ")");
 
 
-	float miRangoZmin = this->posicion.getDistanciaDelPiso() + this->hitbox.deltaz;
+	// Recordar que el eje Z apunta hacia abajo!
+	float miRangoZmax = this->posicion.getDistanciaDelPiso();
 
-	float miRangoZmax = miRangoZmin + this->hitbox.height;
+	float miRangoZmin = miRangoZmax - this->hitbox.height;
 
-	float suRangoZmin = otraHitbox.posicion.getDistanciaDelPiso() + otraHitbox.hitbox.deltaz;
+	float suRangoZmax = otraHitbox.posicion.getDistanciaDelPiso();
 
-	float suRangoZmax = suRangoZmin + otraHitbox.hitbox.height;
+	float suRangoZmin = suRangoZmax - otraHitbox.hitbox.height;
 
 
-	///Logger::getInstance()->log(DEBUG, "RANGOSZ: (" + std::to_string(miRangoZmin) + ", " + std::to_string(miRangoZmax) + ") vs ("+ std::to_string(suRangoZmin) + ", "+ std::to_string(suRangoZmax) + ")");
+	Logger::getInstance()->log(DEBUG, "RANGOSZ: (" + std::to_string(miRangoZmin) + ", " + std::to_string(miRangoZmax) + ") vs ("+ std::to_string(suRangoZmin) + ", "+ std::to_string(suRangoZmax) + ")");
 
-	if (miRangoZmax < suRangoZmin || suRangoZmax < miRangoZmin)
+	if (miRangoZmax < suRangoZmin || suRangoZmax < miRangoZmin) {
+		Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
+	}
 
 
 	//Logger::getInstance()->log(DEBUG, "HITBOXUBICADA.CPP: COLISIONA EN X + Z. DEPTH Y: " + std::to_string(this->hitbox.depth/2));
 
-	float miRangoYmin = this->posicion.getVertical() - this->hitbox.depth/2;
+	float miRangoYmin = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height - this->hitbox.depth/2;
 
-	float miRangoYmax = this->posicion.getVertical() + this->hitbox.depth/2;
+	float miRangoYmax = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height + this->hitbox.depth/2;
 
-	float suRangoYmin = otraHitbox.posicion.getVertical() - otraHitbox.hitbox.depth/2;
+	float suRangoYmin = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height - otraHitbox.hitbox.depth/2;
 
-	float suRangoYmax = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.depth/2;
+	float suRangoYmax = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height + otraHitbox.hitbox.depth/2;
 
 
 	Logger::getInstance()->log(DEBUG, "RANGOSY: (" + std::to_string(miRangoYmin) + ", " + std::to_string(miRangoYmax) + ") vs ("+ std::to_string(suRangoYmin) + ", "+ std::to_string(suRangoYmax) + ")");
 
-	if (miRangoYmax < suRangoYmin || suRangoYmax < miRangoYmin)
+	if (miRangoYmax < suRangoYmin || suRangoYmax < miRangoYmin) {
+		Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
+	}
 
 	//Logger::getInstance()->log(DEBUG, "HITBOXUBICADA.CPP: COLISIONA EN X + Y + Z");
 

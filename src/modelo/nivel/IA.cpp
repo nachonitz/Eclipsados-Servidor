@@ -49,6 +49,16 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
 }
 
 void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
+
+	//TODO: COLISIONES ENEMIGOS
+/*	HitboxUbicada hitboxUbicada(, *enemigo->getPosicionGlobal());
+
+	hitboxUbicada.desplazarIzquierda();
+
+	if (this->colisionaConOtroDibujable(hitboxUbicada, enemigo->getDibujable()))
+		return;*/
+/*
+
 	int x_enemigo = enemigo->getPosicionGlobal()->getHorizontal();
 	int y_enemigo = enemigo->getPosicionGlobal()->getVertical()-50;
 	int x_jugador = jugador->getPosicionGlobal()->getHorizontal();
@@ -84,7 +94,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			enemigo->moverGlobalAbajo();
 			enemigo->moverLocalAbajo();
 		}
-	}
+	}*/
 }
 
 void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){

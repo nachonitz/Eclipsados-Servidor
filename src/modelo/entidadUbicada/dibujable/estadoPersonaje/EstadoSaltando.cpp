@@ -19,8 +19,8 @@ EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial) {
 
 	this->flip = flip;
 	ciclo.fil=2;
-	ciclo.w=120;
-	ciclo.h = 120;
+	ciclo.w=230;
+	ciclo.h = 280;
 	ciclo.cantSprites=8;
 	ciclo.vel=6;
 

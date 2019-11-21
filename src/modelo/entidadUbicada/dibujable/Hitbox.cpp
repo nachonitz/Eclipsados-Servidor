@@ -7,36 +7,38 @@
 
 #include "Hitbox.h"
 
+#include "../../../defs.h"
+
 Hitbox::Hitbox() {
-	this->deltax = 0;//35;
-	this->deltaz = 0;//21;
-	this->width = 120;//54;
-	this->height = 120;//93;
-	this->depth = 50;
+	this->deltax = 65;//35;
+	this->deltay = 48;//21;
+	this->width = 106;//54;
+	this->height = 219;//93;
+	this->depth = HBX_DEPTH_DEFECTO;
 
 }
 
 Hitbox::Hitbox (const Hitbox &obj) {
 	this->deltax = obj.deltax;
-	this->deltaz = obj.deltaz;
+	this->deltay = obj.deltay;
 	this->width = obj.width;
 	this->height = obj.height;
 	this->depth = obj.depth;
 }
 
-Hitbox::Hitbox(float deltax, float deltaz, float width, float height, float depth) {
+Hitbox::Hitbox(float deltax, float deltay, float width, float height, float depth) {
 
 	this->deltax = deltax;
-	this->deltaz = deltaz;
+	this->deltay = deltay;
 	this->width = width;
 	this->height = height;
 	this->depth = depth;
 
 }
 
-void Hitbox::set(float deltax, float deltaz, float width, float height, float depth) {
+void Hitbox::set(float deltax, float deltay, float width, float height, float depth) {
 	this->deltax = deltax;
-	this->deltaz = deltaz;
+	this->deltay = deltay;
 	this->width = width;
 	this->height = height;
 	this->depth = depth;

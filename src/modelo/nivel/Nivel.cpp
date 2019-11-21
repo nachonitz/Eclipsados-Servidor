@@ -37,10 +37,10 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	for(uint i = 0; i<enemigos.size(); i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
-		enemigoActual->setSource(0,0,95,135);
+		enemigoActual->setSource(0,0,220,264);
 		//enemigoActual->setDest(enemigoActual->getPosHorizontal(), enemigoActual->getPosVertical(), enemigoActual->getWidth()*2.2,enemigoActual->getHeight()*2.2);
-		int paradoEnemigo = enemigoActual->crearCiclo(1, 100, 125, 1, 1);
-		int caminarEnemigo = enemigoActual->crearCiclo(2, 100, 125, 6, 5);
+		int paradoEnemigo = enemigoActual->crearCiclo(1, 220, 264, 1, 1);
+		int caminarEnemigo = enemigoActual->crearCiclo(2, 220, 264, 6, 5);
 		enemigoActual->setAnimacionActual(caminarEnemigo, SDL_FLIP_NONE);
 	}
 

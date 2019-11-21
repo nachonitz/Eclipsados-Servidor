@@ -21,8 +21,8 @@ EstadoCaminando::EstadoCaminando(SDL_RendererFlip flip) {
 	this->flip = flip;
 
 	ciclo.fil=1;
-	ciclo.w=120;
-	ciclo.h = 120;
+	ciclo.w=230;
+	ciclo.h = 280;
 	ciclo.cantSprites=12;
 	ciclo.vel=4;
 
