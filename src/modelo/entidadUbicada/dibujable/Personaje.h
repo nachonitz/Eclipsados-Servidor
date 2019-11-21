@@ -58,6 +58,8 @@ public:
 
 	int getElementoEnMano();
 
+	virtual void recibirDanio(int danio);
+
 };
 
 #endif /* PERSONAJE_H_ */

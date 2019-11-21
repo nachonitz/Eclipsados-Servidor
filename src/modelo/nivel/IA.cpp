@@ -110,6 +110,9 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){
 		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo){
 			targets[i] = encontrarEnemigoMasCercano(enemigos[i]);
 			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]]);
+			struct informacionRec info;
+			Enemigo* enemigoDibujable = (Enemigo*) enemigos[i]->getDibujable();
+			enemigoDibujable->procesarAccion(info);
 		}
 	}
 }

@@ -44,3 +44,14 @@ void Sonido::play(){
     Logger::getInstance()->log(ERROR, Mix_GetError());
 }
 
+void Sonido::stop(){
+
+  Logger::getInstance()->log(INFO, "Deteniendo música de fondo...");
+  Mix_PauseMusic();
+}
+
+void Sonido::resume(){
+
+  Logger::getInstance()->log(INFO, "Reanudando música de fondo...");
+  Mix_ResumeMusic();
+}

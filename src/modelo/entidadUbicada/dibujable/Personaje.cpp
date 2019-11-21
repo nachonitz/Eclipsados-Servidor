@@ -41,6 +41,12 @@ int Personaje::getElementoEnMano() {
 	return estadoActual->getElementoEnMano();
 }
 
+void Personaje::recibirDanio(int danio){
+
+	//estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip);
+
+}
+
 
 /*void Personaje::setAnimacionActual(int c, SDL_RendererFlip flip) {
 	empezar = 0;

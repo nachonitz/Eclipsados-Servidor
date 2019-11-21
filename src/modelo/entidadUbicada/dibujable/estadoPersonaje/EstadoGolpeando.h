@@ -21,6 +21,12 @@ public:
 
 	virtual Hitbox getHitboxActual() {return Hitbox();}
 
+private:
+
+	Hitbox hitbox[9];
+
+	int hbxActual = 0;
+
 
 };
 

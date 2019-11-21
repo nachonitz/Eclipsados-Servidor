@@ -38,33 +38,11 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 	for(uint i = 0; i<enemigos.size(); i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
 		enemigoActual->setSource(0,0,220,264);
-		//enemigoActual->setDest(enemigoActual->getPosHorizontal(), enemigoActual->getPosVertical(), enemigoActual->getWidth()*2.2,enemigoActual->getHeight()*2.2);
-		int paradoEnemigo = enemigoActual->crearCiclo(1, 220, 264, 1, 1);
-		int caminarEnemigo = enemigoActual->crearCiclo(2, 220, 264, 6, 5);
-		enemigoActual->setAnimacionActual(caminarEnemigo, SDL_FLIP_NONE);
 	}
 
 	this->ia = new IA(enemigos, jugadores);
 
 }
-/*
-void Nivel::inicializarCiclos(EntidadUbicada* jugador) {
-
-	Personaje* personaje = (Personaje*)jugador->getDibujable();
-
-	int parado = personaje->crearCiclo(1, 120, 120, 1, 10);
-	int caminar = personaje->crearCiclo(2, 120, 120, 12, 4);
-	int salto = personaje->crearCiclo(3, 120, 120, 8, 6);
-	int golpear = personaje->crearCiclo(4, 120, 120, 9, 5);
-	int saltoPatada = personaje->crearCiclo(5, 120, 120, 6, 9);
-	int agachado = personaje->crearCiclo(1, 120, 120, 4, 5);
-	int saltoVertical = personaje->crearCiclo(6, 120, 120, 6, 8);
-
-	int accionActual = parado;
-	personaje->setAnimacionActual(accionActual, SDL_FLIP_NONE);
-	personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
-	personaje->updateAnim();
-}*/
 
 Nivel::~Nivel() {
 	//delete cody;
@@ -593,3 +571,15 @@ bool Nivel::terminoElNivel(){
 	return alguienLlegoBordeGlobalDerecho();
 }
 
+void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox){
+
+	EntidadUbicada* jugador = jugadores.at(numeroJugador);
+
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
+
+	if (colisionador != NULL){
+		colisionador->getDibujable()->recibirDanio(20);
+	}
+}

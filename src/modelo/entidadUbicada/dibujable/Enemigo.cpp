@@ -14,6 +14,9 @@ Enemigo::Enemigo(float horizontal, float vertical, int tipoEnemigo) {
 	this->tipoEnemigo = tipoEnemigo;
 	hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
 
+	animActual = 0;
+	estadoActual = new EstadoCaminandoEnemigo(spriteFlip, 1, 220, 264, 6, 7);
+
 }
 
 Enemigo::~Enemigo() {
@@ -39,15 +42,11 @@ int Enemigo::crearCiclo(int f, int w, int h, int cantSprites, int vel){
 
 void Enemigo::updateAnim(){
 
-	setSource(animaciones[animActual].w*animaciones[animActual].tick, animaciones[animActual].fil*animaciones[animActual].h, animaciones[animActual].w, animaciones[animActual].h);
-	if(empezar>animaciones[animActual].vel){
-		animaciones[animActual].tick++;
-		empezar=0;
-	}
-	empezar++;
-	if(animaciones[animActual].tick >= animaciones[animActual].cantSprites) {
-		animaciones[animActual].tick = 0;
-	}
+	estadoActual->actualizarAnimacion(src);
+}
+
+void Enemigo::procesarAccion(struct informacionRec info) {
+	this->estadoActual = estadoActual->procesarAccion(info);
 }
 
 void Enemigo::setAnimacionActual(int c, SDL_RendererFlip flip) {
@@ -60,6 +59,12 @@ void Enemigo::setAnimacionActual(int c, SDL_RendererFlip flip) {
 void Enemigo::setFlip(SDL_RendererFlip flip){
 
 	spriteFlip = flip;
+}
+
+void Enemigo::recibirDanio(int danio){
+
+	estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip);
+
 }
 
 

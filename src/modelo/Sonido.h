@@ -10,6 +10,8 @@ public:
 	Sonido(int numeroNivel);
 	virtual ~Sonido();
 	void play();
+	void stop();
+	void resume();
 
 private:
 	//La musica de fondo

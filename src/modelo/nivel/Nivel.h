@@ -100,6 +100,8 @@ public:
 
 	Elemento* agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador);
 
+	void hacerDanio(int numJugador, Hitbox hitbox);
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();

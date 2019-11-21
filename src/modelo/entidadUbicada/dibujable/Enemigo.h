@@ -14,6 +14,9 @@
 #include <stdio.h>
 using namespace  std;
 
+#include "estadoPersonaje/EstadoCaminandoEnemigo.h"
+#include "estadoPersonaje/EstadoRecibiendoDanioEnemigo.h"
+
 
 class Enemigo : public Dibujable {
 private:
@@ -34,6 +37,8 @@ private:
 	int newAnim;
 	float x, y;
 	int tipoEnemigo;
+
+	EstadoPersonaje* estadoActual;
 
 	Hitbox hitboxParado;
 
@@ -59,6 +64,9 @@ public:
 	float getPosHorizontal(){return x;}
 	float getPosVertical(){return y;}
 	int getTipoEnemigo(){return this->tipoEnemigo;}
+	void procesarAccion(struct informacionRec info);
+
+	void recibirDanio(int danio);
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ENEMIGO_H_ */

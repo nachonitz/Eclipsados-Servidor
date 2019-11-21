@@ -14,6 +14,7 @@ class EstadoCaminando: public EstadoPersonaje {
 public:
 	EstadoCaminando(SDL_RendererFlip flip) :EstadoCaminando(flip,nullptr) {};
 	EstadoCaminando(SDL_RendererFlip flip, Elemento* elemento);
+	EstadoCaminando(SDL_RendererFlip flip, int fil, int w, int h, int cantSprites, int vel);
 
 	virtual ~EstadoCaminando();
 

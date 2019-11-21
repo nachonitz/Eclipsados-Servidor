@@ -79,7 +79,6 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
 
 }
 
-
 void EstadoCaminando::seguirCaminando(informacionRec info) {
 	switch(info.movimiento){
 		case RIGHT:
