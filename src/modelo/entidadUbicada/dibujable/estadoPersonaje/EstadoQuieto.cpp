@@ -17,8 +17,7 @@
 #include "../../../nivel/Nivel.h"
 
 
-
-EstadoQuieto::EstadoQuieto(SDL_RendererFlip flip) {
+EstadoQuieto::EstadoQuieto(SDL_RendererFlip flip, Elemento* elementoEnMano) {
 
 	this->flip = flip;
 
@@ -29,6 +28,8 @@ EstadoQuieto::EstadoQuieto(SDL_RendererFlip flip) {
 	ciclo.vel=10;
 
 	ciclo.tick=0;
+
+	this->elementoEnMano = elementoEnMano;
 
 	//hitbox(123.0,123.0,123.0,123.0,123.0);
 
@@ -45,19 +46,20 @@ EstadoPersonaje* EstadoQuieto::procesarAccion(informacionRec info) {
 	switch(info.animacionActual){
 
 		case ACCION_SALTO_VERTICAL:
-			nuevoEstado = new EstadoSaltandoVertical(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente));
+			nuevoEstado = new EstadoSaltandoVertical(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente), elementoEnMano);
 			break;
 
 		case ACCION_GOLPEAR:
-			nuevoEstado = new EstadoGolpeando(info.flip);
+			nuevoEstado = new EstadoGolpeando(info.flip, elementoEnMano);
 			break;
 
 		case ACCION_AGACHADO:
-			nuevoEstado = new EstadoAgachado(info.flip);
+			if (elementoEnMano == nullptr)	//se agacha solo si no tiene nada en mano
+				nuevoEstado = new EstadoAgachado(info.flip);
 			break;
 
 		case ACCION_CAMINAR:
-			nuevoEstado = new EstadoCaminando(info.flip);
+			nuevoEstado = new EstadoCaminando(info.flip, elementoEnMano);
 			break;
 
 		case ACCION_PARADO:

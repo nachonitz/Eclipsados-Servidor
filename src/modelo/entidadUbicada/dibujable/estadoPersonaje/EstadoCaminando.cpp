@@ -16,7 +16,7 @@
 #include "../../../nivel/Nivel.h"
 
 
-EstadoCaminando::EstadoCaminando(SDL_RendererFlip flip) {
+EstadoCaminando::EstadoCaminando(SDL_RendererFlip flip, Elemento* elemento) {
 
 	this->flip = flip;
 
@@ -27,6 +27,8 @@ EstadoCaminando::EstadoCaminando(SDL_RendererFlip flip) {
 	ciclo.vel=4;
 
 	ciclo.tick=0;
+
+	this->elementoEnMano = elemento;
 
 	//hitbox[0].set(123f,123f,123f,123f,123f);
 	//hitbox[1].set(666f,666f,666f,666f,666f);
@@ -52,23 +54,24 @@ EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
 	switch(info.animacionActual){
 
 		case ACCION_SALTO:
-			nuevoEstado = new EstadoSaltando(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente));
+			nuevoEstado = new EstadoSaltando(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente), elementoEnMano);
 			break;
 
 		case ACCION_GOLPEAR:
-			nuevoEstado = new EstadoGolpeando(info.flip);
+			nuevoEstado = new EstadoGolpeando(info.flip, elementoEnMano);
 			break;
 
 		case ACCION_AGACHADO:
-			nuevoEstado = new EstadoAgachado(info.flip);
+			if (elementoEnMano == nullptr)
+				nuevoEstado = new EstadoAgachado(info.flip);
 			break;
 
 		case ACCION_SALTO_PATADA:
-			nuevoEstado = new EstadoSaltandoConPatada(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente));
+			nuevoEstado = new EstadoSaltandoConPatada(info.flip, nivelActual->getAlturaLocalJugador(info.numeroDeCliente), elementoEnMano);
 			break;
 
 		case ACCION_PARADO:
-			nuevoEstado = new EstadoQuieto(info.flip);
+			nuevoEstado = new EstadoQuieto(info.flip, elementoEnMano);
 			break;
 	}
 

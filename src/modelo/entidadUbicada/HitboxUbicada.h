@@ -25,6 +25,8 @@ public:
 
 	bool colisionaCon(HitboxUbicada& otraHitbox);
 
+	void extenderDepthPorUnFactor(int factor);
+
 
 private:
 	Hitbox hitbox;

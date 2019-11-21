@@ -20,7 +20,9 @@ private:
 	int hbxActual = 0;
 
 public:
-	EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaActual);
+	EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaActual) : EstadoSaltandoVertical(flip,alturaActual,nullptr) {};
+	EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaActual, Elemento* elemento);
+
 	virtual ~EstadoSaltandoVertical();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);

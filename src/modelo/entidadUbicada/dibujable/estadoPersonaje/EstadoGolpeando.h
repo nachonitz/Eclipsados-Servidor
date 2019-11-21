@@ -12,7 +12,9 @@
 
 class EstadoGolpeando: public EstadoPersonaje {
 public:
-	EstadoGolpeando(SDL_RendererFlip flip);
+	EstadoGolpeando(SDL_RendererFlip flip) : EstadoGolpeando(flip, nullptr) {};
+	EstadoGolpeando(SDL_RendererFlip flip, Elemento* elemento);
+
 	virtual ~EstadoGolpeando();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);

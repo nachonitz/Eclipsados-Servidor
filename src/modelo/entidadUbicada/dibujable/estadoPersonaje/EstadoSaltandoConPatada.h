@@ -23,7 +23,10 @@ private:
 
 
 public:
-	EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaActual);
+	EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaActual) : EstadoSaltandoConPatada(flip, alturaActual, nullptr) {};
+	EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaActual, Elemento* elementoEnMano);
+
+
 	virtual ~EstadoSaltandoConPatada();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);

@@ -14,6 +14,8 @@ class CanioMetalico : public Elemento {
 public:
 	CanioMetalico(float x, float y);
 	virtual ~CanioMetalico();
+
+	bool sePuedeAgarrar() override {return true;}
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ELEMENTO_CANIOMETALICO_H_ */

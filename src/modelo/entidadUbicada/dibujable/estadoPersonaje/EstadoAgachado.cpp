@@ -10,6 +10,9 @@
 
 #include "EstadoQuieto.h"
 
+#include "../../../nivel/Nivel.h"
+
+
 
 EstadoAgachado::EstadoAgachado(SDL_RendererFlip flip) {
 
@@ -22,6 +25,9 @@ EstadoAgachado::EstadoAgachado(SDL_RendererFlip flip) {
 
 	ciclo.tick=0;
 
+	//hitbox[0].set(...);
+	// ...
+
 }
 
 EstadoAgachado::~EstadoAgachado() {
@@ -30,8 +36,12 @@ EstadoAgachado::~EstadoAgachado() {
 
 EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info) {
 
+	if (ciclo.tick == 1 || ciclo.tick == 2) {
+		elementoEnMano = nivelActual->agarrarObjeto(info.numeroDeCliente, this->hitbox[hbxActual]);
+	}
+
 	if (ciclo.tick < 0)
-		return new EstadoQuieto(info.flip);
+		return new EstadoQuieto(info.flip, elementoEnMano);
 
 	return this;		//ninguna accion, solo animacion de momento
 }

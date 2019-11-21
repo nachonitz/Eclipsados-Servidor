@@ -45,6 +45,9 @@ public:
 
 	virtual Hitbox getHitbox() = 0;
 
+	virtual bool sePuedeAgarrar() {return false;}
+
+
 	//virtual void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) = 0;
 
 protected:

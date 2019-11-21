@@ -10,7 +10,7 @@
 
 #include "../../../nivel/Nivel.h"
 
-EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaInicial) {
+EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaInicial, Elemento* elemento) {
 
 	alturaActualSalto = 0;
 	alturaDestInicial = round(alturaInicial);
@@ -23,6 +23,8 @@ EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float al
 	ciclo.vel=9;
 
 	ciclo.tick=0;
+
+	this->elementoEnMano = elemento;
 
 }
 
@@ -45,7 +47,7 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 	if(alturaActualSalto > 0){
 
 		nivelActual->terminoSalto(info.numeroDeCliente, alturaDestInicial);
-		nuevoEstado = new EstadoQuieto(info.flip);
+		nuevoEstado = new EstadoQuieto(info.flip, elementoEnMano);
 
 	}
 

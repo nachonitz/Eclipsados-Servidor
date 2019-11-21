@@ -11,6 +11,11 @@
 #include "EstadoPersonaje.h"
 
 class EstadoAgachado: public EstadoPersonaje {
+private:
+	Hitbox hitbox[4];
+
+	int hbxActual = 0;
+
 public:
 	EstadoAgachado(SDL_RendererFlip flip);
 	virtual ~EstadoAgachado();

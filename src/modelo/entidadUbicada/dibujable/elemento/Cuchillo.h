@@ -14,6 +14,9 @@ class Cuchillo : public Elemento {
 public:
 	Cuchillo(float x, float y);
 	virtual ~Cuchillo();
+
+	bool sePuedeAgarrar() override {return true;}
+
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ELEMENTO_CUCHILLO_H_ */

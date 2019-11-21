@@ -12,7 +12,7 @@
 
 
 
-EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial) {
+EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial, Elemento* elemento) {
 
 	alturaActualSalto = 0;
 	alturaDestInicial = round(alturaInicial);
@@ -25,6 +25,8 @@ EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial) {
 	ciclo.vel=6;
 
 	ciclo.tick=0;
+
+	this->elementoEnMano = elemento;
 
 	// hitbox[j].set(...)
 	// ...
@@ -52,7 +54,7 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info) {
 
 		nivelActual->terminoSalto(info.numeroDeCliente, alturaDestInicial);
 
-		nuevoEstado = new EstadoQuieto(info.flip);
+		nuevoEstado = new EstadoQuieto(info.flip, elementoEnMano);
 
 	}
 

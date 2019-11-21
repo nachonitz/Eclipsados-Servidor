@@ -97,6 +97,8 @@ public:
 
 	float getAlturaLocalJugador(int numeroJugador) {return jugadores[numeroJugador]->getDibujable()->getDest().y;};
 
+	Elemento* agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador);
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();
@@ -108,7 +110,7 @@ private:
 	void moverJugadoresDerechaExcepto(int numeroJugador);
 	void moverJugadoresIzquierdaExcepto(int numeroJugador);
 
-	bool colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario);
+	EntidadUbicada* colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario);
 
 
 	int generarXaleatorio();

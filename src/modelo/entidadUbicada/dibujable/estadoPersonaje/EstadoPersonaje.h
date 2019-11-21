@@ -46,6 +46,8 @@ protected:
 
 	static Nivel* nivelActual;
 
+	Elemento* elementoEnMano;
+
 private:
 
 	int empezar;

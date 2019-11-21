@@ -9,7 +9,7 @@
 #include "EstadoQuieto.h"
 
 
-EstadoGolpeando::EstadoGolpeando(SDL_RendererFlip flip) {
+EstadoGolpeando::EstadoGolpeando(SDL_RendererFlip flip, Elemento* elemento) {
 
 	this->flip = flip;
 	ciclo.fil=3;
@@ -20,6 +20,8 @@ EstadoGolpeando::EstadoGolpeando(SDL_RendererFlip flip) {
 
 	ciclo.tick=0;
 
+	this->elementoEnMano = elemento;
+
 }
 
 EstadoGolpeando::~EstadoGolpeando() {
@@ -28,7 +30,7 @@ EstadoGolpeando::~EstadoGolpeando() {
 
 EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info) {
 	if (ciclo.tick < 0)
-		return new EstadoQuieto(info.flip);
+		return new EstadoQuieto(info.flip, elementoEnMano);
 
 	return this;		//ninguna accion, solo animacion de momento
 }

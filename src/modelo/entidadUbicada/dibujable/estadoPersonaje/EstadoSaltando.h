@@ -24,7 +24,10 @@ private:
 
 
 public:
-	EstadoSaltando(SDL_RendererFlip flip, float alturaInicial);
+	EstadoSaltando(SDL_RendererFlip flip, float alturaInicial, Elemento* elemento);
+
+	EstadoSaltando(SDL_RendererFlip flip, float alturaInicial) : EstadoSaltando(flip,alturaInicial, nullptr) {};
+
 	virtual ~EstadoSaltando();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);

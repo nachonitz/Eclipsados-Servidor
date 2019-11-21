@@ -238,6 +238,25 @@ void Nivel::terminoSalto(int numeroJugador, int alturaLocalInicial) {
 	jugadores.at(numeroJugador)->terminoGlobalSalto();
 }
 
+Elemento* Nivel::agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador) {
+
+	EntidadUbicada* jugador = jugadores[numeroCliente];
+
+	HitboxUbicada hitboxUbicada(hitboxJugador, *jugador->getPosicionGlobal());
+
+	hitboxUbicada.extenderDepthPorUnFactor(2);
+
+	EntidadUbicada* entidadQueColisiona = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
+
+	if (entidadQueColisiona != nullptr && entidadQueColisiona->getDibujable()->sePuedeAgarrar()) {
+		//TODO: ELIMINAR ELEMENTO DEL NIVEL, AHORA ESTA EN SU MANO!
+		return (Elemento*)entidadQueColisiona->getDibujable();
+	}
+
+	return nullptr;
+
+}
+
 void Nivel::movimientoAbajo(int numeroJugador, Hitbox& hitbox){
 
 	EntidadUbicada* jugador = jugadores[numeroJugador];
@@ -253,30 +272,29 @@ void Nivel::movimientoAbajo(int numeroJugador, Hitbox& hitbox){
 	jugador->moverGlobalAbajo();
 }
 
-
-bool Nivel::colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario) {
+EntidadUbicada* Nivel::colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario) {
 
 
 	for (EntidadUbicada* jugador : jugadores) {
 		if (jugador->getDibujable() != dibujablePropietario && jugador->colisionaCon(hitboxUbicada)) {
-			return true;
+			return jugador;
 		}
 	}
 
 	for (EntidadUbicada* elemento : elementos) {
 		if (elemento->getDibujable() != dibujablePropietario && elemento->colisionaCon(hitboxUbicada)) {
-			return true;
+			return elemento;
 		}
 	}
 
 	for (EntidadUbicada* enemigo : enemigos) {
 		if (enemigo->getDibujable() != dibujablePropietario && enemigo->colisionaCon(hitboxUbicada)) {
-			return true;
+			return enemigo;
 		}
 	}
 
 
-	return false;
+	return nullptr;
 }
 
 
@@ -286,11 +304,12 @@ void Nivel::movimientoIzquierda(int numeroJugador, Hitbox& hitbox){
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
-	hitboxUbicada.desplazarIzquierda();
+	if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { //TODO: mismo en otras funciones!
+		hitboxUbicada.desplazarIzquierda();
 
-	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
-		return;
-
+		if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+			return;
+	}
 
 	if (!jugador->llegoBordeGlobalIzquierdo()){
 		if (jugador->llegoBordeLocalIzquierdo()){

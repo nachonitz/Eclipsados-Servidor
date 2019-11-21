@@ -34,6 +34,10 @@ void HitboxUbicada::desplazarAbajo() {
 	posicion.moverAbajo();
 }
 
+void HitboxUbicada::extenderDepthPorUnFactor(int factor){
+	this->hitbox.depth *= factor;
+}
+
 bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	// 		 posX + deltaX <= miRangoX <= posX + deltaX + width

@@ -13,8 +13,11 @@
 
 
 class EstadoQuieto : public EstadoPersonaje {
+
 public:
-	EstadoQuieto(SDL_RendererFlip flip);
+	EstadoQuieto(SDL_RendererFlip flip) : EstadoQuieto(flip,nullptr) {};
+	EstadoQuieto(SDL_RendererFlip flip, Elemento* elementoEnMano);
+
 	virtual ~EstadoQuieto();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);

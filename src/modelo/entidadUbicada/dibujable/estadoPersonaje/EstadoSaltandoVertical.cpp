@@ -11,7 +11,7 @@
 #include "../../../nivel/Nivel.h"
 
 
-EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaInicial) {
+EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, float alturaInicial, Elemento* elemento) {
 
 	alturaActualSalto = 0;	//comienza en el piso
 	alturaDestInicial = round(alturaInicial);
@@ -19,6 +19,7 @@ EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, float altu
 	this->flip = flip;
 
 	ciclo.fil=5;
+
 	ciclo.w=230;
 	ciclo.h = 280;
 	ciclo.cantSprites=7;
@@ -48,7 +49,7 @@ EstadoPersonaje* EstadoSaltandoVertical::procesarAccion(informacionRec info) {
 
 		nivelActual->terminoSalto(info.numeroDeCliente, alturaDestInicial);
 
-		nuevoEstado = new EstadoQuieto(info.flip);
+		nuevoEstado = new EstadoQuieto(info.flip, elementoEnMano);
 
 	}
 
