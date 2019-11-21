@@ -14,6 +14,10 @@ HitboxUbicada::HitboxUbicada(Hitbox hitbox, PosicionGlobal posicion) {
 	this->posicion = posicion;
 }
 
+void HitboxUbicada::desplazarSalto() {
+	posicion.moverSalto();
+}
+
 void HitboxUbicada::desplazarDerecha() {
 	posicion.moverDerecha();
 }

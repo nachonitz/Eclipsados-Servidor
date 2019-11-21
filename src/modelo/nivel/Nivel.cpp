@@ -217,13 +217,13 @@ void Nivel::movimientoArriba(int numeroJugador, Hitbox& hitbox){
 	jugador->moverGlobalArriba();
 }
 
-void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox){
+void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox) {
 
 	EntidadUbicada* jugador = jugadores[numeroJugador];
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
-	//hitboxUbicada.desplazarIzquierda();		//TODO: ARREGLAR SALTOS
+	hitboxUbicada.desplazarSalto();		//calcular hitbox del siguiente tick (mas cerca o lejos del piso)
 
 	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
 		return;
