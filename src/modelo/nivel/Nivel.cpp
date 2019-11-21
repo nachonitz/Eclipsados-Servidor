@@ -120,6 +120,7 @@ struct informacionEnv Nivel::getInformacion(){
 			animadoActual.src = enemigoActual->getSource();
 			animadoActual.flip = enemigoActual->getFlip();
 			animadoActual.estaActivo = true;
+			animadoActual.tipoEnemigo = enemigoActual->getTipoEnemigo();
 			animadoActual.ID = -1;
 			info.animados[i + jugadores.size()] = animadoActual;
 		//}
@@ -504,7 +505,8 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
                                                   std::to_string(y)) + ")");
-		EntidadUbicada* enemigo = factory.crearEntidadConEnemigo(x, y);
+    	int tipoEnemigo = rand() % 3;
+		EntidadUbicada* enemigo = factory.crearEntidadConEnemigo(x, y, tipoEnemigo);
 		enemigos.push_back(enemigo);
 	}
 

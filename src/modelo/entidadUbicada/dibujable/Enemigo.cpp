@@ -7,11 +7,11 @@
 
 #include "Enemigo.h"
 
-Enemigo::Enemigo(float horizontal, float vertical) {
+Enemigo::Enemigo(float horizontal, float vertical, int tipoEnemigo) {
 	/*x = horizontal;
 	y = vertical;*/
 	this->setDest(horizontal, vertical, 220, 264);
-
+	this->tipoEnemigo = tipoEnemigo;
 	hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
 
 }

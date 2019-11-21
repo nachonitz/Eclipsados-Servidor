@@ -22,8 +22,8 @@ EntidadUbicada* FactoryEntidadUbicada::crearEntidadConPersonaje() {
 	return new EntidadUbicada(personaje);
 }
 
-EntidadUbicada* FactoryEntidadUbicada::crearEntidadConEnemigo(float horizontal, float vertical) {
-	Dibujable* enemigo = new Enemigo(horizontal, vertical);
+EntidadUbicada* FactoryEntidadUbicada::crearEntidadConEnemigo(float horizontal, float vertical, int tipoEnemigo) {
+	Dibujable* enemigo = new Enemigo(horizontal, vertical, tipoEnemigo);
 	return new EntidadUbicada(enemigo, horizontal, vertical);
 }
 

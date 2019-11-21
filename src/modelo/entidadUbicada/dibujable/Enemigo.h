@@ -33,7 +33,7 @@ private:
 	bool rev,nAb;
 	int newAnim;
 	float x, y;
-
+	int tipoEnemigo;
 
 	Hitbox hitboxParado;
 
@@ -44,7 +44,7 @@ private:
 	int hbxActual = 0;
 
 public:
-	Enemigo(float horizontal, float vertical);
+	Enemigo(float horizontal, float vertical, int tipoEnemigo);
 	virtual ~Enemigo();
 
 	Hitbox getHitbox() {return hitboxParado;}		//TODO: HARDCODEADO SIEMPRE PARADO!
@@ -58,6 +58,7 @@ public:
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 	float getPosHorizontal(){return x;}
 	float getPosVertical(){return y;}
+	int getTipoEnemigo(){return this->tipoEnemigo;}
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ENEMIGO_H_ */
