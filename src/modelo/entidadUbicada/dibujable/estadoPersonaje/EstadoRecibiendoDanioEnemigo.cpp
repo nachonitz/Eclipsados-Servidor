@@ -17,7 +17,7 @@ EstadoRecibiendoDanioEnemigo::EstadoRecibiendoDanioEnemigo(SDL_RendererFlip flip
 	ciclo.w=220;
 	ciclo.h = 264;
 	ciclo.cantSprites=2;
-	ciclo.vel=5;
+	ciclo.vel=10;
 
 	ciclo.tick=0;
 
@@ -37,7 +37,7 @@ EstadoPersonaje* EstadoRecibiendoDanioEnemigo::procesarAccion(informacionRec inf
 
 	if (ciclo.tick < 0){
 		hbxActual = 0;
-		return new EstadoCaminandoEnemigo(flip, 1, 220, 264, 6, 7);
+		return new EstadoCaminandoEnemigo(flip);
 	}
 
 	return this;		//ninguna accion, solo animacion de momento

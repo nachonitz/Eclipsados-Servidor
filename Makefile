@@ -1,5 +1,22 @@
 # Source: https://hiltmon.com/blog/2013/07/03/a-simple-c-plus-plus-project-structure/
 
+# All of the sources participating in the build are defined here
+-include sources.mk
+-include src/modelo/nivel/subdir.mk
+-include src/modelo/entidadUbicada/dibujable/elemento/subdir.mk
+-include src/modelo/entidadUbicada/dibujable/subdir.mk
+-include src/modelo/entidadUbicada/subdir.mk
+-include src/modelo/subdir.mk
+-include src/subdir.mk
+-include build/modelo/nivel/subdir.mk
+-include build/modelo/entidadUbicada/dibujable/elemento/subdir.mk
+-include build/modelo/entidadUbicada/dibujable/subdir.mk
+-include build/modelo/entidadUbicada/subdir.mk
+-include build/modelo/subdir.mk
+-include build/subdir.mk
+-include subdir.mk
+-include objects.mk
+
 CC := g++ # This is the main compiler
 SRCDIR := src
 BUILDDIR := build

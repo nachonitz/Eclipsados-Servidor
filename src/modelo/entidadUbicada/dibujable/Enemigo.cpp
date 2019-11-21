@@ -14,8 +14,7 @@ Enemigo::Enemigo(float horizontal, float vertical, int tipoEnemigo) {
 	this->tipoEnemigo = tipoEnemigo;
 	hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
 
-	animActual = 0;
-	estadoActual = new EstadoCaminandoEnemigo(spriteFlip, 1, 220, 264, 6, 7);
+	estadoActual = new EstadoCaminandoEnemigo(spriteFlip);
 
 }
 

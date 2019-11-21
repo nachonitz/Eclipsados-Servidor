@@ -12,7 +12,7 @@
 
 class EstadoCaminandoEnemigo: public EstadoPersonaje {
 public:
-	EstadoCaminandoEnemigo(SDL_RendererFlip flip, int fil, int w, int h, int cantSprites, int vel);
+	EstadoCaminandoEnemigo(SDL_RendererFlip flip);
 
 	virtual ~EstadoCaminandoEnemigo();
 

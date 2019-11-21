@@ -15,15 +15,16 @@
 #include "../../../nivel/Nivel.h"
 
 
-EstadoCaminandoEnemigo::EstadoCaminandoEnemigo(SDL_RendererFlip flip, int fil, int w, int h, int cantSprites, int vel) {
+EstadoCaminandoEnemigo::EstadoCaminandoEnemigo(SDL_RendererFlip flip) {
 
 	this->flip = flip;
 
-	this->ciclo.fil= fil;
-	this->ciclo.w= w;
-	this->ciclo.h = h;
-	this->ciclo.cantSprites= cantSprites;
-	this->ciclo.vel= vel;
+	this->flip = flip;
+	ciclo.fil=1;
+	ciclo.w=220;
+	ciclo.h = 264;
+	ciclo.cantSprites=6;
+	ciclo.vel=5;
 
 	ciclo.tick=0;
 

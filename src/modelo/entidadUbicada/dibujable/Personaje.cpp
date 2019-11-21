@@ -43,7 +43,7 @@ int Personaje::getElementoEnMano() {
 
 void Personaje::recibirDanio(int danio){
 
-	//estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip);
+	//estadoActual = new EstadoRecibiendoDanioPersonaje(info.flip);
 
 }
 

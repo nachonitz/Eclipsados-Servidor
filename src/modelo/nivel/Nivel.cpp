@@ -62,8 +62,6 @@ void Nivel::actualizarAnimaciones(){
 		i++;
 	}
 
-
-
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
 		enemigoActual->updateAnim();

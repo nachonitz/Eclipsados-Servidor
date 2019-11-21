@@ -8,12 +8,13 @@
 #include "../elemento/Elemento.h"
 
 Elemento::Elemento() {
-	// TODO Auto-generated constructor stub
+
+	//estadoActual = new EstadoElemento(SDL_FLIP_NONE);
 
 }
 
 Elemento::~Elemento() {
-	// TODO Auto-generated destructor stub
+
 }
 
 
@@ -23,5 +24,6 @@ void Elemento::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {
 
 void Elemento::recibirDanio(int danio){
 
-	//estadoActual = new EstadoRecibiendoDanioElemento();
+	estadoActual = new EstadoRecibiendoDanioElemento(SDL_FLIP_NONE);
+	estadoActual->actualizarAnimacion(src);
 }
