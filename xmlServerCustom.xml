@@ -1,13 +1,13 @@
 <configuracionServidor>
 	<debugLevel>DEBUG</debugLevel>
-	<jugadores>2</jugadores>
+	<jugadores>1</jugadores>
 	<escenario>
 		<cantidades>
-			<cuchillo>5</cuchillo>
-			<barril>5</barril>
-			<canio>5</canio>
-			<caja>5</caja>
-			<enemigo>10</enemigo>
+			<cuchillo>2</cuchillo>
+			<barril>2</barril>
+			<canio>2</canio>
+			<caja>2</caja>
+			<enemigo>2</enemigo>
 		</cantidades>
 	</escenario>
 	<usuarios>
