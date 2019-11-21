@@ -8,8 +8,7 @@ Personaje::Personaje() {
 
 	estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
 
-
-	this->imagen = "sprites/SpriteCodyCompleto.png";
+	this->imagen = "sprites/SpriteCodyCompleto.png"; //obsoleto!
 }
 
 
@@ -37,6 +36,11 @@ void Personaje::updateAnim(){
 	estadoActual->actualizarAnimacion(src);
 
 }
+
+int Personaje::getElementoEnMano() {
+	return estadoActual->getElementoEnMano();
+}
+
 
 /*void Personaje::setAnimacionActual(int c, SDL_RendererFlip flip) {
 	empezar = 0;

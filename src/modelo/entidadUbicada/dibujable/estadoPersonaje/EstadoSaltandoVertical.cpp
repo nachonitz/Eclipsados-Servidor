@@ -25,6 +25,8 @@ EstadoSaltandoVertical::EstadoSaltandoVertical(SDL_RendererFlip flip, float altu
 	ciclo.cantSprites=7;
 	ciclo.vel=8;
 
+	this->elementoEnMano = elemento;
+
 	ciclo.tick=0;
 
 }

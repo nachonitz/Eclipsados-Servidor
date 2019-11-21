@@ -56,6 +56,8 @@ public:
 
 	void resetearEstado();
 
+	int getElementoEnMano();
+
 };
 
 #endif /* PERSONAJE_H_ */

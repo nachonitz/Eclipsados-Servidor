@@ -12,7 +12,7 @@ Cuchillo::Cuchillo(float x, float y) {
 	setSource(0,0,70,70);
 	setDest(x, y, 70, 70);
 
-	hitboxElemento.set(14, 18, 31, 31, HBX_DEPTH_DEFECTO);
+	hitboxElemento.set(14, 18, 31, 0, HBX_DEPTH_DEFECTO);
 
 }
 

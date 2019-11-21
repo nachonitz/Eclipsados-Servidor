@@ -30,6 +30,8 @@ public:
 
 	virtual Hitbox getHitboxActual() = 0;
 
+	int getElementoEnMano();
+
 protected:
 	struct cycle {
 		int fil;

@@ -11,6 +11,12 @@
 
 #include "../../../nivel/Nivel.h"
 
+#include <typeinfo>
+
+#include <stdexcept>
+
+
+
 Nivel* EstadoPersonaje::nivelActual = nullptr;
 
 
@@ -42,3 +48,23 @@ void EstadoPersonaje::actualizarAnimacion(SDL_Rect& srcDibujable) {
 	}
 
 };
+
+int EstadoPersonaje::getElementoEnMano() {
+
+	if (elementoEnMano == nullptr)
+		return ELEMENTO_MANO;
+
+	if (typeid(*elementoEnMano) == typeid(Cuchillo))
+		return ELEMENTO_CUCHILLO;
+
+	if (typeid(*elementoEnMano) == typeid(CanioMetalico))
+		return ELEMENTO_CANIO;
+
+
+	throw std::invalid_argument( "ESTADOPERSONAJE.CPP: El Personaje tiene una Caja o Barril en mano!" );
+
+}
+
+
+
+

@@ -12,7 +12,7 @@ CanioMetalico::CanioMetalico(float x, float y) {
 	setSource(140,70,70,70);
 	setDest(x, y, 70, 70);
 
-	hitboxElemento.set(6, 13, 51, 51, HBX_DEPTH_DEFECTO);
+	hitboxElemento.set(6, 13, 51, 0, HBX_DEPTH_DEFECTO);
 
 }
 

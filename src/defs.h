@@ -59,6 +59,11 @@ struct informacionRec{
 #define ACCION_AGACHADO 5
 #define ACCION_SALTO_VERTICAL 6
 
+//animados.elementoEnMano
+#define ELEMENTO_MANO 0
+#define ELEMENTO_CUCHILLO 1
+#define ELEMENTO_CANIO 2
+
 #define MAX_CLIENTES 4		// usado en Juego.h
 
 #define FRAME_DELAY 1000/60
@@ -75,5 +80,7 @@ struct informacionRec{
 
 // HITBOX
 #define HBX_DEPTH_DEFECTO 12
+
+
 
 #endif /* SRC_DEFS_H_ */
