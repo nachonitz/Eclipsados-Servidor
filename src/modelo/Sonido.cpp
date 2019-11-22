@@ -24,7 +24,6 @@ Sonido::Sonido(int numeroNivel) {
 }
 
 Sonido::~Sonido() {
-
     //Libero los efectos de sonido
     /*Mix_FreeChunk( gScratch );
     Mix_FreeChunk( gHigh );

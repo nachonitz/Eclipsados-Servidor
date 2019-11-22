@@ -7,7 +7,9 @@
 Personaje::Personaje() {
 
 	estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
-
+	this->score = 0;
+	//this->energia = 100;
+	//this->vidas = 3;
 	this->imagen = "sprites/SpriteCodyCompleto.png"; //obsoleto!
 }
 

@@ -38,6 +38,7 @@ public:
 
 	Dibujable* getDibujable(){return dibujable;}
 
+
 	int getHorizontalGlobal(){return posicion->getHorizontal();}
 
 	void seCambioElNivel(Dibujable* entidad);

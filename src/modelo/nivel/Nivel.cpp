@@ -75,6 +75,9 @@ struct informacionEnv Nivel::getInformacion(){
 	for (EntidadUbicada* jugador : jugadores) {
 
 		Personaje* pjActual = (Personaje*)jugador->getDibujable();
+		//info.scores[i] = jugador->getScore();
+		//info.vidas[i] = jugador->getVidas();
+		//info.energia[i] = jugador->getEnergia();
 
 		struct animado animadoActual;
 		animadoActual.dest = pjActual->getDest();
