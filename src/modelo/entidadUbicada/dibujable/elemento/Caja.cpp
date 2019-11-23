@@ -11,7 +11,7 @@ Caja::Caja(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(0,200,100,100);
 	setDest(x, y, 100, 100);
-
+	this->vida = 2;
 	hitboxElemento.set(0, 0, 100, 100, HBX_DEPTH_DEFECTO);
 
 }

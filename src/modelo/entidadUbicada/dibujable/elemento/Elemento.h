@@ -16,6 +16,7 @@ class Elemento : public Dibujable{
 protected:
 	Hitbox hitboxElemento;
 	EstadoPersonaje* estadoActual;
+	int vida;
 
 public:
 	Elemento();

@@ -75,10 +75,9 @@ struct informacionEnv Nivel::getInformacion(){
 	for (EntidadUbicada* jugador : jugadores) {
 
 		Personaje* pjActual = (Personaje*)jugador->getDibujable();
-		//info.scores[i] = jugador->getScore();
-		//info.vidas[i] = jugador->getVidas();
-		//info.energia[i] = jugador->getEnergia();
-
+		info.scores[i] = pjActual->getScore();
+		info.vidas[i] = pjActual->getVidas();
+		info.energia[i] = pjActual->getEnergia();
 		struct animado animadoActual;
 		animadoActual.dest = pjActual->getDest();
 		animadoActual.src = pjActual->getSource();
@@ -572,7 +571,7 @@ bool Nivel::terminoElNivel(){
 	return alguienLlegoBordeGlobalDerecho();
 }
 
-void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox){
+void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio){
 
 	EntidadUbicada* jugador = jugadores.at(numeroJugador);
 
@@ -581,6 +580,8 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox){
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
 	if (colisionador != NULL){
-		colisionador->getDibujable()->recibirDanio(20);
+		colisionador->getDibujable()->recibirDanio(danio);
+		Personaje* pjActual = (Personaje*)jugador->getDibujable();
+		pjActual->aumentarScore(100);
 	}
 }

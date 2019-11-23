@@ -8,8 +8,8 @@ Personaje::Personaje() {
 
 	estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
 	this->score = 0;
-	//this->energia = 100;
-	//this->vidas = 3;
+	this->energia = 100;
+	this->vidas = 3;
 	this->imagen = "sprites/SpriteCodyCompleto.png"; //obsoleto!
 }
 
@@ -44,6 +44,11 @@ int Personaje::getElementoEnMano() {
 }
 
 void Personaje::recibirDanio(int danio){
+	this->energia -= danio;
+	if(this->energia == 0 && this->vidas > 0){
+		this->vidas --;
+		this->energia = 100;
+	}
 
 	//estadoActual = new EstadoRecibiendoDanioPersonaje(info.flip);
 

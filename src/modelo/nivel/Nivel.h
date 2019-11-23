@@ -45,9 +45,9 @@ struct informacionEnv{
 	struct elemento elementos[MAX_CANT_ELEMENTOS];
 	struct capa capas[3];
 	struct animado animados[MAX_CANT_ANIMADOS];
-	//int scores[MAX_CLIENTES];
-	//int vidas[MAX_CLIENTES];
-	//int energia[MAX_CLIENTES];
+	int scores[MAX_CLIENTES];
+	int vidas[MAX_CLIENTES];
+	int energia[MAX_CLIENTES];
 	int cantAnimados;
 	int cantElementos;
 	int cantJugadores;
@@ -103,7 +103,7 @@ public:
 
 	Elemento* agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador);
 
-	void hacerDanio(int numJugador, Hitbox hitbox);
+	void hacerDanio(int numJugador, Hitbox hitbox, int danio);
 
 private:
 	void moverCapasDerecha();
@@ -140,12 +140,10 @@ private:
 
 	std::vector<EntidadUbicada*> enemigos;
 	std::vector<EntidadUbicada*> elementos;
-
-	IA* ia;
-
 	vector<EntidadUbicada*> jugadores;
 	vector<bool>jugadoresActivos;
 
+	IA* ia;
 	int numeroNivel;
 
 	Capa capa1;

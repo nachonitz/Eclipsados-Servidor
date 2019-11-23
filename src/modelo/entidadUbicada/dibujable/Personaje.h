@@ -31,8 +31,7 @@ private:
 	int empezar;*/
 
 	EstadoPersonaje* estadoActual;
-	int score;
-	//int vidas, energia;
+	int score, vidas, energia;
 
 public:
 	Personaje();
@@ -60,8 +59,9 @@ public:
 
 	int getElementoEnMano();
 	int getScore(){return score;}
-	//int getVidas(){return vidas;}
-	//int getEnergia(){return energia;}
+	int getVidas(){return vidas;}
+	int getEnergia(){return energia;}
+	void aumentarScore(int incremento){this->score += incremento;}
 
 	virtual void recibirDanio(int danio);
 

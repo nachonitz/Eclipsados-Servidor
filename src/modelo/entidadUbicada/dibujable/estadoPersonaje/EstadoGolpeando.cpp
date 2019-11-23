@@ -41,7 +41,7 @@ EstadoGolpeando::~EstadoGolpeando() {
 EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info) {
 
 	if(ciclo.tick == 1 || ciclo.tick == 3 || ciclo.tick == 8){
-		nivelActual->hacerDanio(info.numeroDeCliente, this->hitbox[hbxActual]);
+		nivelActual->hacerDanio(info.numeroDeCliente, this->hitbox[hbxActual], 20);
 	}
 	hbxActual ++;
 

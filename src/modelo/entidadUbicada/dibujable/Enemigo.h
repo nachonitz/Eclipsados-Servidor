@@ -47,6 +47,7 @@ private:
 	Hitbox hitboxGolpeando[666];	//TODO: chequear tamanio
 
 	int hbxActual = 0;
+	int vidas, energia;
 
 public:
 	Enemigo(float horizontal, float vertical, int tipoEnemigo);

@@ -73,6 +73,36 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 			}
 		}
 	}
+
+	for(int i=0; i < info.cantJugadores; i++){
+		enviado = 0;
+		while(enviado < sizeof(int)){
+			enviado += send(clientSocket, &info.scores[i]+enviado, sizeof(info.scores[i])-enviado, MSG_NOSIGNAL);
+			if (enviado < 0){
+				return -1;
+			}
+		}
+	}
+
+	for(int i=0; i < info.cantJugadores; i++){
+		enviado = 0;
+		while(enviado < sizeof(int)){
+			enviado += send(clientSocket, &info.vidas[i]+enviado, sizeof(info.vidas[i])-enviado, MSG_NOSIGNAL);
+			if (enviado < 0){
+				return -1;
+			}
+		}
+	}
+
+	for(int i=0; i < info.cantJugadores; i++){
+		enviado = 0;
+		while(enviado < sizeof(int)){
+			enviado += send(clientSocket, &info.energia[i]+enviado, sizeof(info.energia[i])-enviado, MSG_NOSIGNAL);
+			if (enviado < 0){
+				return -1;
+			}
+		}
+	}
 	return 1;
 }
 

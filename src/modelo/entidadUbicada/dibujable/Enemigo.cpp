@@ -12,6 +12,8 @@ Enemigo::Enemigo(float horizontal, float vertical, int tipoEnemigo) {
 	y = vertical;*/
 	this->setDest(horizontal, vertical, 220, 264);
 	this->tipoEnemigo = tipoEnemigo;
+	this->vidas = 1;
+	this->energia = 100;
 	hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
 
 	estadoActual = new EstadoCaminandoEnemigo(spriteFlip);
@@ -61,7 +63,10 @@ void Enemigo::setFlip(SDL_RendererFlip flip){
 }
 
 void Enemigo::recibirDanio(int danio){
-
+	this->energia -= danio;
+	if(this->energia == 0 && this->vidas > 0){
+		this->vidas --;
+	}
 	estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip);
 
 }
