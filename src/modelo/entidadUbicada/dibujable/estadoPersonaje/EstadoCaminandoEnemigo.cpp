@@ -28,7 +28,9 @@ EstadoCaminandoEnemigo::EstadoCaminandoEnemigo(SDL_RendererFlip flip) {
 
 	ciclo.tick=0;
 
-	//hitbox[0].set(123f,123f,123f,123f,123f);
+	/*for(int i = 0; i < 6; i++){
+		hitbox[i].set(39,12,159,243,HBX_DEPTH_DEFECTO);
+	}*/
 	//hitbox[1].set(666f,666f,666f,666f,666f);
 	// ...
 

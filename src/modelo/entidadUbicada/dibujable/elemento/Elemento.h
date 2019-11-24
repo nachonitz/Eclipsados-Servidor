@@ -28,6 +28,8 @@ public:
 
 	void recibirDanio(int danio);
 
+	virtual EstadoPersonaje* getEstadoActual()=0;
+
 };
 
 #endif /* SRC_MODELO_OBJETO_H_ */

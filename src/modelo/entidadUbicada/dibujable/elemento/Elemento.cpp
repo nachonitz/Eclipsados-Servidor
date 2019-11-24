@@ -8,7 +8,6 @@
 #include "../elemento/Elemento.h"
 
 Elemento::Elemento() {
-	//estadoActual = new EstadoElemento(SDL_FLIP_NONE);
 
 }
 
@@ -22,7 +21,5 @@ void Elemento::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {
 }
 
 void Elemento::recibirDanio(int danio){
-	vida --;
-	estadoActual = new EstadoRecibiendoDanioElemento(SDL_FLIP_NONE);
-	estadoActual->actualizarAnimacion(src);
+
 }

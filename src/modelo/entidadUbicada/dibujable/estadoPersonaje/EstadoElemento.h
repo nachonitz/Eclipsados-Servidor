@@ -12,7 +12,7 @@
 
 class EstadoElemento: public EstadoPersonaje {
 public:
-	EstadoElemento(SDL_RendererFlip flip);
+	EstadoElemento(SDL_RendererFlip flip, int w, int h, int fil);
 
 	virtual ~EstadoElemento();
 

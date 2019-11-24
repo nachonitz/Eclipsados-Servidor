@@ -13,6 +13,7 @@ Cuchillo::Cuchillo(float x, float y) {
 	setDest(x, y, 70, 70);
 
 	hitboxElemento.set(14, 18, 31, 0, HBX_DEPTH_DEFECTO);
+	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 0, 0);
 
 }
 
@@ -20,3 +21,6 @@ Cuchillo::~Cuchillo() {
 	// TODO Auto-generated destructor stub
 }
 
+void Cuchillo::recibirDanio(int danio){
+
+}

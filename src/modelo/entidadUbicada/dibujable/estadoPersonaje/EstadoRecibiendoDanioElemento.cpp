@@ -21,7 +21,7 @@ EstadoRecibiendoDanioElemento::EstadoRecibiendoDanioElemento(SDL_RendererFlip fl
 
 	ciclo.tick=0;
 
-	this->hitbox[0].set(0,0,100,100,HBX_DEPTH_DEFECTO);
+	//this->hitbox[0].set(6,52,90,47,HBX_DEPTH_DEFECTO);
 
 
 
@@ -33,8 +33,16 @@ EstadoRecibiendoDanioElemento::~EstadoRecibiendoDanioElemento() {
 
 EstadoPersonaje* EstadoRecibiendoDanioElemento::procesarAccion(informacionRec info) {
 
+	hbxActual = ciclo.tick;
+	//if(hbxActual < 0){
+		//Hitbox hitbox;
+		//hitboxTemp = hitbox[0].
+		return nullptr;
+	//}
 
-//borrar del mapa
+	//EstadoPersonaje* nuevoEstado = this;
+
+	//return nuevoEstado;
 }
 
 

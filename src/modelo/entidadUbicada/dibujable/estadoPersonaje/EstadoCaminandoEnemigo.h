@@ -24,7 +24,7 @@ public:
 private:
 	void seguirCaminando();
 
-	Hitbox hitbox[12];
+	Hitbox hitbox[6];
 
 	int hbxActual = 0;
 };

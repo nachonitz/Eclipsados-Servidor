@@ -14,6 +14,11 @@ class Barril : public Elemento {
 public:
 	Barril(float x, float y);
 	virtual ~Barril();
+
+	void recibirDanio(int danio);
+
+	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
+
 };
 
 #endif /* SRC_MODELO_BARRIL_H_ */

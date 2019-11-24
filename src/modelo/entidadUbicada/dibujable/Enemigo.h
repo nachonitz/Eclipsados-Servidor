@@ -16,6 +16,7 @@ using namespace  std;
 
 #include "estadoPersonaje/EstadoCaminandoEnemigo.h"
 #include "estadoPersonaje/EstadoRecibiendoDanioEnemigo.h"
+#include "estadoPersonaje/EstadoMorirEnemigo.h"
 
 
 class Enemigo : public Dibujable {
@@ -64,6 +65,8 @@ public:
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 	float getPosHorizontal(){return x;}
 	float getPosVertical(){return y;}
+	int getVidasActual(){return this->vidas;}
+	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 	int getTipoEnemigo(){return this->tipoEnemigo;}
 	void procesarAccion(struct informacionRec info);
 

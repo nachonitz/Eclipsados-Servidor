@@ -16,6 +16,11 @@ public:
 	virtual ~CanioMetalico();
 
 	bool sePuedeAgarrar() override {return true;}
+
+	void recibirDanio(int danio);
+
+	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
+
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ELEMENTO_CANIOMETALICO_H_ */

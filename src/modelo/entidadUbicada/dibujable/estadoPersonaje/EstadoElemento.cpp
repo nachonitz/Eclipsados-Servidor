@@ -9,13 +9,13 @@
 
 #include "EstadoQuieto.h"
 
-EstadoElemento::EstadoElemento(SDL_RendererFlip flip) {
+EstadoElemento::EstadoElemento(SDL_RendererFlip flip, int w, int h, int fil) {
 
 	this->flip = flip;
 
-	ciclo.fil=1;
-	ciclo.w=100;
-	ciclo.h = 100;
+	ciclo.fil=fil;
+	ciclo.w=w;
+	ciclo.h = h;
 	ciclo.cantSprites=1;
 	ciclo.vel=4;
 

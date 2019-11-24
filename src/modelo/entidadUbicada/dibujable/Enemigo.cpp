@@ -47,7 +47,9 @@ void Enemigo::updateAnim(){
 }
 
 void Enemigo::procesarAccion(struct informacionRec info) {
-	this->estadoActual = estadoActual->procesarAccion(info);
+	if(estadoActual != NULL){
+		this->estadoActual = estadoActual->procesarAccion(info);
+	}
 }
 
 void Enemigo::setAnimacionActual(int c, SDL_RendererFlip flip) {
@@ -67,7 +69,11 @@ void Enemigo::recibirDanio(int danio){
 	if(this->energia == 0 && this->vidas > 0){
 		this->vidas --;
 	}
-	estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip);
+	if(this->vidas == 0){
+		estadoActual = new EstadoMorirEnemigo(spriteFlip);
+	}else{
+		estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip);
+	}
 
 }
 

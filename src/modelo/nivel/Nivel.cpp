@@ -6,10 +6,11 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	this->numeroNivel = numeroNivel;
 
-	/*musicaFondo = new Sonido(numeroNivel);
-	(*musicaFondo).play();*/
-
 	this->jugadores = jugadores;
+
+	this->cantEnemigos = cantEnemigos;
+
+	this->cantElementos = cantCuchillos + cantCajas + cantCanios;
 
 	for (int i = 0; i<jugadores.size(); i++){
 		jugadoresActivos.push_back(true);
@@ -33,7 +34,7 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	this->movimientoEnemigos = 0;
 
-	this->ubicarEnemigosYElementos(cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos);
+	this->ubicarEnemigosYElementos(cantCuchillos, cantCajas, cantCanios, cantBarriles);
 
 	for(uint i = 0; i<enemigos.size(); i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
@@ -45,8 +46,6 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 }
 
 Nivel::~Nivel() {
-	//delete cody;
-	//delete musicaFondo;
 
 	for (uint i = 0; i < elementos.size(); i++) {
 		delete elementos[i];
@@ -62,9 +61,29 @@ void Nivel::actualizarAnimaciones(){
 		i++;
 	}
 
+	for (uint i = 0; i<elementos.size();i++){
+		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
+		if(elementoActual->getEstadoActual() == NULL){
+			for(uint j = i; j < elementos.size() - 1; j++){
+				//elementos[j] = elementos[j+1];
+				elementos.erase(elementos.begin()+j);
+			}
+			delete(elementoActual);
+			this->cantElementos --;
+		}
+	}
+
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
-		enemigoActual->updateAnim();
+		if(enemigoActual->getEstadoActual() == NULL){
+			for(uint j = i; j < enemigos.size() - 1; j++){
+				//enemigos[j] = enemigos[j+1];
+				enemigos.erase(enemigos.begin()+j);
+			}
+			this->cantEnemigos --;
+		}else{
+			enemigoActual->updateAnim();
+		}
 	}
 }
 
@@ -434,7 +453,7 @@ int Nivel::generarYaleatorioObjetos(){
 	return y;
 }
 
-void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos){
+void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles){
 
 	FactoryEntidadUbicada factory;
 /*
@@ -496,7 +515,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 	}
 
 	Logger::getInstance()->log(INFO, "Posicionando enemigos...");
-	for(int i=0; i<cantEnemigos; i++){
+	for(int i=0; i<this->cantEnemigos; i++){
 		int x = generarXaleatorio();
 		int y = generarYaleatorio();
     Logger::getInstance()->log(DEBUG, std::string("Posición inicial de enemigo " +

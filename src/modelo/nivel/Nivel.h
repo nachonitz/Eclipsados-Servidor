@@ -131,7 +131,7 @@ private:
 	bool alguienLlegoBordeLocalDerecho();
 
 
-	void ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
+	void ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles);
 
 
 	void inicializarCapa(Capa capa);
@@ -145,6 +145,7 @@ private:
 
 	IA* ia;
 	int numeroNivel;
+	int cantEnemigos,cantElementos;
 
 	Capa capa1;
 	Capa capa2;

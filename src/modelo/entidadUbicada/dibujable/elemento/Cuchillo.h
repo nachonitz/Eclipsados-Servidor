@@ -17,6 +17,10 @@ public:
 
 	bool sePuedeAgarrar() override {return true;}
 
+	void recibirDanio(int danio);
+
+	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
+
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ELEMENTO_CUCHILLO_H_ */

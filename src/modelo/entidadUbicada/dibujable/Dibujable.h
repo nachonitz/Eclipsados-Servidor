@@ -49,7 +49,6 @@ public:
 
 	virtual void recibirDanio(int danio) = 0;
 
-
 	//virtual void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) = 0;
 
 protected:
