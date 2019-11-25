@@ -64,6 +64,9 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 	Enemigo* enemigoDibujable = (Enemigo*) enemigo->getDibujable();
 
 
+
+
+/*
 	if (distancia_x > distancia_y){
 		if (x_jugador > x_enemigo){
 			hitboxUbicadaEnemigo.desplazarDerecha();
@@ -101,6 +104,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			enemigo->moverLocalAbajo();
 		}
 	}
+*/
 }
 
 void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){

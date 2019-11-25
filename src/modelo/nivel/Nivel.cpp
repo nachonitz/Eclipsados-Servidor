@@ -64,23 +64,33 @@ void Nivel::actualizarAnimaciones(){
 	for (uint i = 0; i<elementos.size();i++){
 		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
 		if(elementoActual->getEstadoActual() == NULL){
+			/*
 			for(uint j = i; j < elementos.size() - 1; j++){
 				//elementos[j] = elementos[j+1];
 				elementos.erase(elementos.begin()+j);
 			}
 			delete(elementoActual);
+			*/
+			elementos.erase(elementos.begin()+i);
 			this->cantElementos --;
+		}
+		else{
+			elementoActual->updateAnim();
 		}
 	}
 
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
 		if(enemigoActual->getEstadoActual() == NULL){
+			/*
 			for(uint j = i; j < enemigos.size() - 1; j++){
 				//enemigos[j] = enemigos[j+1];
 				enemigos.erase(enemigos.begin()+j);
 			}
+			*/
+			enemigos.erase(enemigos.begin()+i);
 			this->cantEnemigos --;
+
 		}else{
 			enemigoActual->updateAnim();
 		}

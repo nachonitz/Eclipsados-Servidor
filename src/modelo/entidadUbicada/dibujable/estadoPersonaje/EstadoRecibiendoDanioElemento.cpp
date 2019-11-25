@@ -6,7 +6,7 @@
  */
 
 #include "EstadoRecibiendoDanioElemento.h"
-
+#include <iostream>
 #include "EstadoQuieto.h"
 
 
@@ -23,7 +23,18 @@ EstadoRecibiendoDanioElemento::EstadoRecibiendoDanioElemento(SDL_RendererFlip fl
 
 	//this->hitbox[0].set(6,52,90,47,HBX_DEPTH_DEFECTO);
 
+	contadorPasoDelTiempo = 0;
 
+}
+
+void EstadoRecibiendoDanioElemento::actualizarAnimacion(SDL_Rect& srcDibujable) {
+
+//Es un falso ciclo para que muestre la animacion de la caja/barril rotos
+
+	contadorPasoDelTiempo ++;
+	if(contadorPasoDelTiempo > 50){
+		ciclo.tick = -1;
+	}
 
 }
 
@@ -34,15 +45,13 @@ EstadoRecibiendoDanioElemento::~EstadoRecibiendoDanioElemento() {
 EstadoPersonaje* EstadoRecibiendoDanioElemento::procesarAccion(informacionRec info) {
 
 	hbxActual = ciclo.tick;
-	//if(hbxActual < 0){
-		//Hitbox hitbox;
-		//hitboxTemp = hitbox[0].
+	if(hbxActual < 0){
 		return nullptr;
-	//}
+	}
 
-	//EstadoPersonaje* nuevoEstado = this;
+	EstadoPersonaje* nuevoEstado = this;
 
-	//return nuevoEstado;
+	return nuevoEstado;
 }
 
 

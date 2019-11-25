@@ -15,15 +15,16 @@ public:
 	Caja(float x, float y);
 	virtual ~Caja();
 
-	float getPosicionX(){return x;}
-	float getPosicionY(){return y;}
+//	float getPosicionX(){return x;}
+//	float getPosicionY(){return y;}
 
 	void recibirDanio(int danio);
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
-
+/*
 private:
 	float x, y;
+*/
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ELEMENTO_CAJA_H_ */

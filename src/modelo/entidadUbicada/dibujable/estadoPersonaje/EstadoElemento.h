@@ -20,6 +20,8 @@ public:
 
 	virtual Hitbox getHitboxActual() {return Hitbox();}
 
+	void actualizarAnimacion(SDL_Rect& srcDibujable);
+
 private:
 
 	Hitbox hitbox[1];

@@ -40,3 +40,5 @@ EstadoPersonaje* EstadoElemento::procesarAccion(informacionRec info) {
 	return nuevoEstado;
 }
 
+void EstadoElemento::actualizarAnimacion(SDL_Rect& srcDibujable) {
+}

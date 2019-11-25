@@ -23,3 +23,10 @@ void Elemento::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {
 void Elemento::recibirDanio(int danio){
 
 }
+
+void Elemento::updateAnim(){
+
+	estadoActual->actualizarAnimacion(src);
+	informacionRec info;
+	estadoActual = estadoActual->procesarAccion(info);
+}

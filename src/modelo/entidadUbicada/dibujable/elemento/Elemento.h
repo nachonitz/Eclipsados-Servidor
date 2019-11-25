@@ -30,6 +30,7 @@ public:
 
 	virtual EstadoPersonaje* getEstadoActual()=0;
 
+	void updateAnim();
 };
 
 #endif /* SRC_MODELO_OBJETO_H_ */

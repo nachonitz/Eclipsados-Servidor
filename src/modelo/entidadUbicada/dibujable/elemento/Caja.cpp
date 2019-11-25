@@ -14,8 +14,6 @@ Caja::Caja(float x, float y) {
 	this->vida = 2;
 	hitboxElemento.set(0, 0, 100, 100, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 200, 2);
-
-
 }
 
 Caja::~Caja() {
@@ -25,9 +23,13 @@ Caja::~Caja() {
 
 void Caja::recibirDanio(int danio){
 	vida --;
-	estadoActual = new EstadoRecibiendoDanioElemento(SDL_FLIP_NONE);
-	estadoActual->actualizarAnimacion(src);
-	informacionRec info;
-	estadoActual = estadoActual->procesarAccion(info);
+	if(vida == 0){
+		estadoActual = new EstadoRecibiendoDanioElemento(SDL_FLIP_NONE);
+		setSource(0,300,100,100);
+		estadoActual->actualizarAnimacion(src);
+		informacionRec info;
+		estadoActual = estadoActual->procesarAccion(info);
+	}
+
 }
 
