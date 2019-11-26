@@ -23,6 +23,9 @@ public:
 	void desplazarAbajo();
 	void desplazarSalto();
 
+	float distanciaEnX(HitboxUbicada& otraHitbox);
+	float distanciaEnY(HitboxUbicada& otraHitbox);
+
 	bool colisionaCon(HitboxUbicada& otraHitbox);
 
 	void extenderDepthPorUnFactor(int factor);

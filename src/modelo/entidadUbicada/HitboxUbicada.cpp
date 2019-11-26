@@ -44,6 +44,45 @@ void HitboxUbicada::sumarExtras(int extraWidth, int extraHeight, int extraDepth)
 	this->hitbox.depth += extraDepth;
 }
 
+float HitboxUbicada::distanciaEnX(HitboxUbicada& otraHitbox){
+	float miRangoXmin = this->posicion.getHorizontal() + this->hitbox.deltax;
+	float miRangoXmax = miRangoXmin + this->hitbox.width;
+
+	float suRangoXmin = otraHitbox.posicion.getHorizontal() + otraHitbox.hitbox.deltax;
+	float suRangoXmax = suRangoXmin + otraHitbox.hitbox.width;
+
+	if ((suRangoXmin >= miRangoXmin && suRangoXmin <= miRangoXmax) || (suRangoXmax >= miRangoXmin && suRangoXmax <= miRangoXmax)){
+		return 0;
+	}
+	if (suRangoXmin > miRangoXmax){
+		return suRangoXmin - miRangoXmax;
+	}
+	if (suRangoXmin < miRangoXmax){
+		return suRangoXmax - miRangoXmax;
+	}
+	return NULL;
+}
+
+float HitboxUbicada::distanciaEnY(HitboxUbicada& otraHitbox){
+	float miRangoYmin = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height - this->hitbox.depth/2;
+	float miRangoYmax = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height + this->hitbox.depth/2;
+
+	float suRangoYmin = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height - otraHitbox.hitbox.depth/2;
+	float suRangoYmax = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height + otraHitbox.hitbox.depth/2;
+
+
+	if ((suRangoYmin >= miRangoYmin && suRangoYmin <= miRangoYmax) || (suRangoYmax >= miRangoYmin && suRangoYmax <= miRangoYmax)){
+		return 0;
+	}
+	if (suRangoYmin > miRangoYmax){
+		return suRangoYmin - miRangoYmax;
+	}
+	if (suRangoYmin < miRangoYmax){
+		return suRangoYmax - miRangoYmax;
+	}
+	return NULL;
+}
+
 bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	// 		 posX + deltaX <= miRangoX <= posX + deltaX + width
