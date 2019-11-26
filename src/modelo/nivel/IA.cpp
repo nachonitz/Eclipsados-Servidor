@@ -59,12 +59,6 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 	Enemigo* enemigoDibujable = (Enemigo*) enemigo->getDibujable();
 
-	if (distancia_y == NULL){
-		printf("PROBLEMA EN DISTANCIAS Y\n");
-	}
-	if (distancia_x == NULL){
-		printf("PROBLEMA EN DISTANCIAS X\n");
-	}
 
 	if (distancia_y != 0){ //Siempre primero hacemos que el enemigo se ajuste al eje y
 		if (distancia_y > 0){
