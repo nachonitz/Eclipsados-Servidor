@@ -15,7 +15,11 @@ public:
 	Barril(float x, float y);
 	virtual ~Barril();
 
-	void recibirDanio(int danio);
+	int recibirDanio(int danio);
+
+	int getScore(){return PUNTOS_BARRIL;}
+
+	int getDanioElemento(){return 0;}
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 

@@ -18,7 +18,11 @@ public:
 //	float getPosicionX(){return x;}
 //	float getPosicionY(){return y;}
 
-	void recibirDanio(int danio);
+	int recibirDanio(int danio);
+
+	int getScore(){return PUNTOS_CAJA;}
+
+	int getDanioElemento(){return 0;}
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 /*

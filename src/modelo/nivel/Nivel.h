@@ -64,7 +64,7 @@ public:
 	void movimientoAbajo(int numeroJugador, Hitbox& hitbox);
 	void movimientoIzquierda(int numeroJugador, Hitbox& hitbox);
 	void movimientoDerecha(int numeroJugador, Hitbox& hitbox);
-	void movimientoSalto(int numeroJugador, Hitbox& hitbox);
+	void movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio);
 	void terminoSalto(int numeroJugador, int alturaLocalInicial);
 	bool terminoElNivel();
 
@@ -103,7 +103,7 @@ public:
 
 	Elemento* agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador);
 
-	void hacerDanio(int numJugador, Hitbox hitbox, int danio);
+	void hacerDanio(int numJugador, Hitbox hitbox, int danio, int score);
 
 private:
 	void moverCapasDerecha();
@@ -124,6 +124,7 @@ private:
 	int generarYaleatorioObjetos();
 
 	int movimientoEnemigos;
+	int puntosExtras;
 
 	bool alguienLlegoBordeGlobalDerecho();
 	bool alguienLlegoBordeGlobalIzquierdo();

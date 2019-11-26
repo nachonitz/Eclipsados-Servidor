@@ -20,7 +20,7 @@ Hitbox::Hitbox() {
 
 Hitbox::Hitbox (const Hitbox &obj) {
 	this->deltax = obj.deltax;
-	this->deltay = obj.deltay;
+	this->deltay = obj.deltay;		//a veces rompe aca
 	this->width = obj.width;
 	this->height = obj.height;
 	this->depth = obj.depth;

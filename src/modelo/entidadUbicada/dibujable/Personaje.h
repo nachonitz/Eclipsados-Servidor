@@ -63,7 +63,7 @@ public:
 	int getEnergia(){return energia;}
 	void aumentarScore(int incremento){this->score += incremento;}
 
-	virtual void recibirDanio(int danio);
+	virtual int recibirDanio(int danio);
 
 };
 

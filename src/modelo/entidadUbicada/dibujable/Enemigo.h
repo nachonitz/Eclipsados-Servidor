@@ -48,7 +48,7 @@ private:
 	Hitbox hitboxGolpeando[666];	//TODO: chequear tamanio
 
 	int hbxActual = 0;
-	int vidas, energia;
+	int vidas, energia, score;
 
 public:
 	Enemigo(float horizontal, float vertical, int tipoEnemigo);
@@ -75,7 +75,7 @@ public:
 	void moverIzquierdaEnemigo(){dest.x -= VELOCIDAD_CODY-1;}
 	void moverDerechaEnemigo(){dest.x += VELOCIDAD_CODY-1;}
 
-	void recibirDanio(int danio);
+	int recibirDanio(int danio);
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ENEMIGO_H_ */

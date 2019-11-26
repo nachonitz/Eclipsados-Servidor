@@ -27,6 +27,8 @@ private:
 
 	int hbxActual = 0;
 
+	int tickAnterior;
+
 
 };
 

@@ -43,7 +43,7 @@ int Personaje::getElementoEnMano() {
 	return estadoActual->getElementoEnMano();
 }
 
-void Personaje::recibirDanio(int danio){
+int Personaje::recibirDanio(int danio){
 	this->energia -= danio;
 	if(this->energia == 0 && this->vidas > 0){
 		this->vidas --;

@@ -17,7 +17,11 @@ public:
 
 	bool sePuedeAgarrar() override {return true;}
 
-	void recibirDanio(int danio);
+	int recibirDanio(int danio);
+
+	int getScore(){return PUNTOS_CUCHILLO;}
+
+	int getDanioElemento(){return DANIO_CUCHILLO;}
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 

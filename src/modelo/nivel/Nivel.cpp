@@ -64,13 +64,6 @@ void Nivel::actualizarAnimaciones(){
 	for (uint i = 0; i<elementos.size();i++){
 		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
 		if(elementoActual->getEstadoActual() == NULL){
-			/*
-			for(uint j = i; j < elementos.size() - 1; j++){
-				//elementos[j] = elementos[j+1];
-				elementos.erase(elementos.begin()+j);
-			}
-			delete(elementoActual);
-			*/
 			elementos.erase(elementos.begin()+i);
 			this->cantElementos --;
 		}
@@ -82,12 +75,6 @@ void Nivel::actualizarAnimaciones(){
 	for (uint i = 0; i<enemigos.size();i++){
 		Enemigo* enemigoActual = (Enemigo*) enemigos[i]->getDibujable();
 		if(enemigoActual->getEstadoActual() == NULL){
-			/*
-			for(uint j = i; j < enemigos.size() - 1; j++){
-				//enemigos[j] = enemigos[j+1];
-				enemigos.erase(enemigos.begin()+j);
-			}
-			*/
 			enemigos.erase(enemigos.begin()+i);
 			this->cantEnemigos --;
 
@@ -226,7 +213,7 @@ void Nivel::movimientoArriba(int numeroJugador, Hitbox& hitbox){
 	jugador->moverGlobalArriba();
 }
 
-void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox) {
+void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 
 	EntidadUbicada* jugador = jugadores[numeroJugador];
 
@@ -234,8 +221,18 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox) {
 
 	hitboxUbicada.desplazarSalto();		//calcular hitbox del siguiente tick (mas cerca o lejos del piso)
 
-	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
-		return;
+	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
+
+	if (colisionador){
+		if(danio != 0){
+			colisionador->getDibujable()->recibirDanio(danio);
+			Personaje* pjActual = (Personaje*)jugador->getDibujable();
+			pjActual->aumentarScore(100);
+			return;
+		}else{
+			return;
+		}
+	}
 
 	jugador->moverLocalSalto();
 	jugador->moverGlobalSalto();
@@ -290,14 +287,14 @@ EntidadUbicada* Nivel::colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, D
 	}
 
 	for (EntidadUbicada* elemento : elementos) {
-		if (elemento->getDibujable() != dibujablePropietario && elemento->colisionaCon(hitboxUbicada)) {
-			return elemento;
+		if (elemento->getDibujable() != dibujablePropietario && elemento->colisionaCon(hitboxUbicada)) {		//elemento->getDibujable() != dibujablePropietario
+			return elemento;																					// no esta demas? el jugador no puede ser un elemento
 		}
 	}
 
 	for (EntidadUbicada* enemigo : enemigos) {
-		if (enemigo->getDibujable() != dibujablePropietario && enemigo->colisionaCon(hitboxUbicada)) {
-			return enemigo;
+		if (enemigo->getDibujable() != dibujablePropietario && enemigo->colisionaCon(hitboxUbicada)) {			//elemento->getDibujable() != dibujablePropietario
+			return enemigo;																						// no esta demas? el jugador no puede ser un enemigo
 		}
 	}
 
@@ -600,7 +597,7 @@ bool Nivel::terminoElNivel(){
 	return alguienLlegoBordeGlobalDerecho();
 }
 
-void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio){
+void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 
 	EntidadUbicada* jugador = jugadores.at(numeroJugador);
 
@@ -609,8 +606,14 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio){
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
 	if (colisionador != NULL){
-		colisionador->getDibujable()->recibirDanio(danio);
+		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
 		Personaje* pjActual = (Personaje*)jugador->getDibujable();
-		pjActual->aumentarScore(100);
+		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
+			pjActual->aumentarScore(score+puntosExtras);
+		}else{
+			pjActual->aumentarScore(puntosExtras);
+		}
 	}
 }
+
+

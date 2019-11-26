@@ -16,7 +16,7 @@ class Elemento : public Dibujable{
 protected:
 	Hitbox hitboxElemento;
 	EstadoPersonaje* estadoActual;
-	int vida;
+	int vida, score;
 
 public:
 	Elemento();
@@ -24,9 +24,13 @@ public:
 
 	Hitbox getHitbox() {return hitboxElemento;}
 
+	virtual int getScore() = 0;
+
+	virtual int getDanioElemento() = 0;
+
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 
-	void recibirDanio(int danio);
+	int recibirDanio(int danio);
 
 	virtual EstadoPersonaje* getEstadoActual()=0;
 

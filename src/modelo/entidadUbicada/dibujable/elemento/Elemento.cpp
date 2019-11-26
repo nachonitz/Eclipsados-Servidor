@@ -20,7 +20,7 @@ void Elemento::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {
 	asignador.setTexture(*this, ren);
 }
 
-void Elemento::recibirDanio(int danio){
+int Elemento::recibirDanio(int danio){
 
 }
 

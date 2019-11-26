@@ -43,7 +43,7 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info) {
 	EstadoPersonaje* nuevoEstado = this;
 
 	if (alturaActualSalto <= 0) {
-		nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual]);
+		nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual], 0);
 		alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
 
 		resolverMovimientoHorizontal(info.numeroDeCliente);

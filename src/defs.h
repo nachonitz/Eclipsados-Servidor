@@ -64,6 +64,20 @@ struct informacionRec{
 #define ELEMENTO_CUCHILLO 1
 #define ELEMENTO_CANIO 2
 
+#define DANIO_PATADA 75
+#define DANIO_CUCHILLO 50
+#define DANIO_CANIO 35
+#define DANIO_PUNIO 20
+
+#define PUNTOS_PATADA 400
+#define PUNTOS_CANIO 200
+#define PUNTOS_CUCHILLO 150
+#define PUNTOS_PUNIO 100
+
+#define PUNTOS_ENEMIGO 500
+#define PUNTOS_BARRIL 300
+#define PUNTOS_CAJA 200
+
 #define MAX_CLIENTES 4		// usado en Juego.h
 
 #define FRAME_DELAY 1000/60
