@@ -70,6 +70,11 @@ public:
 	int getTipoEnemigo(){return this->tipoEnemigo;}
 	void procesarAccion(struct informacionRec info);
 
+	void moverArribaEnemigo();
+	void moverAbajoEnemigo();
+	void moverIzquierdaEnemigo(){dest.x -= VELOCIDAD_CODY-1;}
+	void moverDerechaEnemigo(){dest.x += VELOCIDAD_CODY-1;}
+
 	void recibirDanio(int danio);
 };
 

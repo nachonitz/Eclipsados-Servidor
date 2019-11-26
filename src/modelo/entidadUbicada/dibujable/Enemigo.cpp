@@ -24,6 +24,18 @@ Enemigo::~Enemigo() {
 	// TODO Auto-generated destructor stub
 }
 
+void Enemigo::moverArribaEnemigo(){
+	if(dest.y > WINDOW_SIZE_VERTICAL - MARGEN_PISO_ARRIBA){
+		dest.y -= (VELOCIDAD_CODY-1)/2;
+	}
+}
+
+void Enemigo::moverAbajoEnemigo(){
+	if(dest.y < WINDOW_SIZE_VERTICAL - MARGEN_PISO_ABAJO){
+		dest.y += (VELOCIDAD_CODY-1)/2;
+	}
+}
+
 void Enemigo::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {
 	asignador.setTexture(*this, ren);
 	setSource(0,0,100,125);

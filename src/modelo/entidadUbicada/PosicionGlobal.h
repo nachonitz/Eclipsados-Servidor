@@ -14,6 +14,10 @@ public:
 	void moverAbajo();
 	void moverIzquierda();
 	void moverDerecha();
+	void moverArribaEnemigo();
+	void moverAbajoEnemigo();
+	void moverIzquierdaEnemigo();
+	void moverDerechaEnemigo();
 	void moverSalto();
 	void terminoSalto(){velocidadSalto = VELOCIDAD_SALTO_INICIAL; z = 0;}
 

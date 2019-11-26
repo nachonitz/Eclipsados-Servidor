@@ -18,6 +18,10 @@ public:
 	void moverGlobalDerecha(){posicion->moverDerecha();}
 	void moverGlobalArriba(){posicion->moverArriba();}
 	void moverGlobalAbajo(){posicion->moverAbajo();}
+	void moverGlobalIzquierdaEnemigo(){posicion->moverIzquierdaEnemigo();}
+	void moverGlobalDerechaEnemigo(){posicion->moverDerechaEnemigo();}
+	void moverGlobalArribaEnemigo(){posicion->moverArribaEnemigo();}
+	void moverGlobalAbajoEnemigo(){posicion->moverAbajoEnemigo();}
 	void moverGlobalSalto(){posicion->moverSalto();}
 	void terminoGlobalSalto(){posicion->terminoSalto();}
 

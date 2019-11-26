@@ -65,24 +65,22 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 
 
-
-/*
 	if (distancia_x > distancia_y){
 		if (x_jugador > x_enemigo){
 			hitboxUbicadaEnemigo.desplazarDerecha();
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
 				return;
 			}
-			enemigo->moverGlobalDerecha();
-			enemigo->moverLocalDerecha();
+			enemigo->moverGlobalDerechaEnemigo();
+			enemigoDibujable->moverDerechaEnemigo();
 			enemigoDibujable->setFlip(SDL_FLIP_NONE);
 		}else{
 			hitboxUbicadaEnemigo.desplazarIzquierda();
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
 				return;
 			}
-			enemigo->moverGlobalIzquierda();
-			enemigo->moverLocalIzquierda();
+			enemigo->moverGlobalIzquierdaEnemigo();
+			enemigoDibujable->moverIzquierdaEnemigo();
 			enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 		}
 	}
@@ -90,21 +88,35 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 		if (y_jugador < y_enemigo){
 			hitboxUbicadaEnemigo.desplazarArriba();
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				for (int i = 0; i < 20; i++){
+					enemigo->moverGlobalDerechaEnemigo();
+					enemigoDibujable->moverDerechaEnemigo();
+					enemigo->moverGlobalArribaEnemigo();
+					enemigoDibujable->moverArribaEnemigo();
+				}
+
 				return;
 			}
-			enemigo->moverGlobalArriba();
-			enemigo->moverLocalArriba();
+			enemigo->moverGlobalArribaEnemigo();
+			enemigoDibujable->moverArribaEnemigo();
 		}else{
 			hitboxUbicadaEnemigo.desplazarAbajo();
 
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				for (int i = 0; i < 20 ; i++){
+					enemigo->moverGlobalDerechaEnemigo();
+					enemigoDibujable->moverDerechaEnemigo();
+					enemigo->moverGlobalAbajoEnemigo();
+					enemigoDibujable->moverAbajoEnemigo();
+				}
+
 				return;
 			}
-			enemigo->moverGlobalAbajo();
-			enemigo->moverLocalAbajo();
+			enemigo->moverGlobalAbajoEnemigo();
+			enemigoDibujable->moverAbajoEnemigo();
 		}
 	}
-*/
+
 }
 
 void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){

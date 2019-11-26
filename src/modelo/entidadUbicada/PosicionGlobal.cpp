@@ -38,6 +38,12 @@ void PosicionGlobal::moverArriba(){
 	}
 }
 
+void PosicionGlobal::moverArribaEnemigo(){
+	if(y > WINDOW_SIZE_VERTICAL - MARGEN_PISO_ARRIBA){
+		y -= (VELOCIDAD_CODY-1)/2;
+	}
+}
+
 void PosicionGlobal::moverSalto(){
 	z = z - velocidadSalto * DELTA_T;
 	velocidadSalto = velocidadSalto + DELTA_T * GRAVEDAD;
@@ -50,14 +56,30 @@ void PosicionGlobal::moverAbajo(){
 	}
 }
 
+void PosicionGlobal::moverAbajoEnemigo(){
+	if(y < WINDOW_SIZE_VERTICAL - MARGEN_PISO_ABAJO){
+		y += (VELOCIDAD_CODY-1)/2;
+	}
+}
+
+
 void PosicionGlobal::moverIzquierda(){
 	//x -= VELOCIDAD_CODY/2;
 	x -= VELOCIDAD_CODY;
 }
 
+void PosicionGlobal::moverIzquierdaEnemigo(){
+	//x -= VELOCIDAD_CODY/2;
+	x -= VELOCIDAD_CODY-1;
+}
+
 void PosicionGlobal::moverDerecha(){
 	//x += VELOCIDAD_CODY/2;
 	x += VELOCIDAD_CODY;
+}
+void PosicionGlobal::moverDerechaEnemigo(){
+	//x += VELOCIDAD_CODY/2;
+	x += VELOCIDAD_CODY-1;
 }
 
 float PosicionGlobal::getVertical() {
