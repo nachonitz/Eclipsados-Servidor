@@ -57,18 +57,18 @@ float HitboxUbicada::distanciaEnX(HitboxUbicada& otraHitbox){
 	if (suRangoXmin > miRangoXmax){
 		return suRangoXmin - miRangoXmax;
 	}
-	if (suRangoXmin < miRangoXmax){
-		return suRangoXmax - miRangoXmax;
+	if (suRangoXmax < miRangoXmin){
+		return suRangoXmax - miRangoXmin;
 	}
 	return NULL;
 }
 
 float HitboxUbicada::distanciaEnY(HitboxUbicada& otraHitbox){
-	float miRangoYmin = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height - this->hitbox.depth/2;
-	float miRangoYmax = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height + this->hitbox.depth/2;
+	float miRangoYmin = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height; //- this->hitbox.depth/2;
+	float miRangoYmax = this->posicion.getVertical() + this->hitbox.deltay + this->hitbox.height; //+ this->hitbox.depth/2;
 
-	float suRangoYmin = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height - otraHitbox.hitbox.depth/2;
-	float suRangoYmax = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height + otraHitbox.hitbox.depth/2;
+	float suRangoYmin = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height; //- otraHitbox.hitbox.depth/2;
+	float suRangoYmax = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height; //+ otraHitbox.hitbox.depth/2;
 
 
 	if ((suRangoYmin >= miRangoYmin && suRangoYmin <= miRangoYmax) || (suRangoYmax >= miRangoYmin && suRangoYmax <= miRangoYmax)){
@@ -77,8 +77,8 @@ float HitboxUbicada::distanciaEnY(HitboxUbicada& otraHitbox){
 	if (suRangoYmin > miRangoYmax){
 		return suRangoYmin - miRangoYmax;
 	}
-	if (suRangoYmin < miRangoYmax){
-		return suRangoYmax - miRangoYmax;
+	if (suRangoYmax < miRangoYmin){
+		return suRangoYmax - miRangoYmin;
 	}
 	return NULL;
 }
