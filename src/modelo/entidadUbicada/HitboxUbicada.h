@@ -26,6 +26,7 @@ public:
 	bool colisionaCon(HitboxUbicada& otraHitbox);
 
 	void extenderDepthPorUnFactor(int factor);
+	void sumarExtras(int extraWidth, int extraHeight, int extraDepth);
 
 
 private:

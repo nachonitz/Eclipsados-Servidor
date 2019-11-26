@@ -48,6 +48,9 @@ public:
 	void seCambioElNivel(Dibujable* entidad);
 
 	bool colisionaCon(HitboxUbicada& hitboxAjena);
+	bool colisionaConMiFactorExtra(HitboxUbicada& hitboxAjena, int extraW, int extraH, int extraD);
+
+
 
 private:
 

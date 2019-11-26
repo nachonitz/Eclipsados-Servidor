@@ -18,7 +18,7 @@ public:
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
 
-	virtual Hitbox getHitboxActual() {return Hitbox();}
+	virtual Hitbox getHitboxActual() {return Hitbox(14, 18, 31, 0, HBX_DEPTH_DEFECTO);}
 
 	void actualizarAnimacion(SDL_Rect& srcDibujable);
 

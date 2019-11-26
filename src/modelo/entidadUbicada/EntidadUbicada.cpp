@@ -35,3 +35,12 @@ bool EntidadUbicada::colisionaCon(HitboxUbicada& hitboxAjena) {
 
 	return miHitbox.colisionaCon(hitboxAjena);
 }
+
+bool EntidadUbicada::colisionaConMiFactorExtra(HitboxUbicada& hitboxAjena, int extraW, int extraH, int extraD) {
+
+	HitboxUbicada miHitbox(this->dibujable->getHitbox(), *this->posicion);
+
+	miHitbox.sumarExtras(extraW, extraH, extraD);
+
+	return miHitbox.colisionaCon(hitboxAjena);
+}

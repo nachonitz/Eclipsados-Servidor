@@ -38,6 +38,12 @@ void HitboxUbicada::extenderDepthPorUnFactor(int factor){
 	this->hitbox.depth *= factor;
 }
 
+void HitboxUbicada::sumarExtras(int extraWidth, int extraHeight, int extraDepth) {
+	this->hitbox.height += extraHeight;
+	this->hitbox.width += extraWidth;
+	this->hitbox.depth += extraDepth;
+}
+
 bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	// 		 posX + deltaX <= miRangoX <= posX + deltaX + width
@@ -55,7 +61,7 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 
 
-	if (miRangoXmax < suRangoXmin || suRangoXmax < miRangoXmin) {
+	if (miRangoXmax < suRangoXmin || suRangoXmax < miRangoXmin || miRangoXmax == miRangoXmin || suRangoXmax == suRangoXmin) {
 		Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
 	}
@@ -76,7 +82,7 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	Logger::getInstance()->log(DEBUG, "RANGOSZ: (" + std::to_string(miRangoZmin) + ", " + std::to_string(miRangoZmax) + ") vs ("+ std::to_string(suRangoZmin) + ", "+ std::to_string(suRangoZmax) + ")");
 
-	if (miRangoZmax < suRangoZmin || suRangoZmax < miRangoZmin) {
+	if (miRangoZmax < suRangoZmin || suRangoZmax < miRangoZmin || miRangoZmax == miRangoZmin || suRangoZmax == suRangoZmin) {
 		Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
 	}
@@ -95,7 +101,7 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	Logger::getInstance()->log(DEBUG, "RANGOSY: (" + std::to_string(miRangoYmin) + ", " + std::to_string(miRangoYmax) + ") vs ("+ std::to_string(suRangoYmin) + ", "+ std::to_string(suRangoYmax) + ")");
 
-	if (miRangoYmax < suRangoYmin || suRangoYmax < miRangoYmin) {
+	if (miRangoYmax < suRangoYmin || suRangoYmax < miRangoYmin || miRangoYmax == miRangoYmin || suRangoYmax == suRangoYmin) {
 		Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
 	}

@@ -118,6 +118,9 @@ private:
 
 	EntidadUbicada* colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario);
 
+	EntidadUbicada* colisionaConOtroElemento(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario, int extraHeight);
+
+
 
 	int generarXaleatorio();
 	int generarYaleatorio();

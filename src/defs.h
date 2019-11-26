@@ -94,6 +94,7 @@ struct informacionRec{
 
 // HITBOX
 #define HBX_DEPTH_DEFECTO 12
+#define HBX_EXTRA_HEIGHT_AL_AGARRAR 40
 
 
 

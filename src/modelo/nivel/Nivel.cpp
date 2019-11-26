@@ -251,7 +251,7 @@ Elemento* Nivel::agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador) {
 
 	hitboxUbicada.extenderDepthPorUnFactor(2);
 
-	EntidadUbicada* entidadQueColisiona = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
+	EntidadUbicada* entidadQueColisiona = this->colisionaConOtroElemento(hitboxUbicada, jugador->getDibujable(), HBX_EXTRA_HEIGHT_AL_AGARRAR);
 
 	if (entidadQueColisiona != nullptr && entidadQueColisiona->getDibujable()->sePuedeAgarrar()) {
 		//TODO: ELIMINAR ELEMENTO DEL NIVEL, AHORA ESTA EN SU MANO!
@@ -298,6 +298,17 @@ EntidadUbicada* Nivel::colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, D
 		}
 	}
 
+
+	return nullptr;
+}
+
+EntidadUbicada* Nivel::colisionaConOtroElemento(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario, int extraHeight) {
+
+	for (EntidadUbicada* elemento : elementos) {
+		if (elemento->getDibujable() != dibujablePropietario && elemento->colisionaConMiFactorExtra(hitboxUbicada, 0, extraHeight, 0)) {
+			return elemento;
+		}
+	}
 
 	return nullptr;
 }
