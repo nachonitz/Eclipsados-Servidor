@@ -12,7 +12,7 @@ Cuchillo::Cuchillo(float x, float y) {
 	setSource(0,0,70,70);
 	setDest(x, y, 70, 70);
 	this->score = PUNTOS_CUCHILLO;
-	this->vida = 3;
+	this->vidas = 3;
 	hitboxElemento.set(14, 18, 31, 0, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 0, 0);
 
@@ -24,6 +24,6 @@ Cuchillo::~Cuchillo() {
 
 int Cuchillo::recibirDanio(int danio){
 
-	this->vida --;
+	this->vidas --;
 	return this->score;
 }

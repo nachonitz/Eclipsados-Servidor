@@ -26,7 +26,7 @@ public:
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 
-	int getVidaActual(){return this->vida;}
+	int getVidas(){return this->vidas;}
 /*
 private:
 	float x, y;

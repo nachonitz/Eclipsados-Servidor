@@ -23,7 +23,7 @@ public:
 
 	int getDanioElemento(){return DANIO_CUCHILLO;}
 
-	int getVidaActual(){return this->vida;}
+	int getVidas(){return this->vidas;}
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 

@@ -65,7 +65,7 @@ public:
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 	float getPosHorizontal(){return x;}
 	float getPosVertical(){return y;}
-	int getVidasActual(){return this->vidas;}
+	int getVidas(){return this->vidas;}
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 	int getTipoEnemigo(){return this->tipoEnemigo;}
 	void procesarAccion(struct informacionRec info);

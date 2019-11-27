@@ -16,7 +16,7 @@ class Elemento : public Dibujable{
 protected:
 	Hitbox hitboxElemento;
 	EstadoPersonaje* estadoActual;
-	int vida, score;
+	int vidas, score;
 
 public:
 	Elemento();
@@ -32,7 +32,7 @@ public:
 
 	int recibirDanio(int danio);
 
-	virtual int getVidaActual()=0;
+	int getVidas(){;}
 
 	virtual EstadoPersonaje* getEstadoActual()=0;
 

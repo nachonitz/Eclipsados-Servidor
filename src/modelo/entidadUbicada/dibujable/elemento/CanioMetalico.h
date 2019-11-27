@@ -25,7 +25,7 @@ public:
 
 	int getDanioElemento(){return DANIO_CANIO;}
 
-	int getVidaActual(){return this->vida;}
+	int getVidas(){return this->vidas;}
 
 };
 

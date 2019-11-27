@@ -616,7 +616,7 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
-	if (colisionador != NULL){
+	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0){
 		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
 		Personaje* pjActual = (Personaje*)jugador->getDibujable();
 		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
@@ -626,5 +626,16 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 		}
 	}
 }
+
+/*void Nivel::limpiarMapa(){
+
+	for (uint i = 0; i<elementos.size();i++){
+		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
+		if(elementoActual->getVidaActual() == 0){
+			elementos.erase(elementos.begin()+i);
+			this->cantElementos --;
+		}
+	}
+}*/
 
 

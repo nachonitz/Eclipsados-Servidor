@@ -43,6 +43,8 @@ public:
 	int getWidth(){return src.w;}
 	int getHeight(){return src.h;}
 
+	virtual int getVidas()=0;
+
 	virtual Hitbox getHitbox() = 0;
 
 	virtual bool sePuedeAgarrar() {return false;}
