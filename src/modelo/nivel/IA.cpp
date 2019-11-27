@@ -68,7 +68,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 	if(estado == NULL)
 		return;
-	if(typeid(*estado) == typeid(EstadoGolpeandoEnemigo)){
+	if(typeid(*estado) == typeid(EstadoGolpeandoEnemigo) || typeid(*estado) == typeid(EstadoRecibiendoDanioEnemigo) || typeid(*estado) == typeid(EstadoMorirEnemigo)){
 		return;
 	}
 

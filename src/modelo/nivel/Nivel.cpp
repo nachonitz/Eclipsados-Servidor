@@ -226,7 +226,7 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
-    if (colisionador && danio != 0){
+    if (colisionador && danio != 0 && typeid(*(colisionador->getDibujable())) != typeid(Personaje)){
         puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
         Personaje* pjActual = (Personaje*)jugador->getDibujable();
         if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
@@ -623,7 +623,7 @@ bool Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
-	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0){
+	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0 && typeid(*(colisionador->getDibujable())) != typeid(Personaje)){
 		hizoDanio = true;
 		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
 		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
