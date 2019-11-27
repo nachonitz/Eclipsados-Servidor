@@ -15,10 +15,13 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 	for (int i = 0; i<jugadores.size(); i++){
 		jugadoresActivos.push_back(true);
 	}
+	int i = 0;
 	for (EntidadUbicada* entidad : jugadores) {
+		entidad->getPosicionGlobal()->trasladarA(JUGADOR_POSICION_HORIZONTAL_INICIAL + i, JUGADOR_POSICION_VERTICAL_INICIAL);
 		Personaje* personaje = (Personaje*)entidad->getDibujable();
-		personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
+		personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL + i, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
 		personaje->resetearEstado();
+		i+= 200;
 	}
 
 	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
