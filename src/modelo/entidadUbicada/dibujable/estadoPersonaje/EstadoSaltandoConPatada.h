@@ -21,6 +21,8 @@ private:
 
 	int hbxActual = 0;
 
+	int tickAnterior;
+
 
 public:
 	EstadoSaltandoConPatada(SDL_RendererFlip flip, float alturaActual) : EstadoSaltandoConPatada(flip, alturaActual, nullptr) {};

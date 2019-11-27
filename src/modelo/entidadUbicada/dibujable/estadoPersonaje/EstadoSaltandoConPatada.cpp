@@ -23,16 +23,15 @@ EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float al
 	ciclo.vel=9;
 
 	ciclo.tick=0;
+	tickAnterior = 0;
 
 	this->elementoEnMano = elemento;
 
-	/*for (int i = 0; i < 6; i++){
+	for (int i = 0; i < 6; i++){
 		hitbox[i].set(52,32,114,210,HBX_DEPTH_DEFECTO);
 	}
 
-	hitbox[2].set(3,20,227,200,HBX_DEPTH_DEFECTO);
 	hitbox[3].set(3,20,227,200,HBX_DEPTH_DEFECTO);
-	hitbox[4].set(3,20,227,200,HBX_DEPTH_DEFECTO);*/
 }
 
 EstadoSaltandoConPatada::~EstadoSaltandoConPatada() {
@@ -43,20 +42,17 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 
 	EstadoPersonaje* nuevoEstado = this;
 
+	hbxActual = ciclo.tick;
 
 	if (alturaActualSalto <= 0) {
-		if(ciclo.tick >= 2 && ciclo.tick <= 4){
-			nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual], DANIO_PATADA);
-		}else{
-			nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual], 0);
-			alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
-			resolverMovimientoHorizontal(info.numeroDeCliente);
-			}
+		nivelActual->movimientoSalto(info.numeroDeCliente, hitbox[hbxActual], DANIO_PATADA);
+		alturaActualSalto = nivelActual->getAlturaGlobalJugador(info.numeroDeCliente);
+		resolverMovimientoHorizontal(info.numeroDeCliente);
 	}
-	hbxActual ++;
 
 	if(alturaActualSalto > 0){
-		hbxActual = 0;
+		ciclo.tick = 0;
+		tickAnterior = 0;
 		nivelActual->terminoSalto(info.numeroDeCliente, alturaDestInicial);
 		nuevoEstado = new EstadoQuieto(info.flip, elementoEnMano);
 
@@ -64,6 +60,7 @@ EstadoPersonaje* EstadoSaltandoConPatada::procesarAccion(informacionRec info) {
 
 	return nuevoEstado;
 }
+
 
 void EstadoSaltandoConPatada::resolverMovimientoHorizontal(int numeroCliente) {
 

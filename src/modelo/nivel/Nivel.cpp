@@ -227,7 +227,7 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 		if(danio != 0){
 			colisionador->getDibujable()->recibirDanio(danio);
 			Personaje* pjActual = (Personaje*)jugador->getDibujable();
-			pjActual->aumentarScore(100);
+			pjActual->aumentarScore(PUNTOS_PATADA);
 			return;
 		}else{
 			return;

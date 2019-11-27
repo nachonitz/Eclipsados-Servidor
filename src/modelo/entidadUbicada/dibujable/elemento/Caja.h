@@ -25,6 +25,8 @@ public:
 	int getDanioElemento(){return 0;}
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
+
+	int getVidaActual(){return this->vida;}
 /*
 private:
 	float x, y;

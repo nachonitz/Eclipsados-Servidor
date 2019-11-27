@@ -25,6 +25,8 @@ public:
 
 	int getDanioElemento(){return DANIO_CANIO;}
 
+	int getVidaActual(){return this->vida;}
+
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ELEMENTO_CANIOMETALICO_H_ */

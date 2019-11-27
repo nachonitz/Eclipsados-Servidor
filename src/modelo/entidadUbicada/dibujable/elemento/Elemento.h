@@ -32,6 +32,8 @@ public:
 
 	int recibirDanio(int danio);
 
+	virtual int getVidaActual()=0;
+
 	virtual EstadoPersonaje* getEstadoActual()=0;
 
 	void updateAnim();

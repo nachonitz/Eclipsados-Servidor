@@ -79,7 +79,7 @@ void Enemigo::setFlip(SDL_RendererFlip flip){
 
 int Enemigo::recibirDanio(int danio){
 	this->energia -= danio;
-	if(this->energia == 0 && this->vidas > 0){
+	if(this->energia <= 0 && this->vidas > 0){
 		this->vidas --;
 	}
 	if(this->vidas == 0){

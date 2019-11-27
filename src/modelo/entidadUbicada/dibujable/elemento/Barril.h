@@ -23,6 +23,8 @@ public:
 
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 
+	int getVidaActual(){return this->vida;}
+
 };
 
 #endif /* SRC_MODELO_BARRIL_H_ */
