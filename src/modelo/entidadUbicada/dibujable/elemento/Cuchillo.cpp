@@ -15,7 +15,6 @@ Cuchillo::Cuchillo(float x, float y) {
 	this->vidas = 3;
 	hitboxElemento.set(14, 18, 31, 0, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 0, 0);
-	this->enElPiso = true;
 }
 
 Cuchillo::~Cuchillo() {

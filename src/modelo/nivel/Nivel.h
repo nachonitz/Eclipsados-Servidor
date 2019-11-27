@@ -16,6 +16,9 @@
 #include "SDL2/SDL_image.h"
 #include "IA.h"
 
+#include <algorithm>    // std::find
+
+
 #include "../entidadUbicada/HitboxUbicada.h"
 
 

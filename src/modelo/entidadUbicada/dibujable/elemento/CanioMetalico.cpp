@@ -15,7 +15,6 @@ CanioMetalico::CanioMetalico(float x, float y) {
 	this->score = PUNTOS_CANIO;
 	hitboxElemento.set(6, 13, 51, 0, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 140, 70, 1);
-	this->enElPiso = true;
 
 }
 

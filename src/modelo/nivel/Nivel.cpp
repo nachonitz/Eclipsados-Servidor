@@ -2,6 +2,7 @@
 
 #include "Nivel.h"
 
+
 Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos) {
 
 	this->numeroNivel = numeroNivel;
@@ -66,7 +67,7 @@ void Nivel::actualizarAnimaciones(){
 
 	for (uint i = 0; i<elementos.size();i++){
 		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
-		if(elementoActual->getEstadoActual() == NULL || !elementoActual->estaEnElPiso()){
+		if(elementoActual->getEstadoActual() == NULL){
 			elementos.erase(elementos.begin()+i);
 			this->cantElementos --;
 		}
@@ -257,8 +258,15 @@ Elemento* Nivel::agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador) {
 
 	if (entidadQueColisiona != nullptr && entidadQueColisiona->getDibujable()->sePuedeAgarrar()) {
 
+		/*<<<<<<< Updated upstream
 		//Entra hasta aca cuando levanta pero no se elimina del mapa
 		((Elemento*)entidadQueColisiona)->loLevantaronDelPiso();
+		=======*/
+
+		std::vector<EntidadUbicada*>::iterator it = std::find(elementos.begin(), elementos.end(), entidadQueColisiona);
+		this->elementos.erase(it);
+		this->cantElementos = this->elementos.size();
+
 		return (Elemento*)entidadQueColisiona->getDibujable();
 	}
 

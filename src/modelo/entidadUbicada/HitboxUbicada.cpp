@@ -101,12 +101,12 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 
 	if (miRangoXmax < suRangoXmin || suRangoXmax < miRangoXmin || miRangoXmax == miRangoXmin || suRangoXmax == suRangoXmin) {
-		Logger::getInstance()->log(DEBUG, "\n\n");
+		//Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
 	}
 
-	//Logger::getInstance()->log(DEBUG, "HITBOXUBICADA.CPP: COLISIONA EN X");
-	Logger::getInstance()->log(DEBUG, "COLISIONA! RANGOSX: (" + std::to_string(miRangoXmin) + ", " + std::to_string(miRangoXmax) + ") vs ("+ std::to_string(suRangoXmin) + ", "+ std::to_string(suRangoXmax) + ")");
+
+	//Logger::getInstance()->log(DEBUG, "COLISIONA! RANGOSX: (" + std::to_string(miRangoXmin) + ", " + std::to_string(miRangoXmax) + ") vs ("+ std::to_string(suRangoXmin) + ", "+ std::to_string(suRangoXmax) + ")");
 
 
 	// Recordar que el eje Z apunta hacia abajo!
@@ -119,10 +119,10 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 	float suRangoZmin = suRangoZmax - otraHitbox.hitbox.height;
 
 
-	Logger::getInstance()->log(DEBUG, "RANGOSZ: (" + std::to_string(miRangoZmin) + ", " + std::to_string(miRangoZmax) + ") vs ("+ std::to_string(suRangoZmin) + ", "+ std::to_string(suRangoZmax) + ")");
+	//Logger::getInstance()->log(DEBUG, "RANGOSZ: (" + std::to_string(miRangoZmin) + ", " + std::to_string(miRangoZmax) + ") vs ("+ std::to_string(suRangoZmin) + ", "+ std::to_string(suRangoZmax) + ")");
 
 	if (miRangoZmax < suRangoZmin || suRangoZmax < miRangoZmin || miRangoZmax == miRangoZmin || suRangoZmax == suRangoZmin) {
-		Logger::getInstance()->log(DEBUG, "\n\n");
+		//Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
 	}
 
@@ -138,19 +138,17 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 	float suRangoYmax = otraHitbox.posicion.getVertical() + otraHitbox.hitbox.deltay + otraHitbox.hitbox.height + otraHitbox.hitbox.depth/2;
 
 
-	Logger::getInstance()->log(DEBUG, "RANGOSY: (" + std::to_string(miRangoYmin) + ", " + std::to_string(miRangoYmax) + ") vs ("+ std::to_string(suRangoYmin) + ", "+ std::to_string(suRangoYmax) + ")");
+	//Logger::getInstance()->log(DEBUG, "RANGOSY: (" + std::to_string(miRangoYmin) + ", " + std::to_string(miRangoYmax) + ") vs ("+ std::to_string(suRangoYmin) + ", "+ std::to_string(suRangoYmax) + ")");
 
 	if (miRangoYmax < suRangoYmin || suRangoYmax < miRangoYmin || miRangoYmax == miRangoYmin || suRangoYmax == suRangoYmin) {
-		Logger::getInstance()->log(DEBUG, "\n\n");
+		//Logger::getInstance()->log(DEBUG, "\n\n");
 		return false;
 	}
 
 	//Logger::getInstance()->log(DEBUG, "HITBOXUBICADA.CPP: COLISIONA EN X + Y + Z");
 
 
-
-
-	Logger::getInstance()->log(DEBUG, "COLISION XYZ EN HITBOXUBICADA.CPP!");
+	//Logger::getInstance()->log(DEBUG, "COLISION XYZ EN HITBOXUBICADA.CPP!");
 
 	// coincide en todos los rangos!
 	return true;

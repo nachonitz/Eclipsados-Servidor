@@ -36,7 +36,7 @@ EstadoAgachado::~EstadoAgachado() {
 
 EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info) {
 
-	if (ciclo.tick == 1 || ciclo.tick == 2) {
+	if ((ciclo.tick == 1 || ciclo.tick == 2) && elementoEnMano == nullptr) {
 		elementoEnMano = nivelActual->agarrarObjeto(info.numeroDeCliente, this->hitbox[hbxActual]);
 	}
 

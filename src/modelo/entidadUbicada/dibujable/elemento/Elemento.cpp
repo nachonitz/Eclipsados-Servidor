@@ -20,10 +20,6 @@ void Elemento::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {
 	asignador.setTexture(*this, ren);
 }
 
-int Elemento::recibirDanio(int danio){
-
-}
-
 void Elemento::updateAnim(){
 
 	estadoActual->actualizarAnimacion(src);
@@ -31,6 +27,3 @@ void Elemento::updateAnim(){
 	estadoActual = estadoActual->procesarAccion(info);
 }
 
-void Elemento::loLevantaronDelPiso(){
-	enElPiso = false;
-}

@@ -13,9 +13,8 @@ Caja::Caja(float x, float y) {
 	setDest(x, y, 100, 100);
 	this->vidas = 2;
 	this->score = PUNTOS_CAJA;
-	hitboxElemento.set(0, 0, 100, 100, HBX_DEPTH_DEFECTO);
+	hitboxElemento.set(9, 4, 80, 92, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 200, 2);
-	this->enElPiso = true;
 }
 
 Caja::~Caja() {
