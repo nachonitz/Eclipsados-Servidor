@@ -27,6 +27,8 @@ public:
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 
 	int getVidas(){return this->vidas;}
+
+	bool sePuedeAgarrar() {return true;}
 /*
 private:
 	float x, y;

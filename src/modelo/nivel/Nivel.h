@@ -103,7 +103,7 @@ public:
 
 	Elemento* agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador);
 
-	void hacerDanio(int numJugador, Hitbox hitbox, int danio, int score);
+	bool hacerDanio(int numJugador, Hitbox hitbox, int danio, int score);
 
 private:
 	void moverCapasDerecha();
