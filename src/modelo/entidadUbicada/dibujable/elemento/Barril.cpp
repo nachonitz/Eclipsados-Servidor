@@ -15,6 +15,7 @@ Barril::Barril(float x, float y) {
 	this->score = PUNTOS_BARRIL;
 	hitboxElemento.set(0, 0, 100, 100, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 200, 200, 2);
+	this->enElPiso = true;
 }
 
 Barril::~Barril() {

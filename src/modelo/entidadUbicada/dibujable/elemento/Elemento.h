@@ -16,6 +16,7 @@ class Elemento : public Dibujable{
 protected:
 	Hitbox hitboxElemento;
 	EstadoPersonaje* estadoActual;
+	bool enElPiso;
 	int vidas, score;
 
 public:
@@ -28,15 +29,21 @@ public:
 
 	virtual int getDanioElemento() = 0;
 
+	void registrarUnUso(){this->vidas --;}
+
 	void setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren);
 
 	int recibirDanio(int danio);
 
-	int getVidas(){;}
+	int getVidas(){return vidas;}
 
 	virtual EstadoPersonaje* getEstadoActual()=0;
 
 	void updateAnim();
+
+	bool estaEnElPiso(){return enElPiso;}
+
+	void loLevantaronDelPiso();
 };
 
 #endif /* SRC_MODELO_OBJETO_H_ */

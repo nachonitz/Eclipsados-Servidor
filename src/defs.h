@@ -97,6 +97,6 @@ struct informacionRec{
 #define HBX_DEPTH_DEFECTO 12
 #define HBX_EXTRA_HEIGHT_AL_AGARRAR 40
 
-
+#define PRIMER_GOLPE_A_CAJA -1
 
 #endif /* SRC_DEFS_H_ */

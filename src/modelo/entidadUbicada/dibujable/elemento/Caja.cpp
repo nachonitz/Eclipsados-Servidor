@@ -15,6 +15,7 @@ Caja::Caja(float x, float y) {
 	this->score = PUNTOS_CAJA;
 	hitboxElemento.set(0, 0, 100, 100, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 200, 2);
+	this->enElPiso = true;
 }
 
 Caja::~Caja() {
@@ -23,6 +24,7 @@ Caja::~Caja() {
 }
 
 int Caja::recibirDanio(int danio){
+	int puntaje = PRIMER_GOLPE_A_CAJA;
 	vidas --;
 	if(vidas == 0){
 		estadoActual = new EstadoRecibiendoDanioElemento(SDL_FLIP_NONE);
@@ -30,8 +32,16 @@ int Caja::recibirDanio(int danio){
 		estadoActual->actualizarAnimacion(src);
 		informacionRec info;
 		estadoActual = estadoActual->procesarAccion(info);
+<<<<<<< HEAD
 		return this->score;
+=======
+		puntaje = this->score;
+>>>>>>> branch 'master' of https://github.com/nachonitz/Eclipsados-Servidor.git
 	}
+<<<<<<< HEAD
+=======
+	return puntaje;
+>>>>>>> branch 'master' of https://github.com/nachonitz/Eclipsados-Servidor.git
 
 }
 

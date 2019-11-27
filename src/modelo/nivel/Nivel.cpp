@@ -15,10 +15,13 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 	for (int i = 0; i<jugadores.size(); i++){
 		jugadoresActivos.push_back(true);
 	}
+	int i = 0;
 	for (EntidadUbicada* entidad : jugadores) {
+		entidad->getPosicionGlobal()->trasladarA(JUGADOR_POSICION_HORIZONTAL_INICIAL + i, JUGADOR_POSICION_VERTICAL_INICIAL);
 		Personaje* personaje = (Personaje*)entidad->getDibujable();
-		personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
+		personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL + i, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
 		personaje->resetearEstado();
+		i+= 200;
 	}
 
 	capa1.setSource(0,0,ANCHO_CAPA_PIXELES ,WINDOW_SIZE_VERTICAL+10);
@@ -63,7 +66,7 @@ void Nivel::actualizarAnimaciones(){
 
 	for (uint i = 0; i<elementos.size();i++){
 		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
-		if(elementoActual->getEstadoActual() == NULL){
+		if(elementoActual->getEstadoActual() == NULL || !elementoActual->estaEnElPiso()){
 			elementos.erase(elementos.begin()+i);
 			this->cantElementos --;
 		}
@@ -253,7 +256,9 @@ Elemento* Nivel::agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador) {
 	EntidadUbicada* entidadQueColisiona = this->colisionaConOtroElemento(hitboxUbicada, jugador->getDibujable(), HBX_EXTRA_HEIGHT_AL_AGARRAR);
 
 	if (entidadQueColisiona != nullptr && entidadQueColisiona->getDibujable()->sePuedeAgarrar()) {
-		//TODO: ELIMINAR ELEMENTO DEL NIVEL, AHORA ESTA EN SU MANO!
+
+		//Entra hasta aca cuando levanta pero no se elimina del mapa
+		((Elemento*)entidadQueColisiona)->loLevantaronDelPiso();
 		return (Elemento*)entidadQueColisiona->getDibujable();
 	}
 
@@ -607,7 +612,8 @@ bool Nivel::terminoElNivel(){
 	return alguienLlegoBordeGlobalDerecho();
 }
 
-void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
+bool Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
+	bool hizoDanio = false;
 
 	EntidadUbicada* jugador = jugadores.at(numeroJugador);
 
@@ -618,13 +624,23 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
 	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0){
+		hizoDanio = true;
 		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
+<<<<<<< HEAD
 		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
 			personaje->aumentarScore(score+puntosExtras);
 		}else{
 			personaje->aumentarScore(puntosExtras);
+=======
+		Personaje* pjActual = (Personaje*)jugador->getDibujable();
+		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL && puntosExtras != PRIMER_GOLPE_A_CAJA){
+			pjActual->aumentarScore(score+puntosExtras);
+		}else if(puntosExtras != PRIMER_GOLPE_A_CAJA){
+			pjActual->aumentarScore(puntosExtras);
+>>>>>>> branch 'master' of https://github.com/nachonitz/Eclipsados-Servidor.git
 		}
 	}
+	return hizoDanio;
 }
 
 void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio){

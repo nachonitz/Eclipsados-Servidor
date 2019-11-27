@@ -52,13 +52,19 @@ EstadoGolpeando::~EstadoGolpeando() {
 }
 
 EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info) {
-
+	bool hizoDanio;
 	hbxActual = ciclo.tick;
 
 	if(tickAnterior != ciclo.tick){
 		if(ciclo.tick == 1 /*|| ciclo.tick == 3 || (ciclo.tick >= 6 && ciclo.tick <= 8)*/ ){
 			if(this->elementoEnMano){
-				nivelActual->hacerDanio(info.numeroDeCliente, this->hitbox[hbxActual], this->elementoEnMano->getDanioElemento(), this->elementoEnMano->getScore());
+				hizoDanio = nivelActual->hacerDanio(info.numeroDeCliente, this->hitbox[hbxActual], this->elementoEnMano->getDanioElemento(), this->elementoEnMano->getScore());
+				if(hizoDanio){
+					elementoEnMano->registrarUnUso();
+				}
+				if(this->elementoEnMano->getVidas() <=0){
+					this->elementoEnMano = nullptr;
+				}
 			}else{
 				nivelActual->hacerDanio(info.numeroDeCliente, this->hitbox[hbxActual], DANIO_PUNIO, PUNTOS_PUNIO);
 			}

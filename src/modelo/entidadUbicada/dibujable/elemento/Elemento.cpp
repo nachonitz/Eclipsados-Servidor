@@ -30,3 +30,7 @@ void Elemento::updateAnim(){
 	informacionRec info;
 	estadoActual = estadoActual->procesarAccion(info);
 }
+
+void Elemento::loLevantaronDelPiso(){
+	enElPiso = false;
+}

@@ -24,7 +24,7 @@ public:
 	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 
 	int getVidas(){return this->vidas;}
-
+	bool sePuedeAgarrar() {return true;}
 };
 
 #endif /* SRC_MODELO_BARRIL_H_ */
