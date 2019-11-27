@@ -8,7 +8,7 @@ using namespace  std;
 #include "SDL2/SDL_image.h"
 
 #include "estadoPersonaje/EstadoQuieto.h"
-
+#include "estadoPersonaje/EstadoRecibiendoDanioPersonaje.h"
 
 //#define SPEED 10
 

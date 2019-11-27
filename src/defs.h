@@ -68,6 +68,7 @@ struct informacionRec{
 #define DANIO_CUCHILLO 50
 #define DANIO_CANIO 35
 #define DANIO_PUNIO 20
+#define DANIO_ENEMIGO 20
 
 #define PUNTOS_PATADA 400
 #define PUNTOS_CANIO 200

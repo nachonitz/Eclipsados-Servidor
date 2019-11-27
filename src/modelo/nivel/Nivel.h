@@ -105,6 +105,10 @@ public:
 
 	void hacerDanio(int numJugador, Hitbox hitbox, int danio, int score);
 
+	void hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio);
+
+	void limpiarMapa();
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();
@@ -161,6 +165,8 @@ private:
 	int pos_borde_derecha = WINDOW_SIZE_HORIZONTAL;
 
 	Sonido *musicaFondo;
+
+	bool enemigoGolpeando;
 
 
 };

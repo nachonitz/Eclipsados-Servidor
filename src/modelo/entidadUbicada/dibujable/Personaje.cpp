@@ -3,7 +3,6 @@
 #include "../../../Logger.h"
 
 
-
 Personaje::Personaje() {
 
 	estadoActual = new EstadoQuieto(SDL_FLIP_NONE);
@@ -48,9 +47,10 @@ int Personaje::recibirDanio(int danio){
 	if(this->energia == 0 && this->vidas > 0){
 		this->vidas --;
 		this->energia = 100;
+		//estadoActual = new EstadoMorirPersonaje();
 	}
 
-	//estadoActual = new EstadoRecibiendoDanioPersonaje(info.flip);
+	estadoActual = new EstadoRecibiendoDanioPersonaje(this->getFlip());
 
 }
 

@@ -20,6 +20,11 @@ IA::~IA() {
 	// TODO Auto-generated destructor stub
 }
 
+void procesarAccionIA(Enemigo* enemigo){
+	struct informacionRec info;
+	enemigo->procesarAccion(info);
+}
+
 int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
 	int idx_jugador;
 	float distancia;
@@ -59,6 +64,13 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 	Enemigo* enemigoDibujable = (Enemigo*) enemigo->getDibujable();
 
+	EstadoPersonaje* estado = enemigoDibujable->getEstadoActual();
+
+	if(estado == NULL)
+		return;
+	if(typeid(*estado) == typeid(EstadoGolpeandoEnemigo)){
+		return;
+	}
 
 	if (distancia_y != 0){ //Siempre primero hacemos que el enemigo se ajuste al eje y
 		if (distancia_y > 0){
@@ -88,6 +100,13 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarDerecha();
 			enemigoDibujable->setFlip(SDL_FLIP_NONE);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				if(rand()%50 == 0){
+					struct informacionRec info;
+					enemigoDibujable->golpear(jugador);
+					enemigoDibujable->procesarAccion(info);
+					//procesarAccionIA(enemigoDibujable);
+					return;
+				}
 				return;
 			}
 			enemigo->moverGlobalDerechaEnemigo();
@@ -96,13 +115,19 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarIzquierda();
 			enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				if(rand()%50 == 0){
+					struct informacionRec info;
+					enemigoDibujable->golpear(jugador);
+					enemigoDibujable->procesarAccion(info);
+					//procesarAccionIA(enemigoDibujable);
+					return;
+				}
 				return;
 			}
 			enemigo->moverGlobalIzquierdaEnemigo();
 			enemigoDibujable->moverIzquierdaEnemigo();
 		}
 	}
-
 
 }
 
@@ -114,8 +139,9 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){
 			targets[i] = encontrarEnemigoMasCercano(enemigos[i]);
 			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]]);
 			struct informacionRec info;
-			Enemigo* enemigoDibujable = (Enemigo*) enemigos[i]->getDibujable();
-			enemigoDibujable->procesarAccion(info);
+			Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();
+			enemigo->procesarAccion(info);
+			//procesarAccionIA((Enemigo*)enemigos[i]->getDibujable());
 		}
 	}
 }

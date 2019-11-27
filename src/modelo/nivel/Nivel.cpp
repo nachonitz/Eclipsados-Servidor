@@ -319,12 +319,12 @@ void Nivel::movimientoIzquierda(int numeroJugador, Hitbox& hitbox){
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
-	if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { //TODO: mismo en otras funciones!
+	//if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { //TODO: mismo en otras funciones!
 		hitboxUbicada.desplazarIzquierda();
 
 		if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
 			return;
-	}
+//	}
 
 	if (!jugador->llegoBordeGlobalIzquierdo()){
 		if (jugador->llegoBordeLocalIzquierdo()){
@@ -614,31 +614,27 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
 	Personaje* personaje = (Personaje*) jugador->getDibujable();
-	SDL_RendererFlip flip = personaje->getFlip();
-
-	/*
-	if (flip == SDL_FLIP_HORIZONTAL){
-		for (int i = 0; i < 10; i++){
-			hitboxUbicada.desplazarIzquierda();
-		}
-	}
-	else{
-		for (int i = 0; i < 10; i++){
-			hitboxUbicada.desplazarIzquierda();
-		}
-	}*/
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
 	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0){
 		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
-		Personaje* pjActual = (Personaje*)jugador->getDibujable();
 		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
-			pjActual->aumentarScore(score+puntosExtras);
+			personaje->aumentarScore(score+puntosExtras);
 		}else{
-			pjActual->aumentarScore(puntosExtras);
+			personaje->aumentarScore(puntosExtras);
 		}
 	}
+}
+
+void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio){
+
+	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	Personaje* personaje = (Personaje*) jugador->getDibujable();
+
+	personaje->recibirDanio(danio);
+
 }
 
 /*void Nivel::limpiarMapa(){

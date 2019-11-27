@@ -21,9 +21,16 @@ EstadoRecibiendoDanioEnemigo::EstadoRecibiendoDanioEnemigo(SDL_RendererFlip flip
 
 	ciclo.tick=0;
 
-	this->hitbox[0].set(50,46,124,209,HBX_DEPTH_DEFECTO);
-
-	this->hitbox[1].set(44,11,103,245,HBX_DEPTH_DEFECTO);
+	/*if (flip == SDL_FLIP_HORIZONTAL){
+		for (int i = 0; i < 2; i++){
+			hitbox[i].set(10,48,136,219,HBX_DEPTH_DEFECTO);
+		}
+	}
+	else{
+		for (int i = 0; i < 2; i++){
+			hitbox[i].set(65,48,136,219,HBX_DEPTH_DEFECTO);
+		}
+	}*/
 
 
 }

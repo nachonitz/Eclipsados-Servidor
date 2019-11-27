@@ -92,4 +92,9 @@ int Enemigo::recibirDanio(int danio){
 
 }
 
+void Enemigo::golpear(EntidadUbicada* jugador){
+
+	estadoActual = new EstadoGolpeandoEnemigo(spriteFlip, jugador);
+}
+
 

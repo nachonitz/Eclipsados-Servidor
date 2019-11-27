@@ -17,6 +17,7 @@ using namespace  std;
 #include "estadoPersonaje/EstadoCaminandoEnemigo.h"
 #include "estadoPersonaje/EstadoRecibiendoDanioEnemigo.h"
 #include "estadoPersonaje/EstadoMorirEnemigo.h"
+#include "estadoPersonaje/EstadoGolpeandoEnemigo.h"
 
 
 class Enemigo : public Dibujable {
@@ -76,6 +77,7 @@ public:
 	void moverDerechaEnemigo(){dest.x += VELOCIDAD_CODY-1;}
 
 	int recibirDanio(int danio);
+	void golpear(EntidadUbicada* jugador);
 };
 
 #endif /* SRC_MODELO_ENTIDADUBICADA_DIBUJABLE_ENEMIGO_H_ */
