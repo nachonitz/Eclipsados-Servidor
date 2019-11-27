@@ -223,16 +223,15 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
-	if (colisionador){
-		if(danio != 0){
-			colisionador->getDibujable()->recibirDanio(danio);
-			Personaje* pjActual = (Personaje*)jugador->getDibujable();
-			pjActual->aumentarScore(PUNTOS_PATADA);
-			return;
-		}else{
-			return;
-		}
-	}
+    if (colisionador && danio != 0){
+        puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
+        Personaje* pjActual = (Personaje*)jugador->getDibujable();
+        if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
+            pjActual->aumentarScore(PUNTOS_PATADA+puntosExtras);
+        }else{
+            pjActual->aumentarScore(puntosExtras);
+        }
+    }
 
 	jugador->moverLocalSalto();
 	jugador->moverGlobalSalto();
@@ -613,6 +612,21 @@ void Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 	EntidadUbicada* jugador = jugadores.at(numeroJugador);
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+
+	Personaje* personaje = (Personaje*) jugador->getDibujable();
+	SDL_RendererFlip flip = personaje->getFlip();
+
+	/*
+	if (flip == SDL_FLIP_HORIZONTAL){
+		for (int i = 0; i < 10; i++){
+			hitboxUbicada.desplazarIzquierda();
+		}
+	}
+	else{
+		for (int i = 0; i < 10; i++){
+			hitboxUbicada.desplazarIzquierda();
+		}
+	}*/
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 

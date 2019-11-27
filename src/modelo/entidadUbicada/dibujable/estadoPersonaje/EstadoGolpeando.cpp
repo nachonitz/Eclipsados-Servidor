@@ -24,13 +24,25 @@ EstadoGolpeando::EstadoGolpeando(SDL_RendererFlip flip, Elemento* elemento) {
 
 	this->elementoEnMano = elemento;
 
-	for (int i = 0; i < 9; i++){
-		hitbox[i].set(50,52,136,214,HBX_DEPTH_DEFECTO);
+
+
+	if (flip == SDL_FLIP_HORIZONTAL){
+		for (int i = 0; i < 9; i++){
+			hitbox[i].set(10,48,136,219,HBX_DEPTH_DEFECTO);
+		}
+		hitbox[1].set(10,48,117,219,HBX_DEPTH_DEFECTO);
+		hitbox[3].set(13,84,217,184,HBX_DEPTH_DEFECTO);
+		hitbox[8].set(76,6,11,263,HBX_DEPTH_DEFECTO);
+	}
+	else{
+		for (int i = 0; i < 9; i++){
+			hitbox[i].set(65,48,136,219,HBX_DEPTH_DEFECTO);
+		}
+		hitbox[1].set(65,48,172,219,HBX_DEPTH_DEFECTO);
+		hitbox[3].set(13,84,217,184,HBX_DEPTH_DEFECTO);
+		hitbox[8].set(76,6,11,263,HBX_DEPTH_DEFECTO);
 	}
 
-	hitbox[1].set(54,47,172,222,HBX_DEPTH_DEFECTO);
-	hitbox[3].set(13,84,217,184,HBX_DEPTH_DEFECTO);
-	hitbox[8].set(76,6,11,263,HBX_DEPTH_DEFECTO);
 
 
 }
