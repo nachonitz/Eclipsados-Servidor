@@ -32,16 +32,10 @@ int Caja::recibirDanio(int danio){
 		estadoActual->actualizarAnimacion(src);
 		informacionRec info;
 		estadoActual = estadoActual->procesarAccion(info);
-<<<<<<< HEAD
-		return this->score;
-=======
 		puntaje = this->score;
->>>>>>> branch 'master' of https://github.com/nachonitz/Eclipsados-Servidor.git
+		return this->score;
 	}
-<<<<<<< HEAD
-=======
 	return puntaje;
->>>>>>> branch 'master' of https://github.com/nachonitz/Eclipsados-Servidor.git
 
 }
 

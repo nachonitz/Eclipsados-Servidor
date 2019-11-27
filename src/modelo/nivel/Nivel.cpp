@@ -626,18 +626,16 @@ bool Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0){
 		hizoDanio = true;
 		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
-<<<<<<< HEAD
 		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
 			personaje->aumentarScore(score+puntosExtras);
 		}else{
 			personaje->aumentarScore(puntosExtras);
-=======
-		Personaje* pjActual = (Personaje*)jugador->getDibujable();
-		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL && puntosExtras != PRIMER_GOLPE_A_CAJA){
-			pjActual->aumentarScore(score+puntosExtras);
-		}else if(puntosExtras != PRIMER_GOLPE_A_CAJA){
-			pjActual->aumentarScore(puntosExtras);
->>>>>>> branch 'master' of https://github.com/nachonitz/Eclipsados-Servidor.git
+			Personaje* pjActual = (Personaje*)jugador->getDibujable();
+			if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL && puntosExtras != PRIMER_GOLPE_A_CAJA){
+				pjActual->aumentarScore(score+puntosExtras);
+			}else if(puntosExtras != PRIMER_GOLPE_A_CAJA){
+				pjActual->aumentarScore(puntosExtras);
+			}
 		}
 	}
 	return hizoDanio;
