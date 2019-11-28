@@ -31,6 +31,20 @@ EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial, Eleme
 	// hitbox[j].set(...)
 	// ...
 
+	//TODO: CAMBIAR SEGUN FLIP!
+
+	hitbox[2].set(67,37,102,179,HBX_DEPTH_DEFECTO);
+
+	hitbox[3].set(70,22,111,195,HBX_DEPTH_DEFECTO);
+
+	hitbox[4].set(38,55,147,124,HBX_DEPTH_DEFECTO);
+
+	hitbox[5].set(58,44,119,136,HBX_DEPTH_DEFECTO);
+
+	hitbox[6].set(48,56,155,119,HBX_DEPTH_DEFECTO);
+
+	hitbox[7].set(62,71,122,145,HBX_DEPTH_DEFECTO);
+
 }
 
 EstadoSaltando::~EstadoSaltando() {

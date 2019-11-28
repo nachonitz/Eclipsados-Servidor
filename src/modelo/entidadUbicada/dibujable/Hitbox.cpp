@@ -10,10 +10,11 @@
 #include "../../../defs.h"
 
 Hitbox::Hitbox() {
-	this->deltax = 65;//35;
-	this->deltay = 48;//21;
-	this->width = 106;//54;
-	this->height = 219;//93;
+	// tamanios defecto para cody quieto
+	this->deltax = 65;
+	this->deltay = 48;
+	this->width = 106;
+	this->height = 219;
 	this->depth = HBX_DEPTH_DEFECTO;
 
 }
