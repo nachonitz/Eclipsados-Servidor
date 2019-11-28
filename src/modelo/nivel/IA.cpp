@@ -25,7 +25,7 @@ void procesarAccionIA(Enemigo* enemigo){
 	enemigo->procesarAccion(info);
 }
 
-int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
+int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo,std::vector<bool> jugadoresActivos){
 	float distancia_x;
 	float distancia_y;
 	HitboxUbicada hitboxUbicadaEnemigo(enemigo->getDibujable()->getHitbox(), *enemigo->getPosicionGlobal());
@@ -33,6 +33,14 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
 	int idx_jugador;
 
 	for (int i = 0; i < jugadores.size(); i++){
+		Personaje* pj = (Personaje*) jugadores[i]->getDibujable();
+		if (!jugadoresActivos[i] || pj->getEstadoMuerto()){
+			continue;
+		}
+		EstadoPersonaje* estado = pj->getEstadoActual();
+		if (typeid(*estado) == typeid(EstadoMorirPersonaje)){
+			continue;
+		}
 		HitboxUbicada hitboxUbicadaPersonaje(jugadores[i]->getDibujable()->getHitbox(), *jugadores[i]->getPosicionGlobal());
 		float distancia_x = abs(hitboxUbicadaPersonaje.distanciaEnX(hitboxUbicadaEnemigo));
 		float distancia_y = abs(hitboxUbicadaPersonaje.distanciaEnY(hitboxUbicadaEnemigo));
@@ -130,12 +138,12 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 }
 
-void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo){
+void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vector<bool> jugadoresActivos){
 
 	for (int i = 0; i < enemigos.size(); i++){
 		int pos_horizontal_enemigo = enemigos[i]->getPosicionGlobal()->getHorizontal();
 		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo){
-			targets[i] = encontrarEnemigoMasCercano(enemigos[i]);
+			targets[i] = encontrarEnemigoMasCercano(enemigos[i], jugadoresActivos);
 			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]]);
 			struct informacionRec info;
 			Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();

@@ -31,7 +31,6 @@ EstadoSaltando::EstadoSaltando(SDL_RendererFlip flip, float alturaInicial, Eleme
 	// hitbox[j].set(...)
 	// ...
 
-
 }
 
 EstadoSaltando::~EstadoSaltando() {

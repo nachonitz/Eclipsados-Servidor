@@ -21,10 +21,10 @@ class IA {
 public:
 	IA(std::vector<EntidadUbicada*> enemigos, std::vector<EntidadUbicada*> jugadores);
 	virtual ~IA();
-	void moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo);
+	void moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vector<bool>jugadoresActivos);
 
 private:
-	int encontrarEnemigoMasCercano(EntidadUbicada* enemigo);
+	int encontrarEnemigoMasCercano(EntidadUbicada* enemigo, std::vector<bool> jugadoresActivos);
 	void moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador);
 	std::vector<EntidadUbicada*> enemigos;
 	std::vector<EntidadUbicada*> jugadores;

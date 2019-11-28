@@ -58,7 +58,7 @@ public:
 	void procesarAccion(struct informacionRec info);
 
 	void resetearEstado();
-
+	EstadoPersonaje* getEstadoActual(){return this->estadoActual;}
 	int getElementoEnMano();
 	int getScore(){return score;}
 	int getVidas(){return vidas;}

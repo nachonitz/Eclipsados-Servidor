@@ -7,6 +7,7 @@
 
 #include "PosicionGlobal.h"
 #include "dibujable/Hitbox.h"
+#include <iostream>
 
 
 #ifndef SRC_MODELO_ENTIDADUBICADA_HITBOXUBICADA_H_
