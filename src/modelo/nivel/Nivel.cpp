@@ -214,12 +214,13 @@ void Nivel::movimientoArriba(int numeroJugador, Hitbox& hitbox){
 	EntidadUbicada* jugador = jugadores[numeroJugador];
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
+	if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { // ignorar colisiones si ya estoy colisionando!
 
-	hitboxUbicada.desplazarArriba();
+		hitboxUbicada.desplazarArriba();
 
-	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
-		return;
-
+		if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+			return;
+	}
 
 	jugador->moverLocalArriba();
 	jugador->moverGlobalArriba();
@@ -288,10 +289,13 @@ void Nivel::movimientoAbajo(int numeroJugador, Hitbox& hitbox){
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
-	hitboxUbicada.desplazarAbajo();
+	if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { // ignorar colisiones si ya estoy colisionando!
 
-	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
-		return;
+		hitboxUbicada.desplazarAbajo();
+
+		if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+			return;
+	}
 
 	jugador->moverLocalAbajo();
 	jugador->moverGlobalAbajo();
@@ -340,12 +344,13 @@ void Nivel::movimientoIzquierda(int numeroJugador, Hitbox& hitbox){
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
-	//if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { //TODO: mismo en otras funciones!
+	if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { // ignorar colisiones si ya estoy colisionando!
+
 		hitboxUbicada.desplazarIzquierda();
 
 		if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
 			return;
-//	}
+	}
 
 	if (!jugador->llegoBordeGlobalIzquierdo()){
 		if (jugador->llegoBordeLocalIzquierdo()){
@@ -380,11 +385,15 @@ void Nivel::movimientoDerecha(int numeroJugador, Hitbox& hitbox) {
 
 	HitboxUbicada hitboxUbicada(hitbox, *jugador->getPosicionGlobal());
 
-	hitboxUbicada.desplazarDerecha();
+	if (!this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())) { // ignorar colisiones si ya estoy colisionando!
 
-	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())){
-		return;
+		hitboxUbicada.desplazarDerecha();
+
+		if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())){
+			return;
+		}
 	}
+
 	if (!jugador->llegoBordeGlobalDerecho()){
 		if (jugador->llegoBordeLocalDerecho()){
 

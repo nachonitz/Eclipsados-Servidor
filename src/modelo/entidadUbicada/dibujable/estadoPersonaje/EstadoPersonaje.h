@@ -32,6 +32,9 @@ public:
 
 	int getElementoEnMano();
 
+	// usado para que personaje sea invencible cuando salta (personaje::recibirDanio()), ver implementacion en esos estados
+	virtual bool puedeRecibirDanio() {return true;}
+
 protected:
 	struct cycle {
 		int fil;

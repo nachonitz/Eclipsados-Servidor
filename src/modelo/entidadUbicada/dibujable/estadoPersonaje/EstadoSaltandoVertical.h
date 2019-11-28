@@ -29,6 +29,8 @@ public:
 
 	virtual Hitbox getHitboxActual() {return hitbox[hbxActual];}
 
+	bool puedeRecibirDanio() override {return false;};	// invencible cuando salta!
+
 
 };
 

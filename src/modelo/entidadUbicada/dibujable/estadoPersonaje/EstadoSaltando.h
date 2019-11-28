@@ -33,6 +33,7 @@ public:
 	EstadoPersonaje* procesarAccion(informacionRec info);
 	virtual Hitbox getHitboxActual() {return hitbox[hbxActual];}
 
+	bool puedeRecibirDanio() override {return false;};	// invencible cuando salta!
 
 };
 
