@@ -227,6 +227,11 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
+	// si es un salto vertical o salto al costado, sin danio
+	if (colisionador && danio == 0) {
+		return;
+	}
+
     if (colisionador && danio != 0 && typeid(*(colisionador->getDibujable())) != typeid(Personaje)){
         puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
         Personaje* pjActual = (Personaje*)jugador->getDibujable();
@@ -257,11 +262,6 @@ Elemento* Nivel::agarrarObjeto(int numeroCliente, Hitbox& hitboxJugador) {
 	EntidadUbicada* entidadQueColisiona = this->colisionaConOtroElemento(hitboxUbicada, jugador->getDibujable(), HBX_EXTRA_HEIGHT_AL_AGARRAR);
 
 	if (entidadQueColisiona != nullptr && entidadQueColisiona->getDibujable()->sePuedeAgarrar()) {
-
-		/*<<<<<<< Updated upstream
-		//Entra hasta aca cuando levanta pero no se elimina del mapa
-		((Elemento*)entidadQueColisiona)->loLevantaronDelPiso();
-		=======*/
 
 		std::vector<EntidadUbicada*>::iterator it = std::find(elementos.begin(), elementos.end(), entidadQueColisiona);
 		this->elementos.erase(it);
