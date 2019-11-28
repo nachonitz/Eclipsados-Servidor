@@ -92,6 +92,8 @@ bool Juego::chequearCambioDeNivel() {
 		for(int i = 0; i < MAX_CLIENTES; i++){
 			cambiandoNivel[i] = true;
 		}
+	}else if(terminoElNivel() && nivel->esSegundoNivel()){
+		nivel->cargarFinalBoss();
 	}
 	return resultado;
 }

@@ -44,3 +44,12 @@ void AsignadorDeTexturas::setTexture(Enemigo& enemigo, SDL_Renderer* ren) {
 
 	enemigo.setImage(ren, img);
 }
+
+/*void AsignadorDeTexturas::setTexture(FinalBoss& boss, SDL_Renderer* ren) {
+
+	int num = 2+(rand()% 3);
+	const char* img = sprites.at(num).c_str();
+	//const char* img = sprites.at(2).c_str();
+
+	boss.setImage(ren, img);
+}*/

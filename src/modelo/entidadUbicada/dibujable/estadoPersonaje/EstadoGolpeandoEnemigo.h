@@ -13,7 +13,7 @@
 
 class EstadoGolpeandoEnemigo: public EstadoPersonaje {
 public:
-	EstadoGolpeandoEnemigo(SDL_RendererFlip flip,  EntidadUbicada* jugador);
+	EstadoGolpeandoEnemigo(SDL_RendererFlip flip,  EntidadUbicada* jugador, int fil, int width, int hight, int cantSprites, int vel, int tick, int tipoEnemigo);
 	virtual ~EstadoGolpeandoEnemigo();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
@@ -26,7 +26,7 @@ private:
 
 	int hbxActual = 0;
 
-	int tickAnterior;
+	int tickAnterior, tipoEnemigo;
 
 	EntidadUbicada* jugador;
 

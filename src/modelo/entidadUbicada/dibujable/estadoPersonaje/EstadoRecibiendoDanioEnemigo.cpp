@@ -10,16 +10,16 @@
 #include "EstadoCaminandoEnemigo.h"
 
 
-EstadoRecibiendoDanioEnemigo::EstadoRecibiendoDanioEnemigo(SDL_RendererFlip flip) {
+EstadoRecibiendoDanioEnemigo::EstadoRecibiendoDanioEnemigo(SDL_RendererFlip flip, int f, int w, int h, int cantSprites, int vel, int tick) {
 
 	this->flip = flip;
-	ciclo.fil=3;
-	ciclo.w=220;
-	ciclo.h = 264;
-	ciclo.cantSprites=2;
-	ciclo.vel=10;
+	this->ciclo.fil=f;
+	this->ciclo.w=w;
+	this->ciclo.h = h;
+	this->ciclo.cantSprites=cantSprites;
+	this->ciclo.vel=vel;
 
-	ciclo.tick=0;
+	this->ciclo.tick=tick;
 
 	/*if (flip == SDL_FLIP_HORIZONTAL){
 		for (int i = 0; i < 2; i++){
@@ -44,7 +44,7 @@ EstadoPersonaje* EstadoRecibiendoDanioEnemigo::procesarAccion(informacionRec inf
 
 	if (ciclo.tick < 0){
 		hbxActual = 0;
-		return new EstadoCaminandoEnemigo(flip);
+		return new EstadoCaminandoEnemigo(flip,0, 220, 264, 6, 7, 0);
 	}
 
 	return this;		//ninguna accion, solo animacion de momento

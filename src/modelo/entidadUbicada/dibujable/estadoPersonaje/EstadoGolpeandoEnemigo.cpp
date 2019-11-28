@@ -10,18 +10,19 @@
 #include "../../../nivel/Nivel.h"
 
 
-EstadoGolpeandoEnemigo::EstadoGolpeandoEnemigo(SDL_RendererFlip flip, EntidadUbicada* jugador) {
+EstadoGolpeandoEnemigo::EstadoGolpeandoEnemigo(SDL_RendererFlip flip, EntidadUbicada* jugador , int f, int w, int h, int cantSprites, int vel, int tick, int tipoEnemigo) {
 
 	this->flip = flip;
-	ciclo.fil=2;
-	ciclo.w=220;
-	ciclo.h = 264;
-	ciclo.cantSprites=3;
-	ciclo.vel=7;
+	this->ciclo.fil=f;
+	this->ciclo.w=w;
+	this->ciclo.h = h;
+	this->ciclo.cantSprites=cantSprites;
+	this->ciclo.vel=vel;
 
-	ciclo.tick=0;
+	this->ciclo.tick=tick;
 	tickAnterior = 0;
 	this->jugador = jugador;
+	this->tipoEnemigo = tipoEnemigo;
 
 	/*if (flip == SDL_FLIP_HORIZONTAL){
 		for (int i = 0; i < 3; i++){
@@ -56,8 +57,11 @@ EstadoPersonaje* EstadoGolpeandoEnemigo::procesarAccion(informacionRec info) {
 	if (ciclo.tick < 0){
 		ciclo.tick = 0;
 		tickAnterior = 0;
-		//enemigoGolpeando = false;
-		return new EstadoCaminandoEnemigo(this->flip);
+		if(this->tipoEnemigo != FINAL_BOSS){
+			return new EstadoCaminandoEnemigo(this->flip,0, 220, 264, 5, 7, 0);
+		}else{
+			 return new EstadoCaminandoEnemigo(flip,0,325,280,3,7,3);
+		}
 	}
 
 	return this;		//ninguna accion, solo animacion de momento

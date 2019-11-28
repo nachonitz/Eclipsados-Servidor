@@ -107,7 +107,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarDerecha();
 			enemigoDibujable->setFlip(SDL_FLIP_NONE);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
-				if(rand()%30 == 0){
+				if(rand()%70 == 0){
 					struct informacionRec info;
 					enemigoDibujable->golpear(jugador);
 					enemigoDibujable->procesarAccion(info);
@@ -122,7 +122,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarIzquierda();
 			enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
-				if(rand()%30 == 0){
+				if(rand()%70 == 0){
 					struct informacionRec info;
 					enemigoDibujable->golpear(jugador);
 					enemigoDibujable->procesarAccion(info);

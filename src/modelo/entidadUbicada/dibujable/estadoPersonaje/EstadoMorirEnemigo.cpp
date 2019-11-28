@@ -10,16 +10,16 @@
 #include "EstadoQuieto.h"
 
 
-EstadoMorirEnemigo::EstadoMorirEnemigo(SDL_RendererFlip flip) {
+EstadoMorirEnemigo::EstadoMorirEnemigo(SDL_RendererFlip flip, int f, int w, int h, int cantSprites, int vel, int tick) {
 
 	this->flip = flip;
-	ciclo.fil=4;
-	ciclo.w=220;
-	ciclo.h = 264;
-	ciclo.cantSprites=3;
-	ciclo.vel=8;
+	this->ciclo.fil=f;
+	this->ciclo.w=w;
+	this->ciclo.h = h;
+	this->ciclo.cantSprites=cantSprites;
+	this->ciclo.vel=vel;
 
-	ciclo.tick=0;
+	this->ciclo.tick=tick;
 
 	/*for(int i=0; i<3; i++){
 		this->hitbox[i].set(0,0,0,0,HBX_DEPTH_DEFECTO);

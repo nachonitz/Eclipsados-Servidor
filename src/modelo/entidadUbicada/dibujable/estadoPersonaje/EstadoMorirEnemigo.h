@@ -13,7 +13,7 @@
 
 class EstadoMorirEnemigo: public EstadoPersonaje {
 public:
-	EstadoMorirEnemigo(SDL_RendererFlip flip);
+	EstadoMorirEnemigo(SDL_RendererFlip flip, int fil, int width, int hight, int cantSprites, int vel, int tick);
 	virtual ~EstadoMorirEnemigo();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);

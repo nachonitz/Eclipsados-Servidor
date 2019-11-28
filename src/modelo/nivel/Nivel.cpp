@@ -606,8 +606,9 @@ Personaje* Nivel::getPersonaje(int numeroJugador) {
 
 bool Nivel::terminoElNivel(){
 
-	// si al menos uno llego...
-	return alguienLlegoBordeGlobalDerecho();
+	// si al menos uno llego y mataron todos los enemigos
+	return (alguienLlegoBordeGlobalDerecho() && enemigos.size() == 0);
+
 }
 
 bool Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
@@ -644,3 +645,11 @@ void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio)
 
 }
 
+void Nivel::cargarFinalBoss(){
+
+	EntidadUbicada* boss = factory.crearEntidadConEnemigo(JUGADOR_POSICION_HORIZONTAL_INICIAL,JUGADOR_POSICION_VERTICAL_INICIAL,FINAL_BOSS);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
+	boss->getDibujable()->setSource(0,0,325,280);
+	enemigos.push_back(boss);
+	this->cantEnemigos = enemigos.size();
+
+}

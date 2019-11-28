@@ -98,6 +98,8 @@ public:
 
 	bool esPrimerNivel() {return this->numeroNivel==1;};
 
+	bool esSegundoNivel() {return this->numeroNivel==2;};
+
 	vector<bool> getJugadoresActivos();
 	void setJugadoresActivos(vector<bool> jugadores);
 
@@ -111,7 +113,7 @@ public:
 
 	void hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio);
 
-	void limpiarMapa();
+	void cargarFinalBoss();
 
 private:
 	void moverCapasDerecha();

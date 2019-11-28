@@ -17,6 +17,7 @@
 class Elemento;
 class Personaje;
 class Enemigo;
+class FinalBoss;
 
 /*
 
@@ -40,6 +41,7 @@ public:
 	void setTexture(Elemento& elemento, SDL_Renderer* ren);
 	void setTexture(Personaje& personaje, SDL_Renderer* ren);
 	void setTexture(Enemigo& enemigo, SDL_Renderer* ren);
+	//void setTexture(FinalBoss& boss, SDL_Renderer* ren);
 
 
 private:
