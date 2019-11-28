@@ -16,7 +16,7 @@ public:
 	void actualizarAnimaciones(){this->nivel->actualizarAnimaciones();}
 	void procesarInfo(struct informacionRec infoRec);
 
-	void chequearCambioDeNivel();
+	bool chequearCambioDeNivel();
 
 	struct informacionEnv getInformacion(){return this->nivel->getInformacion();}
 	Personaje* getJugador(int numeroJugador);

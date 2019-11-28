@@ -58,6 +58,7 @@ void* timer(void*arg){
 }
 
 void* procesar_info(void*arg){
+	bool cambioNivel = false;
 	while(1){
 		// vaciar TODA la cola y procesar toda la info
 		//Logger::getInstance()->log(DEBUG, "Procesando datos recibidos.");
@@ -75,8 +76,13 @@ void* procesar_info(void*arg){
 
 
 		pthread_mutex_lock(&mutexNivel);
-		juego->chequearCambioDeNivel();
+		cambioNivel = juego->chequearCambioDeNivel();
 		pthread_mutex_unlock(&mutexNivel);
+
+		if(cambioNivel){
+			cambioNivel = false;
+			sleep(7);
+		}
 
 		SDL_Delay(FRAME_DELAY);
 	}

@@ -84,13 +84,16 @@ void Juego::cambiarDeNivel(){
 	EstadoPersonaje::setNivel(nivel);
 }
 
-void Juego::chequearCambioDeNivel() {
+bool Juego::chequearCambioDeNivel() {
+	bool resultado = false;
 	if(terminoElNivel() && nivel->esPrimerNivel()){
 		cambiarDeNivel();
+		resultado = true;
 		for(int i = 0; i < MAX_CLIENTES; i++){
 			cambiandoNivel[i] = true;
 		}
 	}
+	return resultado;
 }
 
 
