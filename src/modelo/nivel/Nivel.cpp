@@ -374,9 +374,9 @@ void Nivel::movimientoDerecha(int numeroJugador, Hitbox& hitbox) {
 
 	hitboxUbicada.desplazarDerecha();
 
-	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable()))
+	if (this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable())){
 		return;
-
+	}
 	if (!jugador->llegoBordeGlobalDerecho()){
 		if (jugador->llegoBordeLocalDerecho()){
 

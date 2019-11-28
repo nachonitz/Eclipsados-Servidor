@@ -42,7 +42,6 @@ EstadoCaminandoEnemigo::~EstadoCaminandoEnemigo() {
 
 
 EstadoPersonaje* EstadoCaminandoEnemigo::procesarAccion(informacionRec info) {
-
 	hbxActual = ciclo.tick;
 
 	EstadoPersonaje* nuevoEstado = this;

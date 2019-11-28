@@ -41,7 +41,9 @@ EstadoCaminando::~EstadoCaminando() {
 }
 
 EstadoPersonaje* EstadoCaminando::procesarAccion(informacionRec info) {
-
+	if (ciclo.tick < 0){
+		ciclo.tick = 0;
+	}
 	hbxActual = ciclo.tick;
 
 	EstadoPersonaje* nuevoEstado = this;
