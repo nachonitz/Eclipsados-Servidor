@@ -30,7 +30,7 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo,std::vector<bool> jug
 	float distancia_y;
 	HitboxUbicada hitboxUbicadaEnemigo(enemigo->getDibujable()->getHitbox(), *enemigo->getPosicionGlobal());
 	float distancia;
-	int idx_jugador;
+	int idx_jugador = -1;
 
 	for (int i = 0; i < jugadores.size(); i++){
 		Personaje* pj = (Personaje*) jugadores[i]->getDibujable();
@@ -107,7 +107,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarDerecha();
 			enemigoDibujable->setFlip(SDL_FLIP_NONE);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
-				if(rand()%50 == 0){
+				if(rand()%30 == 0){
 					struct informacionRec info;
 					enemigoDibujable->golpear(jugador);
 					enemigoDibujable->procesarAccion(info);
@@ -122,7 +122,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarIzquierda();
 			enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
-				if(rand()%50 == 0){
+				if(rand()%30 == 0){
 					struct informacionRec info;
 					enemigoDibujable->golpear(jugador);
 					enemigoDibujable->procesarAccion(info);
@@ -143,7 +143,16 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vect
 	for (int i = 0; i < enemigos.size(); i++){
 		int pos_horizontal_enemigo = enemigos[i]->getPosicionGlobal()->getHorizontal();
 		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo){
-			targets[i] = encontrarEnemigoMasCercano(enemigos[i], jugadoresActivos);
+			int idx_jugador = encontrarEnemigoMasCercano(enemigos[i],jugadoresActivos);
+			if (idx_jugador == -1){
+				Enemigo* en = (Enemigo*)enemigos[i]->getDibujable();
+				en->moverDerecha();
+				enemigos[i]->moverGlobalDerecha();
+				struct informacionRec info;
+				en->procesarAccion(info);
+				continue;
+			}
+			targets[i] = idx_jugador;
 			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]]);
 			struct informacionRec info;
 			Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();
