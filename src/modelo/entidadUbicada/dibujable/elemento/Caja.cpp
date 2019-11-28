@@ -32,7 +32,6 @@ int Caja::recibirDanio(int danio){
 		informacionRec info;
 		estadoActual = estadoActual->procesarAccion(info);
 		puntaje = this->score;
-		return this->score;
 	}
 	return puntaje;
 

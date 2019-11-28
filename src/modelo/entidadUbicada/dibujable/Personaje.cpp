@@ -48,6 +48,7 @@ int Personaje::recibirDanio(int danio){
 	if(this->energia <= 0 && this->vidas > 0){
 		this->vidas --;
 		if(this->vidas <= 0){
+			estadoActual = new EstadoMorirPersonaje(this->getFlip(), this->vidas);
 			this->muerto = true;
 			return 0;
 		}

@@ -21,7 +21,9 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 		entidad->getPosicionGlobal()->trasladarA(JUGADOR_POSICION_HORIZONTAL_INICIAL + i, JUGADOR_POSICION_VERTICAL_INICIAL);
 		Personaje* personaje = (Personaje*)entidad->getDibujable();
 		personaje->setDest(JUGADOR_POSICION_HORIZONTAL_INICIAL + i, JUGADOR_POSICION_VERTICAL_INICIAL, JUGADOR_SIZE_HORIZONTAL, JUGADOR_SIZE_VERTICAL);
-		personaje->resetearEstado();
+		if(!(personaje->getEstadoMuerto())){
+			personaje->resetearEstado();
+		}
 		i+= 200;
 	}
 
@@ -587,35 +589,8 @@ bool Nivel::jugadorConectado(int i) {
 
 void Nivel::moverEnemigos(){
 	this->ia->moverEnemigos(this->pos_borde_derecha, this->pos_borde_izquierda);
-	/*
-	for (int i = 0; i < enemigos.size(); i++){
-		Enemigo* enemigoDibujable = (Enemigo*) enemigos[i]->getDibujable();
-		SDL_RendererFlip flip = enemigoDibujable->getFlip();
-		if (flip == SDL_FLIP_HORIZONTAL){
-			if (!enemigos[i]->llegoBordeGlobalIzquierdo()){
-				enemigos[i]->moverGlobalIzquierda();
-				enemigos[i]->moverLocalIzquierda();
-			}
-			else{
-				enemigoDibujable->setFlip(SDL_FLIP_NONE);
-				enemigos[i]->moverGlobalDerecha();
-				enemigos[i]->moverLocalDerecha();
-			}
-		}
-		else{
-			if (!enemigos[i]->llegoBordeGlobalDerecho()){
-				enemigos[i]->moverGlobalDerecha();
-				enemigos[i]->moverLocalDerecha();
-			}
-			else{
-				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
-				enemigos[i]->moverGlobalIzquierda();
-				enemigos[i]->moverLocalIzquierda();
-			}
-		}
-	}*/
-
 }
+
 Personaje* Nivel::getPersonaje(int numeroJugador) {
 	return (Personaje*)jugadores.at(numeroJugador)->getDibujable();
 }
@@ -640,16 +615,11 @@ bool Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 	if (colisionador != NULL && colisionador->getDibujable()->getVidas() > 0 && typeid(*(colisionador->getDibujable())) != typeid(Personaje)){
 		hizoDanio = true;
 		puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
-		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
-			personaje->aumentarScore(score+puntosExtras);
-		}else{
-			personaje->aumentarScore(puntosExtras);
-			Personaje* pjActual = (Personaje*)jugador->getDibujable();
-			if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL && puntosExtras != PRIMER_GOLPE_A_CAJA){
-				pjActual->aumentarScore(score+puntosExtras);
-			}else if(puntosExtras != PRIMER_GOLPE_A_CAJA){
-				pjActual->aumentarScore(puntosExtras);
-			}
+		Personaje* pjActual = (Personaje*)jugador->getDibujable();
+		if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL && puntosExtras != PRIMER_GOLPE_A_CAJA){
+			pjActual->aumentarScore(score+puntosExtras);
+		}else if(puntosExtras != PRIMER_GOLPE_A_CAJA){
+			pjActual->aumentarScore(puntosExtras);
 		}
 	}
 	return hizoDanio;
@@ -664,16 +634,4 @@ void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio)
 	personaje->recibirDanio(danio);
 
 }
-
-/*void Nivel::limpiarMapa(){
-
-	for (uint i = 0; i<elementos.size();i++){
-		Elemento* elementoActual = (Elemento*) elementos[i]->getDibujable();
-		if(elementoActual->getVidaActual() == 0){
-			elementos.erase(elementos.begin()+i);
-			this->cantElementos --;
-		}
-	}
-}*/
-
 

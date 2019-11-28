@@ -18,13 +18,20 @@ EstadoMorirPersonaje::EstadoMorirPersonaje(SDL_RendererFlip flip, int vidas, Ele
 	ciclo.fil=6;
 	ciclo.w=230;
 	ciclo.h = 280;
-	ciclo.cantSprites=8;
+	ciclo.cantSprites=7;
 	ciclo.vel=12;
 
 	ciclo.tick=3;
 	hbxActual=0;
 	this->elementoEnMano = elemento;
 	this->vidas = vidas;
+
+	if(this->vidas == 0){
+		for (int i = 0; i < 4; i++){
+			hitbox[i].set(0,0,0,0,0);
+		}
+		return;
+	}
 
 	if (flip == SDL_FLIP_HORIZONTAL){
 		for (int i = 0; i < 4; i++){
