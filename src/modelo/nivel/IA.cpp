@@ -26,16 +26,16 @@ void procesarAccionIA(Enemigo* enemigo){
 }
 
 int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
-	int idx_jugador;
+	float distancia_x;
+	float distancia_y;
+	HitboxUbicada hitboxUbicadaEnemigo(enemigo->getDibujable()->getHitbox(), *enemigo->getPosicionGlobal());
 	float distancia;
-	int x_enemigo = enemigo->getPosicionGlobal()->getHorizontal();
-	int y_enemigo = enemigo->getPosicionGlobal()->getVertical()-50;
+	int idx_jugador;
 
 	for (int i = 0; i < jugadores.size(); i++){
-		int x_jugador = jugadores[i]->getPosicionGlobal()->getHorizontal();
-		int y_jugador = jugadores[i]->getPosicionGlobal()->getVertical();
-		int distancia_x = abs(x_enemigo-x_jugador);
-		int distancia_y = abs(y_enemigo-y_jugador);
+		HitboxUbicada hitboxUbicadaPersonaje(jugadores[i]->getDibujable()->getHitbox(), *jugadores[i]->getPosicionGlobal());
+		float distancia_x = abs(hitboxUbicadaPersonaje.distanciaEnX(hitboxUbicadaEnemigo));
+		float distancia_y = abs(hitboxUbicadaPersonaje.distanciaEnY(hitboxUbicadaEnemigo));
 		float distancia_actual = sqrt((distancia_x * distancia_x) + (distancia_y * distancia_y));
 
 		if (i == 0){
@@ -49,7 +49,6 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo){
 			}
 		}
 	}
-
 	return idx_jugador;
 }
 
