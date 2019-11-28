@@ -86,7 +86,7 @@ float HitboxUbicada::distanciaEnY(HitboxUbicada& otraHitbox){
 bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 
 	// 		 posX + deltaX <= miRangoX <= posX + deltaX + width
-	//		 posZ  		   <= miRangoZ <= posZ + height
+	//		 posZ - height <= miRangoZ <= posZ
 	// 		 posY + deltaY  + height + - depth / 2 <= miRangoY <= posY + deltaY + height + depth / 2
 
 
@@ -97,7 +97,6 @@ bool HitboxUbicada::colisionaCon(HitboxUbicada& otraHitbox) {
 	float suRangoXmin = otraHitbox.posicion.getHorizontal() + otraHitbox.hitbox.deltax;
 
 	float suRangoXmax = suRangoXmin + otraHitbox.hitbox.width;
-
 
 
 	if (miRangoXmax < suRangoXmin || suRangoXmax < miRangoXmin || miRangoXmax == miRangoXmin || suRangoXmax == suRangoXmin) {
