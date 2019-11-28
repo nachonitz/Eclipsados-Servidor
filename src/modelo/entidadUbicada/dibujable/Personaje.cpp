@@ -10,6 +10,7 @@ Personaje::Personaje() {
 	this->energia = 100;
 	this->vidas = 3;
 	this->imagen = "sprites/SpriteCodyCompleto.png"; //obsoleto!
+	this->muerto = false;
 }
 
 
@@ -44,14 +45,19 @@ int Personaje::getElementoEnMano() {
 
 int Personaje::recibirDanio(int danio){
 	this->energia -= danio;
-	if(this->energia == 0 && this->vidas > 0){
+	if(this->energia <= 0 && this->vidas > 0){
 		this->vidas --;
+		if(this->vidas <= 0){
+			this->muerto = true;
+			return 0;
+		}
 		this->energia = 100;
-		//estadoActual = new EstadoMorirPersonaje();
+		estadoActual = new EstadoMorirPersonaje(this->getFlip(), this->vidas);
+		return 0;
 	}
 
 	estadoActual = new EstadoRecibiendoDanioPersonaje(this->getFlip());
-
+	return 0;
 }
 
 

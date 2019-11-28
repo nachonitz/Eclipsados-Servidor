@@ -99,7 +99,9 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	int numeroDeCliente = infoRec.numeroDeCliente;
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
-	cody->procesarAccion(infoRec);
+	if(!(cody->getEstadoMuerto())){
+		cody->procesarAccion(infoRec);
+	}
 
 
 }

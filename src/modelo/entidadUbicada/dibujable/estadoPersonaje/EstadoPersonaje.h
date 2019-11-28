@@ -50,6 +50,7 @@ protected:
 
 	Elemento* elementoEnMano;
 
+
 private:
 
 	int empezar;

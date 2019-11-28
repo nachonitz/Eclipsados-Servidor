@@ -99,13 +99,19 @@ struct informacionEnv Nivel::getInformacion(){
 		info.vidas[i] = pjActual->getVidas();
 		info.energia[i] = pjActual->getEnergia();
 		struct animado animadoActual;
-		animadoActual.dest = pjActual->getDest();
-		animadoActual.src = pjActual->getSource();
-		animadoActual.flip = pjActual->getFlip();
-		animadoActual.ID = i;
-		animadoActual.elementoEnMano = pjActual->getElementoEnMano();
-		animadoActual.estaActivo = jugadoresActivos[i];
-		info.animados[i] = animadoActual;
+		if(!(pjActual->getEstadoMuerto())){
+			animadoActual.dest = pjActual->getDest();
+			animadoActual.src = pjActual->getSource();
+			animadoActual.flip = pjActual->getFlip();
+			animadoActual.ID = i;
+			animadoActual.elementoEnMano = pjActual->getElementoEnMano();
+			animadoActual.estaActivo = jugadoresActivos[i];
+			animadoActual.dibujar = true;
+			info.animados[i] = animadoActual;
+		}else{
+			animadoActual.dibujar = false;
+			info.animados[i] = animadoActual;
+		}
 
 		i++;
 	}
@@ -347,7 +353,7 @@ void Nivel::movimientoIzquierda(int numeroJugador, Hitbox& hitbox){
 			}
 
 			for (int i = 0; i < jugadores.size(); i++){
-				if (jugadores[i]->llegoBordeLocalDerecho() && jugadoresActivos[i] == false){
+				if ((jugadores[i]->llegoBordeLocalDerecho() && jugadoresActivos[i] == false) || (((Personaje*)jugadores[i]->getDibujable())->getEstadoMuerto())){
 					jugadores[i]->moverGlobalIzquierda();
 				}
 			}
@@ -385,7 +391,7 @@ void Nivel::movimientoDerecha(int numeroJugador, Hitbox& hitbox) {
 			}
 
 			for (int i = 0; i < jugadores.size(); i++){
-				if (jugadores[i]->llegoBordeLocalIzquierdo() && jugadoresActivos[i] == false){
+				if ((jugadores[i]->llegoBordeLocalIzquierdo() && jugadoresActivos[i] == false) || (((Personaje*)jugadores[i]->getDibujable())->getEstadoMuerto())){
 					jugadores[i]->moverGlobalDerecha();
 				}
 			}
@@ -408,7 +414,7 @@ void Nivel::movimientoDerecha(int numeroJugador, Hitbox& hitbox) {
 bool Nivel::alguienLlegoBordeLocalDerecho() {
 	int i = 0;
 	for (EntidadUbicada* jugador : jugadores) {
-		if (jugador->llegoBordeLocalDerecho() && jugadoresActivos[i] == true)
+		if ((jugador->llegoBordeLocalDerecho() && jugadoresActivos[i] == true) && !(((Personaje*)jugadores[i]->getDibujable())->getEstadoMuerto()))
 			return true;
 		i++;
 	}
@@ -419,7 +425,7 @@ bool Nivel::alguienLlegoBordeLocalDerecho() {
 bool Nivel::alguienLlegoBordeLocalIzquierdo() {
 	int i = 0;
 	for (EntidadUbicada* jugador : jugadores) {
-		if (jugador->llegoBordeLocalIzquierdo() && jugadoresActivos[i] == true)
+		if ((jugador->llegoBordeLocalIzquierdo() && jugadoresActivos[i] == true ) && !(((Personaje*)jugadores[i]->getDibujable())->getEstadoMuerto()))
 			return true;
 
 		i++;

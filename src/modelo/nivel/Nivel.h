@@ -31,6 +31,7 @@ struct animado{
 	int tipoEnemigo;
 	int ID;
 	int elementoEnMano;
+	bool dibujar = true;
 };
 
 struct elemento{

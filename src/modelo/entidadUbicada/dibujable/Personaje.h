@@ -9,6 +9,7 @@ using namespace  std;
 
 #include "estadoPersonaje/EstadoQuieto.h"
 #include "estadoPersonaje/EstadoRecibiendoDanioPersonaje.h"
+#include "estadoPersonaje/EstadoMorirPersonaje.h"
 
 //#define SPEED 10
 
@@ -32,6 +33,7 @@ private:
 
 	EstadoPersonaje* estadoActual;
 	int score, vidas, energia;
+	bool muerto;
 
 public:
 	Personaje();
@@ -61,6 +63,7 @@ public:
 	int getScore(){return score;}
 	int getVidas(){return vidas;}
 	int getEnergia(){return energia;}
+	bool getEstadoMuerto(){return muerto;}
 	void aumentarScore(int incremento){this->score += incremento;}
 
 	virtual int recibirDanio(int danio);
