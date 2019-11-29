@@ -611,6 +611,7 @@ bool Nivel::terminoElNivel(){
 
 }
 
+
 bool Nivel::hacerDanio(int numeroJugador, Hitbox hitbox, int danio, int score){
 	bool hizoDanio = false;
 

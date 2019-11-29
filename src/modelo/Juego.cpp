@@ -8,6 +8,7 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	this->canios = cantCanios;
 	this->barriles = cantBarriles;
 	this->enemigos = cantEnemigos;
+	this->aparecioElFinalBoss = false;
 
 	for (int i = 0; i < MAX_CLIENTES; i++){
 		this->cambiandoNivel[i] = false;
@@ -92,8 +93,11 @@ bool Juego::chequearCambioDeNivel() {
 		for(int i = 0; i < MAX_CLIENTES; i++){
 			cambiandoNivel[i] = true;
 		}
-	}else if(terminoElNivel() && nivel->esSegundoNivel()){
+	}else if(terminoElNivel() && nivel->esSegundoNivel() && !aparecioElFinalBoss){
+		aparecioElFinalBoss = true;
 		nivel->cargarFinalBoss();
+	}else if(terminoElNivel() && aparecioElFinalBoss){
+		nivel->finalizarPartida();
 	}
 	return resultado;
 }

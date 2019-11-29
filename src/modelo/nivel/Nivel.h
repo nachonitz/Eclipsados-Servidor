@@ -72,6 +72,8 @@ public:
 	void terminoSalto(int numeroJugador, int alturaLocalInicial);
 	bool terminoElNivel();
 
+	void finalizarPartida(){this->numeroNivel = 3;}
+
 	void moverCapaDerecha(){moverCapasIzquierda();}
 
 	int get_pos_borde_derecho(){return this->pos_borde_derecha;}
