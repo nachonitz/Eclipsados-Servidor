@@ -655,3 +655,13 @@ void Nivel::cargarFinalBoss(){
 	this->cantEnemigos = enemigos.size();
 
 }
+
+bool Nivel::todosMuertos(){
+
+	for(uint i = 0; i < jugadores.size(); i++){
+		if(((Personaje*)jugadores[i]->getDibujable())->getVidas() > 0){
+			return false;
+		}
+	}
+	return true;
+}

@@ -87,6 +87,9 @@ void Juego::cambiarDeNivel(){
 
 bool Juego::chequearCambioDeNivel() {
 	bool resultado = false;
+	if(nivel->todosMuertos()){
+		nivel->finalizarPartida();
+	}
 	if(terminoElNivel() && nivel->esPrimerNivel()){
 		cambiarDeNivel();
 		resultado = true;

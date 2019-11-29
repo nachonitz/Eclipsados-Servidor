@@ -117,6 +117,8 @@ public:
 
 	void cargarFinalBoss();
 
+	bool todosMuertos();
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();
