@@ -13,7 +13,7 @@
 
 class EstadoRecibiendoDanioEnemigo: public EstadoPersonaje {
 public:
-	EstadoRecibiendoDanioEnemigo(SDL_RendererFlip flip, int fil, int width, int hight, int cantSprites, int vel, int tick);
+	EstadoRecibiendoDanioEnemigo(SDL_RendererFlip flip, int fil, int width, int hight, int cantSprites, int vel, int tick, int tipoEnemigo);
 	virtual ~EstadoRecibiendoDanioEnemigo();
 
 	EstadoPersonaje* procesarAccion(informacionRec info);
@@ -26,6 +26,7 @@ private:
 
 	int hbxActual = 0;
 
+	int tipoEnemigo;
 };
 
 

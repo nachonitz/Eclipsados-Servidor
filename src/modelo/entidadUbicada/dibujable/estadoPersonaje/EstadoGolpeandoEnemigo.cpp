@@ -58,9 +58,9 @@ EstadoPersonaje* EstadoGolpeandoEnemigo::procesarAccion(informacionRec info) {
 		ciclo.tick = 0;
 		tickAnterior = 0;
 		if(this->tipoEnemigo != FINAL_BOSS){
-			return new EstadoCaminandoEnemigo(this->flip,0, 220, 264, 5, 7, 0);
+			return new EstadoCaminandoEnemigo(this->flip,1, 220, 264, 5, 7, 0);
 		}else{
-			 return new EstadoCaminandoEnemigo(flip,0,325,280,3,7,3);
+			 return new EstadoCaminandoEnemigo(flip,0,325,280,6,7,0);
 		}
 	}
 

@@ -17,12 +17,12 @@ Enemigo::Enemigo(float horizontal, float vertical, int tipoEnemigo) {
 		this->setDest(horizontal, vertical, 220, 264);
 		this->energia = 100;
 		hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
-		estadoActual = new EstadoCaminandoEnemigo(spriteFlip,0, 220, 264, 6, 7, 0);
+		estadoActual = new EstadoCaminandoEnemigo(spriteFlip,1, 220, 264, 6, 7, 0);
 	}else{
 		this->setDest(horizontal, vertical, 325, 280);
 		this->energia = 500;
 		hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
-		estadoActual = new EstadoCaminandoEnemigo(spriteFlip,0,325,280,3,7,3);
+		estadoActual = new EstadoCaminandoEnemigo(spriteFlip,0,325,280,6,7,0);
 	}
 
 }
@@ -89,18 +89,32 @@ int Enemigo::recibirDanio(int danio){
 		this->vidas --;
 	}
 	if(this->vidas == 0){
-		estadoActual = new EstadoMorirEnemigo(spriteFlip,4, 220, 264, 3, 10, 0);
+		if (this->tipoEnemigo != FINAL_BOSS){
+			estadoActual = new EstadoMorirEnemigo(spriteFlip,4, 220, 264, 3, 10, 0);
+		}else{
+			estadoActual = new EstadoMorirEnemigo(spriteFlip,2, 325, 280, 5, 10, 0);
+		}
+
 		return this->score;
 	}else{
-		estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip,3, 220, 264, 2, 10, 0);
+		if (this->tipoEnemigo != FINAL_BOSS){
+			estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip,3, 220, 264, 2, 10, 0, this->tipoEnemigo);
+		}else{
+			estadoActual = new EstadoRecibiendoDanioEnemigo(spriteFlip,2, 325, 280, 2, 10, 0, this->tipoEnemigo);
+		}
+
 		return 0;
 	}
 
 }
 
 void Enemigo::golpear(EntidadUbicada* jugador){
+	if (this->tipoEnemigo != FINAL_BOSS){
+		estadoActual = new EstadoGolpeandoEnemigo(spriteFlip, jugador, 2, 220, 264, 3, 7, 0, this->tipoEnemigo);
+	}else{
+		estadoActual = new EstadoGolpeandoEnemigo(spriteFlip, jugador, 1, 325, 280, 4, 7, 0, this->tipoEnemigo);
+	}
 
-	estadoActual = new EstadoGolpeandoEnemigo(spriteFlip, jugador, 2, 220, 264, 3, 7, 0, this->tipoEnemigo);
 }
 
 
