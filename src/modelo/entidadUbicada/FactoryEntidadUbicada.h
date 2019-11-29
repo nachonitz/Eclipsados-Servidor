@@ -25,6 +25,8 @@ public:
 
 	EntidadUbicada* crearEntidadConEnemigo(float horizontal, float vertical, int tipoEnemigo);
 
+	EntidadUbicada* crearEntidadConBoss(float horizontalLocal, float verticalLocal,float horizontalGlobal, float verticalGlobal);
+
 	EntidadUbicada* crearEntidadConBarril();
 
 	EntidadUbicada* crearEntidadConBarril(float horizontal, float vertical);

@@ -21,7 +21,13 @@ Enemigo::Enemigo(float horizontal, float vertical, int tipoEnemigo) {
 	}else{
 		this->setDest(horizontal, vertical, 325, 280);
 		this->energia = 500;
-		hitboxParado.set(66, 18, 123, 235, HBX_DEPTH_DEFECTO);
+		hitboxParado.set(86, 30, 164, 244, HBX_DEPTH_DEFECTO);
+		for (int i = 0; i < 6; i++){
+			hitboxCaminando[i].set(86, 30, 164, 244, HBX_DEPTH_DEFECTO);
+		}
+		for (int i = 0; i < 4; i++){
+			hitboxGolpeando[i].set(86, 30, 164, 244, HBX_DEPTH_DEFECTO);
+		}
 		estadoActual = new EstadoCaminandoEnemigo(spriteFlip,0,325,280,6,7,0);
 	}
 

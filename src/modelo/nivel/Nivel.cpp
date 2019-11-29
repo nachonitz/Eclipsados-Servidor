@@ -646,10 +646,11 @@ void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio)
 }
 
 void Nivel::cargarFinalBoss(){
-
-	EntidadUbicada* boss = factory.crearEntidadConEnemigo(JUGADOR_POSICION_HORIZONTAL_INICIAL,JUGADOR_POSICION_VERTICAL_INICIAL,FINAL_BOSS);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
+	float horizontalGlobal = ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL + JUGADOR_POSICION_HORIZONTAL_INICIAL - 150;
+	EntidadUbicada* boss = factory.crearEntidadConBoss(JUGADOR_POSICION_HORIZONTAL_INICIAL,JUGADOR_POSICION_VERTICAL_INICIAL,horizontalGlobal, JUGADOR_POSICION_VERTICAL_INICIAL);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
 	boss->getDibujable()->setSource(0,0,325,280);
 	enemigos.push_back(boss);
+	ia->setEnemigos(this->enemigos);
 	this->cantEnemigos = enemigos.size();
 
 }

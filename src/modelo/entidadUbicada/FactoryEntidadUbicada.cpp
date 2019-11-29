@@ -26,6 +26,10 @@ EntidadUbicada* FactoryEntidadUbicada::crearEntidadConEnemigo(float horizontal, 
 	Dibujable* enemigo = new Enemigo(horizontal, vertical, tipoEnemigo);
 	return new EntidadUbicada(enemigo, horizontal, vertical);
 }
+EntidadUbicada* FactoryEntidadUbicada::crearEntidadConBoss(float horizontalLocal, float verticalLocal,float horizontalGlobal, float verticalGlobal) {
+	Dibujable* enemigo = new Enemigo(horizontalLocal, verticalLocal, 3);
+	return new EntidadUbicada(enemigo, horizontalGlobal, verticalGlobal);
+}
 
 /*EntidadUbicada* FactoryEntidadUbicada::crearEntidadConBarril() {
 	Dibujable* barril = new Barril();

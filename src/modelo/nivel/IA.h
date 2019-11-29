@@ -22,6 +22,7 @@ public:
 	IA(std::vector<EntidadUbicada*> enemigos, std::vector<EntidadUbicada*> jugadores);
 	virtual ~IA();
 	void moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vector<bool>jugadoresActivos);
+	void setEnemigos(std::vector<EntidadUbicada*> enemigos){this->enemigos = enemigos;}
 
 private:
 	int encontrarEnemigoMasCercano(EntidadUbicada* enemigo, std::vector<bool> jugadoresActivos);
