@@ -142,22 +142,22 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vect
 
 	for (int i = 0; i < enemigos.size(); i++){
 		int pos_horizontal_enemigo = enemigos[i]->getPosicionGlobal()->getHorizontal();
-		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo){
+		struct informacionRec info;
+		Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();
+		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo - 100){
 			int idx_jugador = encontrarEnemigoMasCercano(enemigos[i],jugadoresActivos);
 			if (idx_jugador == -1){
-				Enemigo* en = (Enemigo*)enemigos[i]->getDibujable();
-				en->moverArriba();
+				enemigo->moverArriba();
 				enemigos[i]->moverGlobalArriba();
-				struct informacionRec info;
-				en->procesarAccion(info);
+				enemigo->procesarAccion(info);
 				continue;
 			}
 			targets[i] = idx_jugador;
 			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]]);
-			struct informacionRec info;
-			Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();
 			enemigo->procesarAccion(info);
 			//procesarAccionIA((Enemigo*)enemigos[i]->getDibujable());
+		}else{
+			enemigo->procesarAccion(info);
 		}
 	}
 }
