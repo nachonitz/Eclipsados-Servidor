@@ -81,7 +81,7 @@ void* procesar_info(void*arg){
 
 		if(cambioNivel){
 			cambioNivel = false;
-			sleep(7);
+			sleep(8);
 		}
 
 		SDL_Delay(FRAME_DELAY);
