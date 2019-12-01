@@ -111,10 +111,16 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 	int numeroDeCliente = infoRec.numeroDeCliente;
 	Personaje* cody = (Personaje *)jugadores.at(numeroDeCliente)->getDibujable();
 
+	if (infoRec.animacionActual == ACCION_TESTMODE) {
+		bool modoActual = cody->toggleTestMode();
+		Logger::getInstance()->log(INFO, "Test Mode seteado en " + std::to_string(modoActual) + " para jugador numero " + std::to_string(numeroDeCliente));
+
+		return;
+	}
+
 	if(!(cody->getEstadoMuerto())){
 		cody->procesarAccion(infoRec);
 	}
-
 
 }
 

@@ -58,6 +58,8 @@ struct informacionRec{
 #define ACCION_SALTO_PATADA 4
 #define ACCION_AGACHADO 5
 #define ACCION_SALTO_VERTICAL 6
+#define ACCION_TESTMODE 7
+
 
 //animados.elementoEnMano
 #define ELEMENTO_MANO 0

@@ -35,6 +35,8 @@ private:
 	int score, vidas, energia;
 	bool muerto;
 
+	bool testMode = false;
+
 public:
 	Personaje();
 	virtual ~Personaje();
@@ -67,6 +69,8 @@ public:
 	void aumentarScore(int incremento){this->score += incremento;}
 
 	virtual int recibirDanio(int danio);
+
+	bool toggleTestMode() {testMode = !testMode; return testMode;};
 
 };
 
