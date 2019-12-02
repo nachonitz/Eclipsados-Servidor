@@ -44,9 +44,9 @@ void Enemigo::moverArribaEnemigo(){
 }
 
 void Enemigo::moverAbajoEnemigo(){
-	if(dest.y < WINDOW_SIZE_VERTICAL - MARGEN_PISO_ABAJO){
+	//if(dest.y < WINDOW_SIZE_VERTICAL - MARGEN_PISO_ABAJO){
 		dest.y += (VELOCIDAD_CODY-1)/2;
-	}
+	//}
 }
 
 void Enemigo::setImageWith(AsignadorDeTexturas& asignador, SDL_Renderer* ren) {

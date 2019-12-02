@@ -57,9 +57,9 @@ void PosicionGlobal::moverAbajo(){
 }
 
 void PosicionGlobal::moverAbajoEnemigo(){
-	if(y < WINDOW_SIZE_VERTICAL - MARGEN_PISO_ABAJO){
+	//if(y < WINDOW_SIZE_VERTICAL - MARGEN_PISO_ABAJO){
 		y += (VELOCIDAD_CODY-1)/2;
-	}
+	//}
 }
 
 
