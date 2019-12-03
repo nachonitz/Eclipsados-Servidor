@@ -58,16 +58,16 @@ int Personaje::recibirDanio(int danio){
 
 		this->vidas --;
 		if(this->vidas <= 0){
-			estadoActual = new EstadoMorirPersonaje(this->getFlip(), this->vidas);
+			estadoActual = estadoActual->morir(this->vidas);
 			this->muerto = true;
 			return 0;
 		}
 		this->energia = 100;
-		estadoActual = new EstadoMorirPersonaje(this->getFlip(), this->vidas);
+		estadoActual = estadoActual->morir(this->vidas);
 		return 0;
 	}
 
-	estadoActual = new EstadoRecibiendoDanioPersonaje(this->getFlip()); // TODO: arreglar perdida de elemento en mano
+	estadoActual = estadoActual->recibirDanio();
 	return 0;
 }
 

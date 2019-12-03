@@ -65,6 +65,13 @@ int EstadoPersonaje::getElementoEnMano() {
 
 }
 
+EstadoPersonaje* EstadoPersonaje::morir(int vidasActuales) {
+	return new EstadoMorirPersonaje(this->getFlip(), vidasActuales, this->elementoEnMano);
+}
+
+EstadoPersonaje* EstadoPersonaje::recibirDanio() {
+	return new EstadoRecibiendoDanioPersonaje(this->flip, this->elementoEnMano);
+}
 
 
 
