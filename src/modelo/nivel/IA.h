@@ -16,6 +16,9 @@
 #include <stdlib.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "../entidadUbicada/dibujable/estadoPersonaje/EstadoSaltando.h"
+#include "../entidadUbicada/dibujable/estadoPersonaje/EstadoSaltandoConPatada.h"
+#include "../entidadUbicada/dibujable/estadoPersonaje/EstadoSaltandoVertical.h"
 
 class IA {
 public:

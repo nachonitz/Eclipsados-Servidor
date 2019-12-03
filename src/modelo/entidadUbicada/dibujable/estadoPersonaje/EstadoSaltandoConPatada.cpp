@@ -34,6 +34,13 @@ EstadoSaltandoConPatada::EstadoSaltandoConPatada(SDL_RendererFlip flip, float al
 		hitbox[3].set(3,48,165,219,HBX_DEPTH_DEFECTO);
 	}
 	else{
+		/*hitbox[2].set(67,37,102,179,HBX_DEPTH_DEFECTO);
+
+		hitbox[3].set(70,22,111,195,HBX_DEPTH_DEFECTO);
+
+		hitbox[4].set(38,55,147,124,HBX_DEPTH_DEFECTO);
+
+		hitbox[5].set(58,44,119,136,HBX_DEPTH_DEFECTO);*/
 		hitbox[3].set(65,48,227,219,HBX_DEPTH_DEFECTO);
 	}
 
