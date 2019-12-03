@@ -146,7 +146,7 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vect
 		int pos_horizontal_enemigo = enemigos[i]->getPosicionGlobal()->getHorizontal();
 		struct informacionRec info;
 		Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();
-		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo - 100){
+		if (pos_horizontal_enemigo < pos_borde_derecho+50 /*&& pos_horizontal_enemigo > pos_borde_izquierdo - 100*/){
 			int idx_jugador = encontrarEnemigoMasCercano(enemigos[i],jugadoresActivos);
 			if (idx_jugador == -1){
 				//enemigo->moverArriba();

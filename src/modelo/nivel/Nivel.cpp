@@ -484,9 +484,14 @@ void Nivel::moverCapasIzquierda(){
 
 }
 
+int Nivel::generarXaleatorioEnemigo(){
+	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - WINDOW_SIZE_HORIZONTAL - 100);
+	return x + WINDOW_SIZE_HORIZONTAL + 100;
+}
+
 int Nivel::generarXaleatorio(){
-	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO);
-	return x;
+	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - MARGEN_IZQUIERDO - 100);
+	return x + MARGEN_IZQUIERDO + 100;
 }
 int Nivel::generarYaleatorio(){
 	int y = rand()% (120+1);
@@ -563,7 +568,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 	Logger::getInstance()->log(INFO, "Posicionando enemigos...");
 	for(int i=0; i<this->cantEnemigos; i++){
-		int x = generarXaleatorio();
+		int x = generarXaleatorioEnemigo();
 		int y = generarYaleatorio();
     Logger::getInstance()->log(DEBUG, std::string("Posición inicial de enemigo " +
                                                   std::to_string(i+1) + ": (" +
@@ -650,8 +655,8 @@ void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio)
 }
 
 void Nivel::cargarFinalBoss(){
-	float horizontalGlobal = ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL + JUGADOR_POSICION_HORIZONTAL_INICIAL - 150;
-	EntidadUbicada* boss = factory.crearEntidadConBoss(JUGADOR_POSICION_HORIZONTAL_INICIAL,JUGADOR_POSICION_VERTICAL_INICIAL,horizontalGlobal, JUGADOR_POSICION_VERTICAL_INICIAL);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
+	float horizontalGlobal = ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL + JUGADOR_POSICION_HORIZONTAL_INICIAL - 150 - 400;
+	EntidadUbicada* boss = factory.crearEntidadConBoss(JUGADOR_POSICION_HORIZONTAL_INICIAL - 400,JUGADOR_POSICION_VERTICAL_INICIAL,horizontalGlobal, JUGADOR_POSICION_VERTICAL_INICIAL);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
 	boss->getDibujable()->setSource(0,0,325,280);
 	enemigos.push_back(boss);
 	ia->setEnemigos(this->enemigos);
