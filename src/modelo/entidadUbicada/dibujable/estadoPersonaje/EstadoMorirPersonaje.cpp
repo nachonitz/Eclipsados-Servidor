@@ -16,8 +16,8 @@ EstadoMorirPersonaje::EstadoMorirPersonaje(SDL_RendererFlip flip, int vidas, Ele
 
 	this->flip = flip;
 	ciclo.fil=6;
-	ciclo.w=230;
-	ciclo.h = 280;
+	ciclo.w=JUGADOR_SIZE_HORIZONTAL;
+	ciclo.h = JUGADOR_SIZE_VERTICAL;
 	ciclo.cantSprites=7;
 	ciclo.vel=12;
 

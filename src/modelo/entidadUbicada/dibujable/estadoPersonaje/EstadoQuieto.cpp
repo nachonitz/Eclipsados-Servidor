@@ -22,8 +22,8 @@ EstadoQuieto::EstadoQuieto(SDL_RendererFlip flip, Elemento* elementoEnMano) {
 	this->flip = flip;
 
 	ciclo.fil=0;
-	ciclo.w=230;
-	ciclo.h = 280;
+	ciclo.w=JUGADOR_SIZE_HORIZONTAL;
+	ciclo.h = JUGADOR_SIZE_VERTICAL;
 	ciclo.cantSprites=1;
 	ciclo.vel=10;
 

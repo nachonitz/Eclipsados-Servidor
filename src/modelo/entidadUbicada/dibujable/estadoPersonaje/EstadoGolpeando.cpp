@@ -14,9 +14,9 @@ EstadoGolpeando::EstadoGolpeando(SDL_RendererFlip flip, Elemento* elemento) {
 
 	this->flip = flip;
 	ciclo.fil=3;
-	ciclo.w=230;
-	ciclo.h = 280;
-	ciclo.cantSprites=2;
+	ciclo.w=JUGADOR_SIZE_HORIZONTAL;
+	ciclo.h = JUGADOR_SIZE_VERTICAL;
+	ciclo.cantSprites=3;
 	ciclo.vel=5;
 
 	ciclo.tick=0;
