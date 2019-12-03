@@ -35,6 +35,10 @@ public:
 	// usado para que personaje sea invencible cuando salta (personaje::recibirDanio()), ver implementacion en esos estados
 	virtual bool puedeRecibirDanio() {return true;}
 
+	virtual EstadoPersonaje* morir(int vidasActuales);
+
+	virtual EstadoPersonaje* recibirDanio();
+
 protected:
 	struct cycle {
 		int fil;
