@@ -586,10 +586,13 @@ void Nivel::setJugadoresActivos(vector<bool> jugadores) {
 
 void Nivel::desconexionDeJugador(int i) {
 	jugadoresActivos[i] = false;
+	((Personaje*)jugadores[i]->getDibujable())->disableTestMode();
+	((Personaje*)jugadores[i]->getDibujable())->disableHitbox();
 }
 
 void Nivel::conexionDeJugador(int i) {
 	jugadoresActivos[i] = true;
+	((Personaje*)jugadores[i]->getDibujable())->enableHitbox();
 }
 
 bool Nivel::jugadorConectado(int i) {
