@@ -104,7 +104,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 	if(*enemigoColisionaObjeto){
 		switch(*direccion){
 		case UP:
-			if(distancia_x < 0){
+			/*if(distancia_x < 0){
 				hitboxUbicadaEnemigo.desplazarIzquierda();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
 					cout<<"Colisiono al resolver la colision previa"<<endl;
@@ -118,10 +118,10 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalArribaEnemigo();
 					enemigoDibujable->moverArribaEnemigo();
 				}
-			}else{
+			}else{*/
 				hitboxUbicadaEnemigo.desplazarDerecha();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
-					cout<<"Colisiono al resolver la colision previa"<<endl;
+					//cout<<"Colisiono al resolver la colision previa"<<endl;
 				}
 				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 				enemigo->moverGlobalDerechaEnemigo();
@@ -132,14 +132,14 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalArribaEnemigo();
 					enemigoDibujable->moverArribaEnemigo();
 				}
-			}
+			//}
 
 			break;
 		case DOWN:
-			if(distancia_x < 0){
+			//if(distancia_x < 0){
 				hitboxUbicadaEnemigo.desplazarIzquierda();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
-					cout<<"Colisiono al resolver la colision previa"<<endl;
+					//cout<<"Colisiono al resolver la colision previa"<<endl;
 				}
 				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 				enemigo->moverGlobalIzquierdaEnemigo();
@@ -150,7 +150,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalAbajoEnemigo();
 					enemigoDibujable->moverAbajoEnemigo();
 				}
-			}else{
+			/*}else{
 				hitboxUbicadaEnemigo.desplazarDerecha();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
 					cout<<"Colisiono al resolver la colision previa"<<endl;
@@ -164,11 +164,11 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalAbajoEnemigo();
 					enemigoDibujable->moverAbajoEnemigo();
 				}
-			}
+			}*/
 
 			break;
 		case RIGHT:
-			if(distancia_y < 0){
+			/*if(distancia_y < 0){
 				hitboxUbicadaEnemigo.desplazarArriba();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
 					cout<<"Colisiono al resolver la colision previa"<<endl;
@@ -182,10 +182,10 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalDerechaEnemigo();
 					enemigoDibujable->moverDerechaEnemigo();
 				}
-			}else{
+			}else{*/
 				hitboxUbicadaEnemigo.desplazarAbajo();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
-					cout<<"Colisiono al resolver la colision previa"<<endl;
+					//cout<<"Colisiono al resolver la colision previa"<<endl;
 				}
 				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 				enemigo->moverGlobalAbajoEnemigo();
@@ -196,14 +196,14 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalDerechaEnemigo();
 					enemigoDibujable->moverDerechaEnemigo();
 				}
-			}
+			//}
 
 			break;
 		case LEFT:
-			if(distancia_y < 0){
+			//if(distancia_y < 0){
 				hitboxUbicadaEnemigo.desplazarArriba();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
-					cout<<"Colisiono al resolver la colision previa"<<endl;
+					//cout<<"Colisiono al resolver la colision previa"<<endl;
 				}
 				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 				enemigo->moverGlobalArribaEnemigo();
@@ -214,7 +214,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalIzquierdaEnemigo();
 					enemigoDibujable->moverIzquierdaEnemigo();
 				}
-			}else{
+			/*}else{
 				hitboxUbicadaEnemigo.desplazarAbajo();
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
 					cout<<"Colisiono al resolver la colision previa"<<endl;
@@ -228,7 +228,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 					enemigo->moverGlobalIzquierdaEnemigo();
 					enemigoDibujable->moverIzquierdaEnemigo();
 				}
-			}
+			}*/
 			break;
 		}
 		return;
@@ -239,7 +239,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 			hitboxUbicadaEnemigo.desplazarArriba();
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
-					cout<<"Colisiona elemento resolviendo colision con cody"<<endl;
+					//cout<<"Colisiona elemento resolviendo colision con cody"<<endl;
 				}
 				enemigo->moverGlobalDerechaEnemigo();
 				enemigoDibujable->moverDerechaEnemigo();
@@ -258,7 +258,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, 
 
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
 				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
-					cout<<"Colisiona elemento resolviendo colision con cody"<<endl;
+					//cout<<"Colisiona elemento resolviendo colision con cody"<<endl;
 				}
 				enemigo->moverGlobalDerechaEnemigo();
 				enemigoDibujable->moverDerechaEnemigo();

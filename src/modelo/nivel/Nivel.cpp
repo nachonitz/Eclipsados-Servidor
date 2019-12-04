@@ -508,8 +508,8 @@ int Nivel::generarXaleatorioEnemigo(){
 }
 
 int Nivel::generarXaleatorio(){
-	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - MARGEN_IZQUIERDO - 100);
-	return x + MARGEN_IZQUIERDO + 100;
+	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - MARGEN_IZQUIERDO - 150);
+	return x + MARGEN_IZQUIERDO + 50;
 }
 int Nivel::generarYaleatorioEnemigos(){
 	int y = rand()% (120+1);
