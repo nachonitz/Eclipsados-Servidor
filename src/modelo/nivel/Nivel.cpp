@@ -635,7 +635,7 @@ bool Nivel::jugadorConectado(int i) {
 }
 
 void Nivel::moverEnemigos(){
-	this->ia->moverEnemigos(this->pos_borde_derecha, this->pos_borde_izquierda, this->jugadoresActivos);
+	this->ia->moverEnemigos(this->pos_borde_derecha, this->pos_borde_izquierda, this->jugadoresActivos, this->elementos);
 }
 
 Personaje* Nivel::getPersonaje(int numeroJugador) {

@@ -7,6 +7,19 @@
 
 #include "IA.h"
 
+bool colisionaConOtroDibujable(HitboxUbicada& hitboxUbicada, std::vector<EntidadUbicada*> elementos) {
+
+    for (EntidadUbicada* elemento : elementos) {
+        if (elemento->colisionaCon(hitboxUbicada)) {        //elemento->getDibujable() != dibujablePropietario
+            return true;                                                                                    // no esta demas? el jugador no puede ser un elemento
+        }
+    }
+
+
+
+    return false;
+}
+
 IA::IA(std::vector<EntidadUbicada*> enemigos, std::vector<EntidadUbicada*> jugadores) {
 	this->enemigos = enemigos;
 	this->jugadores = jugadores;
@@ -60,7 +73,7 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo,std::vector<bool> jug
 	return idx_jugador;
 }
 
-void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
+void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador, bool* enemigoColisionaObjeto, int* direccion, std::vector<EntidadUbicada*> elementos){
 
 	//TODO: COLISIONES ENEMIGOS
 	HitboxUbicada hitboxUbicadaEnemigo(enemigo->getDibujable()->getHitbox(), *enemigo->getPosicionGlobal());
@@ -81,13 +94,161 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 		return;
 	}
 
+	/*
+	 * #define RIGHT 0
+	 * #define LEFT 1
+	 * #define UP 2
+	 * #define DOWN 3
+	 */
+
+	if(*enemigoColisionaObjeto){
+		switch(*direccion){
+		case UP:
+			if(distancia_x < 0){
+				hitboxUbicadaEnemigo.desplazarIzquierda();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalIzquierdaEnemigo();
+				enemigoDibujable->moverIzquierdaEnemigo();
+				hitboxUbicadaEnemigo.desplazarArriba();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalArribaEnemigo();
+					enemigoDibujable->moverArribaEnemigo();
+				}
+			}else{
+				hitboxUbicadaEnemigo.desplazarDerecha();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalDerechaEnemigo();
+				enemigoDibujable->moverDerechaEnemigo();
+				hitboxUbicadaEnemigo.desplazarArriba();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalArribaEnemigo();
+					enemigoDibujable->moverArribaEnemigo();
+				}
+			}
+
+			break;
+		case DOWN:
+			if(distancia_x < 0){
+				hitboxUbicadaEnemigo.desplazarIzquierda();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalIzquierdaEnemigo();
+				enemigoDibujable->moverIzquierdaEnemigo();
+				hitboxUbicadaEnemigo.desplazarAbajo();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalAbajoEnemigo();
+					enemigoDibujable->moverAbajoEnemigo();
+				}
+			}else{
+				hitboxUbicadaEnemigo.desplazarDerecha();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalDerechaEnemigo();
+				enemigoDibujable->moverDerechaEnemigo();
+				hitboxUbicadaEnemigo.desplazarAbajo();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalAbajoEnemigo();
+					enemigoDibujable->moverAbajoEnemigo();
+				}
+			}
+
+			break;
+		case RIGHT:
+			if(distancia_y < 0){
+				hitboxUbicadaEnemigo.desplazarArriba();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_NONE);
+				enemigo->moverGlobalArribaEnemigo();
+				enemigoDibujable->moverArribaEnemigo();
+				hitboxUbicadaEnemigo.desplazarDerecha();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalDerechaEnemigo();
+					enemigoDibujable->moverDerechaEnemigo();
+				}
+			}else{
+				hitboxUbicadaEnemigo.desplazarAbajo();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalAbajoEnemigo();
+				enemigoDibujable->moverAbajoEnemigo();
+				hitboxUbicadaEnemigo.desplazarDerecha();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalDerechaEnemigo();
+					enemigoDibujable->moverDerechaEnemigo();
+				}
+			}
+
+			break;
+		case LEFT:
+			if(distancia_y < 0){
+				hitboxUbicadaEnemigo.desplazarArriba();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalArribaEnemigo();
+				enemigoDibujable->moverArribaEnemigo();
+				hitboxUbicadaEnemigo.desplazarIzquierda();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalIzquierdaEnemigo();
+					enemigoDibujable->moverIzquierdaEnemigo();
+				}
+			}else{
+				hitboxUbicadaEnemigo.desplazarAbajo();
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiono al resolver la colision previa"<<endl;
+				}
+				enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
+				enemigo->moverGlobalAbajoEnemigo();
+				enemigoDibujable->moverAbajoEnemigo();
+				hitboxUbicadaEnemigo.desplazarIzquierda();
+				if(!colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					*enemigoColisionaObjeto = false;
+					enemigo->moverGlobalIzquierdaEnemigo();
+					enemigoDibujable->moverIzquierdaEnemigo();
+				}
+			}
+			break;
+		}
+		return;
+	}
+
 	if (distancia_y != 0){ //Siempre primero hacemos que el enemigo se ajuste al eje y
 		if (distancia_y > 0){
 			hitboxUbicadaEnemigo.desplazarArriba();
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiona elemento resolviendo colision con cody"<<endl;
+				}
 				enemigo->moverGlobalDerechaEnemigo();
 				enemigoDibujable->moverDerechaEnemigo();
 				enemigoDibujable->setFlip(SDL_FLIP_NONE);
+				return;
+			}
+			if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+				*enemigoColisionaObjeto = true;
+				*direccion = UP;
 				return;
 			}
 			enemigo->moverGlobalArribaEnemigo();
@@ -96,9 +257,17 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarAbajo();
 
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
+				if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+					cout<<"Colisiona elemento resolviendo colision con cody"<<endl;
+				}
 				enemigo->moverGlobalDerechaEnemigo();
 				enemigoDibujable->moverDerechaEnemigo();
 				enemigoDibujable->setFlip(SDL_FLIP_NONE);
+				return;
+			}
+			if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+				*enemigoColisionaObjeto = true;
+				*direccion = DOWN;
 				return;
 			}
 			enemigo->moverGlobalAbajoEnemigo();
@@ -118,6 +287,11 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 				}
 				return;
 			}
+			if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+				*enemigoColisionaObjeto = true;
+				*direccion = RIGHT;
+				return;
+			}
 			enemigo->moverGlobalDerechaEnemigo();
 			enemigoDibujable->moverDerechaEnemigo();
 		}else{
@@ -133,6 +307,11 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 				}
 				return;
 			}
+			if(colisionaConOtroDibujable(hitboxUbicadaEnemigo,elementos)){
+				*enemigoColisionaObjeto = true;
+				*direccion = LEFT;
+				return;
+			}
 			enemigo->moverGlobalIzquierdaEnemigo();
 			enemigoDibujable->moverIzquierdaEnemigo();
 		}
@@ -140,7 +319,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 
 }
 
-void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vector<bool> jugadoresActivos){
+void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vector<bool> jugadoresActivos,std::vector<EntidadUbicada*> elementos){
 
 	for (int i = 0; i < enemigos.size(); i++){
 		int pos_horizontal_enemigo = enemigos[i]->getPosicionGlobal()->getHorizontal();
@@ -155,7 +334,7 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vect
 				continue;
 			}
 			targets[i] = idx_jugador;
-			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]]);
+			moverEnemigoAJugador(enemigos[i],jugadores[targets[i]],&enemigoColisionaObjeto[i], &direccion[i], elementos);
 			enemigo->procesarAccion(info);
 			//procesarAccionIA((Enemigo*)enemigos[i]->getDibujable());
 		}else{
@@ -163,3 +342,4 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vect
 		}
 	}
 }
+
