@@ -28,7 +28,7 @@ public:
 
 	int getVidas(){return this->vidas;}
 
-	bool sePuedeAgarrar() {return true;}
+	bool sePuedeAgarrar() {return false;}
 /*
 private:
 	float x, y;
