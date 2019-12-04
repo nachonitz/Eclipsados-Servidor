@@ -51,7 +51,7 @@ int IA::encontrarEnemigoMasCercano(EntidadUbicada* enemigo,std::vector<bool> jug
 			idx_jugador = i;
 		}
 		else{
-			if (distancia_actual < distancia){
+			if (distancia_actual < distancia || idx_jugador == -1){
 				distancia = distancia_actual;
 				idx_jugador = i;
 			}
