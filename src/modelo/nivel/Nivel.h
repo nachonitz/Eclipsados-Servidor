@@ -66,7 +66,7 @@ struct informacionEnv{
 };
 class Nivel {
 public:
-	Nivel(int NumeroNivel,vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos);
+	Nivel(int NumeroNivel,vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos, string nombres[MAX_CLIENTES]);
 	virtual ~Nivel();
 
 	void setImagesCapas(SDL_Renderer *ren, char const* imagen1, char const* imagen2, char const* imagen3);
@@ -127,6 +127,8 @@ public:
 	bool todosMuertos();
 
 	void setNombresUsuario(string nombresApasar[MAX_CLIENTES], int cantClientes);
+
+	string getNombres(int i);
 
 private:
 	void moverCapasDerecha();

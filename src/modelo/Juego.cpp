@@ -1,5 +1,6 @@
 #include "Juego.h"
 #include "../Logger.h"
+#include <string>
 
 Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos, int cantJugadores) {
 
@@ -23,7 +24,8 @@ Juego::Juego(int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles,
 	}
 
   Logger::getInstance()->log(INFO, "******** NIVEL 1 ********");
-	this-> nivel = new Nivel(1,jugadores, cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos);
+  string nombres[MAX_CLIENTES];
+	this-> nivel = new Nivel(1,jugadores, cantCuchillos, cantCajas, cantCanios, cantBarriles, cantEnemigos, nombres);
 
 	EstadoPersonaje::setNivel(nivel);
 
@@ -75,10 +77,14 @@ void Juego::cambiarDeNivel(){
 	}
 
 	vector<bool> activos = nivel->getJugadoresActivos();
+	std::string nombres[MAX_CLIENTES];
+	for(int i= 0; i < MAX_CLIENTES; i++){
+		nombres[i] = nivel->getNombres(i);
+	}
 
 	delete(nivel);
 
-	nivel = new Nivel(2,jugadores, cuchillos, cajas, canios, barriles, enemigos);
+	nivel = new Nivel(2,jugadores, cuchillos, cajas, canios, barriles, enemigos, nombres);
 
 	nivel->setJugadoresActivos(activos);
 

@@ -4,7 +4,7 @@
 #include<string>
 
 
-Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos) {
+Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos, string nombresViejos[MAX_CLIENTES]) {
 
 	this->numeroNivel = numeroNivel;
 
@@ -50,6 +50,9 @@ Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchil
 
 	this->ia = new IA(enemigos, jugadores);
 
+	for(int i=0; i< MAX_CLIENTES; i++){
+		nombres[i] = nombresViejos[i];
+	}
 }
 
 Nivel::~Nivel() {
@@ -708,4 +711,10 @@ void Nivel::setNombresUsuario(string nombresApasar[MAX_CLIENTES], int cantClient
 	for(int i=0; i<cantClientes; i++){
 		nombres[i] = nombresApasar[i];
 	}
+}
+
+string Nivel::getNombres(int i){
+
+	return nombres[i];
+
 }
