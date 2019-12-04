@@ -103,6 +103,24 @@ int Servidor::sendInfo(int clientSocket, struct informacionEnv info){
 			}
 		}
 	}
+
+	for(int i=0; i < info.cantJugadores; i++){
+		enviado = 0;
+		while(enviado < sizeof(struct credencial)){
+			enviado += send(clientSocket, &info.credenciales[i]+enviado, sizeof(info.credenciales[i])-enviado, MSG_NOSIGNAL);
+			if (enviado < 0){
+				return -1;
+			}
+		}
+	}
+
+	enviado = 0;
+	while(enviado < sizeof(bool)){
+		enviado += send(clientSocket, &info.perdieronTodos+enviado, sizeof(info.perdieronTodos)-enviado, MSG_NOSIGNAL);
+		if (enviado < 0){
+			return -1;
+		}
+	}
 	return 1;
 }
 

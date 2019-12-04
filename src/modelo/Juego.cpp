@@ -124,4 +124,7 @@ void Juego::procesarInfo(struct informacionRec infoRec){
 
 }
 
+void Juego::setNombresUsuario(string nombresApasar[4], int cantClientes){
 
+	nivel->setNombresUsuario(nombresApasar, cantClientes);
+}

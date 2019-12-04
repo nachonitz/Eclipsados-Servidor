@@ -1,6 +1,7 @@
 
 
 #include "Nivel.h"
+#include<string>
 
 
 Nivel::Nivel(int numeroNivel, vector<EntidadUbicada*>& jugadores, int cantCuchillos, int cantCajas, int cantCanios, int cantBarriles, int cantEnemigos) {
@@ -100,6 +101,8 @@ struct informacionEnv Nivel::getInformacion(){
 		info.scores[i] = pjActual->getScore();
 		info.vidas[i] = pjActual->getVidas();
 		info.energia[i] = pjActual->getEnergia();
+		strcpy(info.credenciales[i].usuario, this->nombres[i].c_str());
+		info.perdieronTodos = todosMuertos();
 		struct animado animadoActual;
 		if(!(pjActual->getEstadoMuerto())){
 			animadoActual.dest = pjActual->getDest();
@@ -664,4 +667,10 @@ bool Nivel::todosMuertos(){
 		}
 	}
 	return true;
+}
+
+void Nivel::setNombresUsuario(string nombresApasar[MAX_CLIENTES], int cantClientes){
+	for(int i=0; i<cantClientes; i++){
+		nombres[i] = nombresApasar[i];
+	}
 }

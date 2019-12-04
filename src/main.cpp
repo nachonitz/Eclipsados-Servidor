@@ -4,6 +4,7 @@
 #include "modelo/Juego.h"
 #include "modelo/nivel/Nivel.h"
 #include <queue>
+#include <string>
 #include "ParserXML.h"
 #include <map>
 
@@ -97,7 +98,6 @@ void* message_send(void*arg){
 
 		// enviar
 		struct informacionEnv info = juego->getInformacion();
-
 		//Logger::getInstance()->log(DEBUG, "Enviando info a clientes...");
 
 
@@ -170,7 +170,7 @@ void* manageMidGameConnects(void* arg) {
 		for(int i = 0; i < cantClientes; i++){
 			if(clientes[i]->tieneEstasCredenciales(credencialesCliente)){
 				if(!juego->jugadorConectado(i)){
-					credencialesCliente.myIdx = clientes[i]->getIDx();
+					credencialesCliente.myID = clientes[i]->getIDx();
 				}
 				else{
 					credencialesCliente.credencialValida = false;
@@ -238,7 +238,7 @@ void* validateCredentials(void*arg){
 			credencialesCliente = clientes[numberOfClient]->recieveCredentials();
 			servidor.verificarCredenciales(&credencialesCliente, usuarios);
 
-			credencialesCliente.myIdx = numberOfClient;
+			credencialesCliente.myID = numberOfClient;
 
 			//VERIFICO QUE NO SE CONECTE OTRO CON EL MISMO USUARIO
 			for (int i = 0; i<clientes.size();i++){
@@ -249,7 +249,6 @@ void* validateCredentials(void*arg){
 					credencialesCliente.credencialValida = false;
 				}
 			}
-
 			Logger::getInstance()->log(DEBUG, "ENVIANDO RESULTADO DE VERIFICACION: " + std::to_string(credencialesCliente.credencialValida));
 			enviado = send(clientes[numberOfClient]->getSocket(), &credencialesCliente, sizeof(struct credencial), 0);
 			if (enviado <= 0){
@@ -332,6 +331,12 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < cantClientes; i++) {
 		pthread_join(hiloValidarCredenciales[i],NULL);
 	}
+
+	std::string nombres [MAX_CLIENTES];
+	for (int i = 0; i < cantClientes; i++) {
+		nombres[i] = clientes[i]->getUsuario();
+	}
+	juego->setNombresUsuario(nombres, cantClientes);
 
 	//Espera 2 segundos para que al ultimo logeado le muestre el personaje
 	sleep(2);

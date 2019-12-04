@@ -44,7 +44,12 @@ struct capa{
 	SDL_Rect dest;
 	SDL_Rect src;
 };
-
+struct credencial {
+	char usuario[MAX_USER_LEN];
+	char contrasenia[MAX_PASS_LEN];
+	bool credencialValida;
+	int myID;
+};
 struct informacionEnv{
 	struct elemento elementos[MAX_CANT_ELEMENTOS];
 	struct capa capas[3];
@@ -56,6 +61,8 @@ struct informacionEnv{
 	int cantElementos;
 	int cantJugadores;
 	int nivelActual;
+	struct credencial credenciales[MAX_CLIENTES];
+	bool perdieronTodos;
 };
 class Nivel {
 public:
@@ -119,6 +126,8 @@ public:
 
 	bool todosMuertos();
 
+	void setNombresUsuario(string nombresApasar[MAX_CLIENTES], int cantClientes);
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();
@@ -177,6 +186,7 @@ private:
 	Sonido *musicaFondo;
 
 	bool enemigoGolpeando;
+	string nombres[MAX_CLIENTES];
 
 
 };

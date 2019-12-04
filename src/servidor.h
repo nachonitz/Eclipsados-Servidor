@@ -15,13 +15,14 @@
 #include <map>
 using namespace std;
 
+/*
 struct credencial {
 	char usuario[MAX_USER_LEN];
 	char contrasenia[MAX_PASS_LEN];
 	bool credencialValida;
 	int myIdx;
 } ;
-
+*/
 
 class Servidor {
 public:

@@ -34,7 +34,7 @@ public:
 
 	vector<EntidadUbicada*> getElementos(){return nivel->getElementos();}
 	vector<EntidadUbicada*> getEnemigos(){return nivel->getEnemigos();}
-
+	void setNombresUsuario(string nombresApasar[4], int cantClientes);
 private:
 
 	Nivel* nivel;
