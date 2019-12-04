@@ -70,7 +70,9 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 	float distancia_y = hitboxUbicadaPersonaje.distanciaEnY(hitboxUbicadaEnemigo);
 
 	Enemigo* enemigoDibujable = (Enemigo*) enemigo->getDibujable();
+	Personaje* personajeDibujable = (Personaje*) jugador->getDibujable();
 
+	EstadoPersonaje* estadoPersonaje = personajeDibujable->getEstadoActual();
 	EstadoPersonaje* estado = enemigoDibujable->getEstadoActual();
 
 	if(estado == NULL)
@@ -107,7 +109,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarDerecha();
 			enemigoDibujable->setFlip(SDL_FLIP_NONE);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
-				if(rand()%70 == 0){
+				if((rand()%70 == 0) && (typeid(*estadoPersonaje) != typeid(EstadoSaltando)) && (typeid(*estadoPersonaje) != typeid(EstadoSaltandoConPatada)) && (typeid(*estadoPersonaje) != typeid(EstadoSaltandoVertical))){
 					struct informacionRec info;
 					enemigoDibujable->golpear(jugador);
 					enemigoDibujable->procesarAccion(info);
@@ -122,7 +124,7 @@ void IA::moverEnemigoAJugador(EntidadUbicada* enemigo, EntidadUbicada* jugador){
 			hitboxUbicadaEnemigo.desplazarIzquierda();
 			enemigoDibujable->setFlip(SDL_FLIP_HORIZONTAL);
 			if(jugador->colisionaCon(hitboxUbicadaEnemigo)){
-				if(rand()%70 == 0){
+				if((rand()%70 == 0) && (typeid(*estadoPersonaje) != typeid(EstadoSaltando)) && (typeid(*estadoPersonaje) != typeid(EstadoSaltandoConPatada)) && (typeid(*estadoPersonaje) != typeid(EstadoSaltandoVertical))){
 					struct informacionRec info;
 					enemigoDibujable->golpear(jugador);
 					enemigoDibujable->procesarAccion(info);
@@ -144,11 +146,11 @@ void IA::moverEnemigos(int pos_borde_derecho, int pos_borde_izquierdo, std::vect
 		int pos_horizontal_enemigo = enemigos[i]->getPosicionGlobal()->getHorizontal();
 		struct informacionRec info;
 		Enemigo * enemigo = (Enemigo*)enemigos[i]->getDibujable();
-		if (pos_horizontal_enemigo < pos_borde_derecho+50 && pos_horizontal_enemigo > pos_borde_izquierdo - 100){
+		if (pos_horizontal_enemigo < pos_borde_derecho+50 /*&& pos_horizontal_enemigo > pos_borde_izquierdo - 100*/){
 			int idx_jugador = encontrarEnemigoMasCercano(enemigos[i],jugadoresActivos);
 			if (idx_jugador == -1){
-				enemigo->moverArriba();
-				enemigos[i]->moverGlobalArriba();
+				//enemigo->moverArriba();
+				//enemigos[i]->moverGlobalArriba();
 				enemigo->procesarAccion(info);
 				continue;
 			}

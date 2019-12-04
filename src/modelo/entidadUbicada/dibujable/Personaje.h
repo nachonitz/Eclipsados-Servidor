@@ -37,6 +37,8 @@ private:
 
 	bool testMode = false;
 
+	bool hitboxEnabled = true;
+
 public:
 	Personaje();
 	virtual ~Personaje();
@@ -71,6 +73,12 @@ public:
 	virtual int recibirDanio(int danio);
 
 	bool toggleTestMode() {testMode = !testMode; return testMode;};
+
+	void disableTestMode() {testMode = false;}
+
+	void disableHitbox();
+
+	void enableHitbox();
 
 };
 

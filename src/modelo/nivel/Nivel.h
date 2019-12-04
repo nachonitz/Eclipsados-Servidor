@@ -144,10 +144,12 @@ private:
 	EntidadUbicada* colisionaConOtroElemento(HitboxUbicada& hitboxUbicada, Dibujable* dibujablePropietario, int extraHeight);
 
 
-
+	int generarXaleatorioEnemigo();
 	int generarXaleatorio();
-	int generarYaleatorio();
-	int generarYaleatorioObjetos();
+	int generarYaleatorioEnemigos();
+	int generarYaleatorioCajas();
+	int generarYaleatorioBarriles();
+	int generarYaleatorioCuchillosYCanios();
 
 	int movimientoEnemigos;
 	int puntosExtras;

@@ -30,7 +30,17 @@ void Personaje::resetearEstado() {
 }
 
 Hitbox Personaje::getHitbox() {
-	return estadoActual->getHitboxActual();
+	if (hitboxEnabled)
+		return estadoActual->getHitboxActual();
+	return Hitbox(0,0,0,0,0);	// null hitbox
+}
+
+void Personaje::disableHitbox(){
+	hitboxEnabled = false;
+}
+
+void Personaje::enableHitbox(){
+	hitboxEnabled = true;
 }
 
 void Personaje::updateAnim(){

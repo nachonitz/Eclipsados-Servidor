@@ -237,6 +237,21 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 
 	hitboxUbicada.desplazarSalto();		//calcular hitbox del siguiente tick (mas cerca o lejos del piso)
 
+	Personaje* pjActual = (Personaje*)jugador->getDibujable();
+
+	EstadoPersonaje* estadoActual = pjActual->getEstadoActual();
+
+	if (typeid(*estadoActual) == typeid(EstadoSaltandoConPatada) && danio > 0){
+		for (int i = 0; i < 30; i++){
+			if (pjActual->getFlip() == SDL_FLIP_NONE){
+				hitboxUbicada.desplazarDerecha();
+			}else{
+				hitboxUbicada.desplazarIzquierda();
+			}
+		}
+
+	}
+
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
 	// si es un salto vertical o salto al costado, sin danio
@@ -487,19 +502,36 @@ void Nivel::moverCapasIzquierda(){
 
 }
 
-int Nivel::generarXaleatorio(){
-	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO);
-	return x;
+int Nivel::generarXaleatorioEnemigo(){
+	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - WINDOW_SIZE_HORIZONTAL - 100);
+	return x + WINDOW_SIZE_HORIZONTAL + 100;
 }
-int Nivel::generarYaleatorio(){
+
+int Nivel::generarXaleatorio(){
+	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - MARGEN_IZQUIERDO - 100);
+	return x + MARGEN_IZQUIERDO + 100;
+}
+int Nivel::generarYaleatorioEnemigos(){
 	int y = rand()% (120+1);
 	y = 600-245-y;
 	return y;
 }
 
-int Nivel::generarYaleatorioObjetos(){
+int Nivel::generarYaleatorioCuchillosYCanios(){
 	int y = rand()% (70+1); //el 70 es por el alto del cuchilo (objeto mas chico)
 	y = 600-100-y; //el 100 es por el alto de la caja (objeto mas grande)
+	return y;
+}
+
+int Nivel::generarYaleatorioBarriles(){
+	int y = rand()% (70+1); //el 70 es por el alto del cuchilo (objeto mas chico)
+	y = 600-260-y; //el 100 es por el alto de la caja (objeto mas grande)
+	return y;
+}
+
+int Nivel::generarYaleatorioCajas(){
+	int y = rand()% (70+1); //el 70 es por el alto del cuchilo (objeto mas chico)
+	y = 600-200-y; //el 100 es por el alto de la caja (objeto mas grande)
 	return y;
 }
 
@@ -523,7 +555,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 	for(int i=0; i<cantCuchillos; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioCuchillosYCanios();
     Logger::getInstance()->log(DEBUG, std::string("Posición de cuchillo " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -533,7 +565,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 	}
 	for(int i=0; i<cantCanios; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioCuchillosYCanios();
     Logger::getInstance()->log(DEBUG, std::string("Posición de caño " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -544,7 +576,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 	}
 	for(int i=0; i<cantCajas; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioCajas();
     Logger::getInstance()->log(DEBUG, std::string("Posición de caja " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -555,7 +587,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 	for(int i=0; i<cantBarriles; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioBarriles();
     Logger::getInstance()->log(DEBUG, std::string("Posición de barril " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -566,8 +598,8 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 	Logger::getInstance()->log(INFO, "Posicionando enemigos...");
 	for(int i=0; i<this->cantEnemigos; i++){
-		int x = generarXaleatorio();
-		int y = generarYaleatorio();
+		int x = generarXaleatorioEnemigo();
+		int y = generarYaleatorioEnemigos();
     Logger::getInstance()->log(DEBUG, std::string("Posición inicial de enemigo " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -589,10 +621,13 @@ void Nivel::setJugadoresActivos(vector<bool> jugadores) {
 
 void Nivel::desconexionDeJugador(int i) {
 	jugadoresActivos[i] = false;
+	((Personaje*)jugadores[i]->getDibujable())->disableTestMode();
+	((Personaje*)jugadores[i]->getDibujable())->disableHitbox();
 }
 
 void Nivel::conexionDeJugador(int i) {
 	jugadoresActivos[i] = true;
+	((Personaje*)jugadores[i]->getDibujable())->enableHitbox();
 }
 
 bool Nivel::jugadorConectado(int i) {
@@ -650,8 +685,8 @@ void Nivel::hacerDanioEnemigo(EntidadUbicada* jugador, Hitbox hitbox, int danio)
 }
 
 void Nivel::cargarFinalBoss(){
-	float horizontalGlobal = ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL + JUGADOR_POSICION_HORIZONTAL_INICIAL - 150;
-	EntidadUbicada* boss = factory.crearEntidadConBoss(JUGADOR_POSICION_HORIZONTAL_INICIAL,JUGADOR_POSICION_VERTICAL_INICIAL,horizontalGlobal, JUGADOR_POSICION_VERTICAL_INICIAL);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
+	float horizontalGlobal = ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL + JUGADOR_POSICION_HORIZONTAL_INICIAL - 150 - 400;
+	EntidadUbicada* boss = factory.crearEntidadConBoss(JUGADOR_POSICION_HORIZONTAL_INICIAL - 400,JUGADOR_POSICION_VERTICAL_INICIAL,horizontalGlobal, JUGADOR_POSICION_VERTICAL_INICIAL);/*ANCHO_CAPA_PIXELES_ESCALADA - WINDOW_SIZE_HORIZONTAL - 20 , WINDOW_SIZE_VERTICAL + 100, FINAL_BOSS);*/
 	boss->getDibujable()->setSource(0,0,325,280);
 	enemigos.push_back(boss);
 	ia->setEnemigos(this->enemigos);
