@@ -234,6 +234,21 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
 
 	hitboxUbicada.desplazarSalto();		//calcular hitbox del siguiente tick (mas cerca o lejos del piso)
 
+	Personaje* pjActual = (Personaje*)jugador->getDibujable();
+
+	EstadoPersonaje* estadoActual = pjActual->getEstadoActual();
+
+	if (typeid(*estadoActual) == typeid(EstadoSaltandoConPatada) && danio > 0){
+		for (int i = 0; i < 30; i++){
+			if (pjActual->getFlip() == SDL_FLIP_NONE){
+				hitboxUbicada.desplazarDerecha();
+			}else{
+				hitboxUbicada.desplazarIzquierda();
+			}
+		}
+
+	}
+
 	EntidadUbicada* colisionador = this->colisionaConOtroDibujable(hitboxUbicada, jugador->getDibujable());
 
 	// si es un salto vertical o salto al costado, sin danio
