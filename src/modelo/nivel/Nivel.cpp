@@ -262,9 +262,9 @@ void Nivel::movimientoSalto(int numeroJugador, Hitbox& hitbox, int danio) {
     if (colisionador && danio != 0 && typeid(*(colisionador->getDibujable())) != typeid(Personaje)){
         puntosExtras = colisionador->getDibujable()->recibirDanio(danio);
         Personaje* pjActual = (Personaje*)jugador->getDibujable();
-        if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL){
+        if(puntosExtras != PUNTOS_CAJA && puntosExtras != PUNTOS_BARRIL && puntosExtras != PRIMER_GOLPE_A_CAJA){
             pjActual->aumentarScore(PUNTOS_PATADA+puntosExtras);
-        }else{
+        }else if(puntosExtras != PRIMER_GOLPE_A_CAJA){
             pjActual->aumentarScore(puntosExtras);
         }
     }
