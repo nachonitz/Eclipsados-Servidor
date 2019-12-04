@@ -38,6 +38,7 @@ private:
 	bool testMode = false;
 
 	bool hitboxEnabled = true;
+	bool reconectado = false;
 
 public:
 	Personaje();
@@ -79,7 +80,13 @@ public:
 	void disableHitbox();
 
 	void enableHitbox();
+	void reconexion(){
+		reconectado = true;
+	}
 
+	bool seReconecto(){
+		return reconectado;
+	}
 };
 
 #endif /* PERSONAJE_H_ */

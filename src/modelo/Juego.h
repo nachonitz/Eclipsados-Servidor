@@ -35,6 +35,7 @@ public:
 	vector<EntidadUbicada*> getElementos(){return nivel->getElementos();}
 	vector<EntidadUbicada*> getEnemigos(){return nivel->getEnemigos();}
 	void setNombresUsuario(string nombresApasar[4], int cantClientes);
+	void jugadorReconectado(int i);
 private:
 
 	Nivel* nivel;
@@ -50,6 +51,7 @@ private:
 	void cambiarDeNivel();
 	bool cambiandoNivel[MAX_CLIENTES];
 	bool aparecioElFinalBoss;
+
 
 
 };

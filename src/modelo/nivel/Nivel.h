@@ -130,6 +130,8 @@ public:
 
 	string getNombres(int i);
 
+	void jugadorReConectado(int i);
+
 private:
 	void moverCapasDerecha();
 	void moverCapasIzquierda();

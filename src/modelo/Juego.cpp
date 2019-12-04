@@ -54,7 +54,9 @@ void Juego::conexionDeJugador(int i) {
 bool Juego::jugadorConectado(int i) {
 	return this->nivel->jugadorConectado(i);
 }
-
+void Juego::jugadorReconectado(int i) {
+	return this->nivel->jugadorReConectado(i);
+}
 
 void Juego::moverEnemigos(){
 	nivel->moverEnemigos();

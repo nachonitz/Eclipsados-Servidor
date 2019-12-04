@@ -105,7 +105,7 @@ struct informacionEnv Nivel::getInformacion(){
 		info.vidas[i] = pjActual->getVidas();
 		info.energia[i] = pjActual->getEnergia();
 		strcpy(info.credenciales[i].usuario, this->nombres[i].c_str());
-		info.perdieronTodos = todosMuertos();
+		info.perdieronTodos = pjActual->seReconecto();
 		struct animado animadoActual;
 		if(!(pjActual->getEstadoMuerto())){
 			animadoActual.dest = pjActual->getDest();
@@ -626,6 +626,7 @@ void Nivel::desconexionDeJugador(int i) {
 	jugadoresActivos[i] = false;
 	((Personaje*)jugadores[i]->getDibujable())->disableTestMode();
 	((Personaje*)jugadores[i]->getDibujable())->disableHitbox();
+
 }
 
 void Nivel::conexionDeJugador(int i) {
@@ -717,4 +718,8 @@ string Nivel::getNombres(int i){
 
 	return nombres[i];
 
+}
+
+void Nivel::jugadorReConectado(int i){
+	((Personaje*)jugadores[i]->getDibujable())->reconexion();
 }

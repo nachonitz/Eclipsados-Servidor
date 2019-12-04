@@ -202,6 +202,7 @@ void* manageMidGameConnects(void* arg) {
 			matarHilo[i] = false;
 			send(cliente->getSocket(), &noMandoNada, sizeof(bool), 0);
 			juego->conexionDeJugador(i);
+			juego->jugadorReconectado(i);
 			pthread_create(&hiloRecieveMessage[i],NULL,message_recieve,&clientNumbers[i]);
 			pthread_create(&hiloSendBroadcast[i],NULL,message_send,&clientNumbers[i]);
 			pthread_mutex_init(&mutexTimer[i],NULL);
