@@ -65,6 +65,8 @@ EstadoPersonaje* EstadoSaltando::procesarAccion(informacionRec info) {
 
 	if(alturaActualSalto > 0){
 
+        ciclo.tick = 0;
+
 		nivelActual->terminoSalto(info.numeroDeCliente, alturaDestInicial);
 
 		nuevoEstado = new EstadoQuieto(info.flip, elementoEnMano);

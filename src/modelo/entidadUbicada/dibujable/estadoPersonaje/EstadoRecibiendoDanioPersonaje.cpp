@@ -45,8 +45,8 @@ EstadoPersonaje* EstadoRecibiendoDanioPersonaje::procesarAccion(informacionRec i
 
 
 	if (ciclo.tick < 0){
-		hbxActual = 0;
-	return new EstadoQuieto(flip, this->elementoEnMano);
+		ciclo.tick = 0;
+		return new EstadoQuieto(flip, this->elementoEnMano);
 	}
 
 	return this;		//ninguna accion, solo animacion de momento

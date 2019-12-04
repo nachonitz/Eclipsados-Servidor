@@ -44,7 +44,7 @@ EstadoPersonaje* EstadoRecibiendoDanioEnemigo::procesarAccion(informacionRec inf
 
 
 	if (ciclo.tick < 0){
-		hbxActual = 0;
+		ciclo.tick = 0;
 		if (this->tipoEnemigo != FINAL_BOSS){
 			return new EstadoCaminandoEnemigo(flip,1, 220, 264, 6, 7, 0);
 		}else{

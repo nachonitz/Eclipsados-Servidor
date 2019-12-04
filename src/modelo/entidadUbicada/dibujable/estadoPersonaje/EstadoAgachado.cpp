@@ -40,8 +40,10 @@ EstadoPersonaje* EstadoAgachado::procesarAccion(informacionRec info) {
 		elementoEnMano = nivelActual->agarrarObjeto(info.numeroDeCliente, this->hitbox[hbxActual]);
 	}
 
-	if (ciclo.tick < 0)
+	if (ciclo.tick < 0) {
+        ciclo.tick = 0;
 		return new EstadoQuieto(info.flip, elementoEnMano);
+	}
 
 	return this;		//ninguna accion, solo animacion de momento
 }
