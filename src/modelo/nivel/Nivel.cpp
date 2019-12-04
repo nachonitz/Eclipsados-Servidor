@@ -493,15 +493,27 @@ int Nivel::generarXaleatorio(){
 	int x = rand()%(static_cast<int>(ANCHO_CAPA_PIXELES_ESCALADA) - MARGEN_DERECHO - MARGEN_IZQUIERDO - 100);
 	return x + MARGEN_IZQUIERDO + 100;
 }
-int Nivel::generarYaleatorio(){
+int Nivel::generarYaleatorioEnemigos(){
 	int y = rand()% (120+1);
 	y = 600-245-y;
 	return y;
 }
 
-int Nivel::generarYaleatorioObjetos(){
+int Nivel::generarYaleatorioCuchillosYCanios(){
 	int y = rand()% (70+1); //el 70 es por el alto del cuchilo (objeto mas chico)
 	y = 600-100-y; //el 100 es por el alto de la caja (objeto mas grande)
+	return y;
+}
+
+int Nivel::generarYaleatorioBarriles(){
+	int y = rand()% (70+1); //el 70 es por el alto del cuchilo (objeto mas chico)
+	y = 600-260-y; //el 100 es por el alto de la caja (objeto mas grande)
+	return y;
+}
+
+int Nivel::generarYaleatorioCajas(){
+	int y = rand()% (70+1); //el 70 es por el alto del cuchilo (objeto mas chico)
+	y = 600-200-y; //el 100 es por el alto de la caja (objeto mas grande)
 	return y;
 }
 
@@ -525,7 +537,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 	for(int i=0; i<cantCuchillos; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioCuchillosYCanios();
     Logger::getInstance()->log(DEBUG, std::string("Posición de cuchillo " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -535,7 +547,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 	}
 	for(int i=0; i<cantCanios; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioCuchillosYCanios();
     Logger::getInstance()->log(DEBUG, std::string("Posición de caño " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -546,7 +558,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 	}
 	for(int i=0; i<cantCajas; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioCajas();
     Logger::getInstance()->log(DEBUG, std::string("Posición de caja " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -557,7 +569,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 
 	for(int i=0; i<cantBarriles; i++){
 		int x = generarXaleatorio();
-		int y = generarYaleatorioObjetos();
+		int y = generarYaleatorioBarriles();
     Logger::getInstance()->log(DEBUG, std::string("Posición de barril " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +
@@ -569,7 +581,7 @@ void Nivel::ubicarEnemigosYElementos(int cantCuchillos, int cantCajas, int cantC
 	Logger::getInstance()->log(INFO, "Posicionando enemigos...");
 	for(int i=0; i<this->cantEnemigos; i++){
 		int x = generarXaleatorioEnemigo();
-		int y = generarYaleatorio();
+		int y = generarYaleatorioEnemigos();
     Logger::getInstance()->log(DEBUG, std::string("Posición inicial de enemigo " +
                                                   std::to_string(i+1) + ": (" +
                                                   std::to_string(x) + ", " +

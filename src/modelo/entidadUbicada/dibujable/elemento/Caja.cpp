@@ -10,10 +10,10 @@
 Caja::Caja(float x, float y) {
 	this->imagen = "sprites/objetos_varios.png";
 	setSource(0,200,100,100);
-	setDest(x, y, 100, 100);
+	setDest(x, y, 100+60, 100+100);
 	this->vidas = 2;
 	this->score = PUNTOS_CAJA;
-	hitboxElemento.set(9, 4, 80, 92, HBX_DEPTH_DEFECTO);
+	hitboxElemento.set(9+7, 4, 80+40, 92+90, HBX_DEPTH_DEFECTO);
 	estadoActual = new EstadoElemento(SDL_FLIP_NONE, 0, 200, 2);
 }
 

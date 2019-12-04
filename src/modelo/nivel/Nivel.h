@@ -137,8 +137,10 @@ private:
 
 	int generarXaleatorioEnemigo();
 	int generarXaleatorio();
-	int generarYaleatorio();
-	int generarYaleatorioObjetos();
+	int generarYaleatorioEnemigos();
+	int generarYaleatorioCajas();
+	int generarYaleatorioBarriles();
+	int generarYaleatorioCuchillosYCanios();
 
 	int movimientoEnemigos;
 	int puntosExtras;
