@@ -62,9 +62,6 @@ EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info) {
 				if(hizoDanio){
 					elementoEnMano->registrarUnUso();
 				}
-				if(this->elementoEnMano->getVidas() <=0){
-					this->elementoEnMano = nullptr;
-				}
 			}else{
 				nivelActual->hacerDanio(info.numeroDeCliente, this->hitbox[hbxActual], DANIO_PUNIO, PUNTOS_PUNIO);
 			}
@@ -73,6 +70,11 @@ EstadoPersonaje* EstadoGolpeando::procesarAccion(informacionRec info) {
 	}
 
 	if (ciclo.tick < 0){
+		if(this->elementoEnMano){
+			if(this->elementoEnMano->getVidas() <=0){
+				this->elementoEnMano = nullptr;
+			}
+		}
 		ciclo.tick = 0;
 		tickAnterior = 0;
 		return new EstadoQuieto(info.flip, elementoEnMano);
