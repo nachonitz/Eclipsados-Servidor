@@ -293,6 +293,9 @@ void* desconexion_jugadores(void*arg){
 			printf("Server Shutting Down\n");
 			exit(0);
 		}
+
+		SDL_Delay(FRAME_DELAY);
+
 	}
 }
 
