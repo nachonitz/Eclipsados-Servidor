@@ -1,6 +1,10 @@
 # Final Fight - Servidor
-### Grupo Eclipsados
-![eclipsados](./intro-eclipsados.gif)
+
+<p align="center">
+    <b>Grupo Eclipsados</b><br>
+  <br><br>
+  <img src="./intro-eclipsados.gif">
+</p>
 
 Juego estilo ['Final Fight'](https://www.youtube.com/watch?v=KL22s0MPiA4), con soporte hasta 4 jugadores en simultaneo por red, configuracion por XML y mas.
 
